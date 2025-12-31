@@ -45,6 +45,13 @@ When you’re ready to go live on `jesseforeman.com`:
 - run `terraform apply`
 - take `terraform output route53_nameservers` and paste those nameservers into GoDaddy to delegate DNS
 
+### Current status (live)
+- Preview deployment works on CloudFront default hostname: https://d31fhnlp8dwj8o.cloudfront.net
+- Domain cutover is complete and the site is live:
+  - https://jesseforeman.com
+  - https://www.jesseforeman.com
+- ACM certificate is `ISSUED` and attached to CloudFront.
+
 ## Repo layout (suggested)
 This infra repo (current repo):
 - `infra/terraform/` (root module)
