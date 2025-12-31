@@ -39,7 +39,7 @@ const HeroSection = () => {
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-none animate-fade-in"
             style={{ animationDelay: "0.1s" }}
           >
-            YOUR NAME
+            JESSE FOREMAN
             <span className="block text-secondary">FOR KENTUCKY</span>
           </h1>
           <p
