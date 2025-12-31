@@ -45,6 +45,12 @@ When you’re ready to go live on `jesseforeman.com`:
 - run `terraform apply`
 - take `terraform output route53_nameservers` and paste those nameservers into GoDaddy to delegate DNS
 
+### Current status (in progress)
+- Preview deployment is working on CloudFront default hostname: https://d31fhnlp8dwj8o.cloudfront.net
+- GoDaddy nameservers have been updated to Route 53.
+- ACM certificate is currently waiting to move from `PENDING_VALIDATION` -> `ISSUED`.
+- Once ACM is `ISSUED`, re-run `terraform apply` if it did not automatically finish.
+
 ## Repo layout (suggested)
 This infra repo (current repo):
 - `infra/terraform/` (root module)
