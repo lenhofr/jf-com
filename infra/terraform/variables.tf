@@ -13,7 +13,7 @@ variable "domain_name" {
 variable "enable_custom_domain" {
   type        = bool
   description = "When false, uses the default CloudFront hostname (no Route53/ACM required)."
-  default     = false
+  default     = true
 }
 
 variable "aws_region" {
