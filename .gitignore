@@ -1,0 +1,9 @@
+
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.tfstate.lock.info
