@@ -34,11 +34,11 @@
 ## Custom domain cutover (`jesseforeman.com`)
 - [x] Create Route 53 hosted zone
 - [x] Set GoDaddy nameservers to Route 53 delegation set
-- [ ] ACM cert (us-east-1) becomes `ISSUED`
-- [ ] Re-run `terraform apply` (if needed) to finish CloudFront aliases + Route53 A/AAAA
-- [ ] Verify:
-  - [ ] https://jesseforeman.com
-  - [ ] https://www.jesseforeman.com
+- [x] ACM cert (us-east-1) is `ISSUED`
+- [x] Apply completed for CloudFront aliases + Route53 A/AAAA
+- [x] Verify:
+  - [x] https://jesseforeman.com
+  - [x] https://www.jesseforeman.com
 
 ## Verification
 - [x] Confirm CloudFront preview works (https://d31fhnlp8dwj8o.cloudfront.net)
