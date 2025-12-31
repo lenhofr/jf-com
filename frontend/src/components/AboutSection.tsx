@@ -34,7 +34,7 @@ const AboutSection = () => {
                 schools for our children, and healthcare we can actually afford.
               </p>
               <p>
-                As a [your profession/background], I've seen firsthand the challenges our communities 
+                Throughout my career in public service, I've seen firsthand the challenges our communities 
                 face. I've watched factories close, watched families struggle to make ends meet, and 
                 watched too many young people leave our state in search of opportunity elsewhere.
               </p>

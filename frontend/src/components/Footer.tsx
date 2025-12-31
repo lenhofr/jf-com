@@ -13,7 +13,7 @@ const Footer = () => {
               className="text-2xl font-bold mb-4"
               style={{ fontFamily: "'Bebas Neue', sans-serif" }}
             >
-              <span className="text-primary-foreground">CANDIDATE</span>
+              <span className="text-primary-foreground">JESSE FOREMAN</span>
               <span className="text-secondary"> FOR KY</span>
             </h3>
             <p className="text-background/70 mb-4">
@@ -75,8 +75,8 @@ const Footer = () => {
             <ul className="space-y-3 text-background/70">
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-secondary" />
-                <a href="mailto:info@candidatefory.com" className="hover:text-secondary transition-colors">
-                  info@candidateforky.com
+                <a href="mailto:info@jesseforemanforky.com" className="hover:text-secondary transition-colors">
+                  info@jesseforemanforky.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -95,10 +95,10 @@ const Footer = () => {
 
         <div className="border-t border-background/20 pt-8 text-center text-sm text-background/50">
           <p className="mb-2">
-            © {currentYear} Candidate for Kentucky State Representative. All rights reserved.
+            © {currentYear} Jesse Foreman for Kentucky State Representative. All rights reserved.
           </p>
           <p>
-            Paid for by [Committee Name]. Not authorized by any candidate or candidate's committee.
+            Paid for by Jesse Foreman for Kentucky. Not authorized by any candidate or candidate's committee.
           </p>
         </div>
       </div>

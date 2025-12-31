@@ -43,7 +43,7 @@ const Header = () => {
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             <span className={isScrolled ? "text-primary" : "text-white"}>
-              CANDIDATE
+              JESSE FOREMAN
             </span>
             <span className={isScrolled ? "text-secondary" : "text-secondary"}>
               {" "}FOR KY
