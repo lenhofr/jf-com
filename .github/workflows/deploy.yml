@@ -1,0 +1,86 @@
+name: deploy
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/terraform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-west-2
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform validate
+        run: terraform validate
+
+      - name: Terraform plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan
+
+      - name: Terraform apply
+        if: github.event_name == 'push'
+        run: terraform apply -auto-approve
+
+      - name: Capture Terraform outputs
+        if: github.event_name == 'push'
+        id: tf
+        run: |
+          echo "bucket=$(terraform output -raw site_bucket_name)" >> "$GITHUB_OUTPUT"
+          echo "distribution_id=$(terraform output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
+
+      # NOTE: This expects the frontend code to be available in ./frontend (e.g. as a submodule/subtree).
+      - name: Build frontend
+        if: github.event_name == 'push'
+        run: |
+          if [ ! -d ../../frontend ]; then
+            echo "frontend/ directory not found; skipping frontend deploy."
+            exit 0
+          fi
+          cd ../../frontend
+          npm ci
+          npm run build
+
+      - name: Upload frontend to S3
+        if: github.event_name == 'push'
+        run: |
+          if [ ! -d ../../frontend/dist ]; then
+            echo "No dist/ found; skipping upload."
+            exit 0
+          fi
+          aws s3 sync ../../frontend/dist "s3://${{ steps.tf.outputs.bucket }}" --delete
+
+      - name: Invalidate CloudFront
+        if: github.event_name == 'push'
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ steps.tf.outputs.distribution_id }}" \
+            --paths "/index.html" "/" "/assets/*"
