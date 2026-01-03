@@ -6,20 +6,51 @@ import { useToast } from "@/hooks/use-toast";
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    
-    // For now, just show success state (backend can be added later)
-    setIsSubmitted(true);
-    toast({
-      title: "You're on the list!",
-      description: "Thank you for joining our campaign. We'll be in touch soon.",
-    });
-    setEmail("");
+    if (!email || isSubmitting) return;
+
+    const apiBaseUrl = (import.meta.env.VITE_SIGNUP_API_URL as string | undefined)?.replace(/\/$/, "");
+    if (!apiBaseUrl) {
+      toast({
+        title: "Signup not configured",
+        description: "Please try again later.",
+      });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      const res = await fetch(`${apiBaseUrl}/signup`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, website }),
+      });
+
+      if (!res.ok) throw new Error("signup_failed");
+
+      setIsSubmitted(true);
+      toast({
+        title: "You're on the list!",
+        description: "Thank you for joining our campaign. We'll be in touch soon.",
+      });
+      setEmail("");
+      setWebsite("");
+    } catch {
+      toast({
+        title: "Signup failed",
+        description: "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -63,17 +94,29 @@ const NewsletterSection = () => {
               onSubmit={handleSubmit}
               className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"
             >
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden"
+              />
               <Input
                 type="email"
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={isSubmitting}
                 className="h-14 px-6 text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary focus:ring-secondary"
               />
               <Button
                 type="submit"
                 size="lg"
+                disabled={isSubmitting}
                 className="h-14 px-8 bg-secondary text-secondary-foreground hover:bg-secondary/90 glow-secondary text-lg uppercase tracking-wider font-bold whitespace-nowrap"
               >
                 Sign Up

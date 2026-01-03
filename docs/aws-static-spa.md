@@ -82,6 +82,7 @@ Frontend source repo/location:
 ## CI/CD flow (GitHub Actions)
 1. Build frontend
    - `npm ci`
+   - set `VITE_SIGNUP_API_URL` from Terraform output `signup_api_base_url`
    - `npm run build`
 2. Terraform apply
    - create/maintain S3 + CloudFront + ACM + Route53
