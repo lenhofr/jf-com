@@ -60,6 +60,8 @@ jobs:
       # NOTE: This expects the frontend code to be available in ./frontend (e.g. as a submodule/subtree).
       - name: Build frontend
         if: github.event_name == 'push'
+        env:
+          VITE_SIGNUP_API_URL: ${{ vars.VITE_SIGNUP_API_URL }}
         run: |
           if [ ! -d ../../frontend ]; then
             echo "frontend/ directory not found; skipping frontend deploy."
