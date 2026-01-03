@@ -1,3 +1,5 @@
+import candidatePortrait from "@/assets/jForemanLI.jpeg";
+
 const AboutSection = () => {
   return (
     <section id="about" className="py-20 md:py-28 bg-background">
@@ -7,8 +9,8 @@ const AboutSection = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden glow-primary">
               <img
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974"
-                alt="Candidate portrait"
+                src={candidatePortrait}
+                alt="Jesse Foreman portrait"
                 className="w-full aspect-[4/5] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
