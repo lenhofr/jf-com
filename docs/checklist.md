@@ -3,9 +3,9 @@
 ## Decisions
 - [x] Final domain name(s): `jesseforeman.com`, `www.jesseforeman.com`
 - [x] DNS approach: Route 53 hosted zone + nameserver delegation from GoDaddy
-- [ ] Environments: prod only vs dev+prod
-- [ ] How to source frontend code in CI:
-  - [ ] submodule/subtree
+- [x] Environments: prod only
+- [x] How to source frontend code in CI:
+  - [x] submodule/subtree
   - [ ] separate repo workflow
   - [ ] clone during workflow
 
