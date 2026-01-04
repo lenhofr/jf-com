@@ -75,8 +75,8 @@ resource "aws_lambda_function" "signup" {
   function_name = "${var.project_name}-signup"
   role          = aws_iam_role.signup_lambda.arn
 
-  runtime = "nodejs20.x"
-  handler = "index.handler"
+  runtime = "python3.12"
+  handler = "handler.handler"
 
   filename         = data.archive_file.signup_lambda.output_path
   source_code_hash = data.archive_file.signup_lambda.output_base64sha256
