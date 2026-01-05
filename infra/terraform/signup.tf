@@ -137,3 +137,4 @@ resource "aws_lambda_permission" "signup_apigw" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.signup.execution_arn}/*/*"
 }
+

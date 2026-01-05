@@ -18,8 +18,8 @@ variable "enable_custom_domain" {
 
 variable "aws_region" {
   type        = string
-  description = "Region for regional resources (S3, etc)"
-  default     = "us-west-2"
+  description = "Region for regional resources"
+  default     = "us-east-1"
 }
 
 variable "github_repository" {

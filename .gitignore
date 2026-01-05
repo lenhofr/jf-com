@@ -7,3 +7,5 @@ frontend/.env
 *.tfstate
 *.tfstate.backup
 .terraform.tfstate.lock.info
+
+.worktrees/
