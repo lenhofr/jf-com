@@ -66,6 +66,11 @@ const Footer = () => {
                   Stay Updated
                 </a>
               </li>
+              <li>
+                <a href="#contact" className="hover:text-secondary transition-colors">
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
 

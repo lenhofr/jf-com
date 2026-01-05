@@ -83,6 +83,7 @@ Frontend source repo/location:
 1. Build frontend
    - `npm ci`
    - set `VITE_SIGNUP_API_URL` from Terraform output `signup_api_base_url`
+   - set `VITE_CONTACT_API_URL` from Terraform output `contact_api_base_url`
    - `npm run build`
 2. Terraform apply
    - create/maintain S3 + CloudFront + ACM + Route53
