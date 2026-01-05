@@ -19,6 +19,6 @@
 - [x] 3.7 CI/build: inject API URL into the SPA build (Vite env var)
 
 ## 4. Quality gates
-- [ ] 4.1 Run `npm run lint`
+- [x] 4.1 Run `npm run lint`
 - [x] 4.2 Run `npm run build`
-- [ ] 4.3 Manual smoke test in `npm run dev` (success + error paths)
+- [x] 4.3 Manual smoke test in `npm run dev` (success + error paths)
