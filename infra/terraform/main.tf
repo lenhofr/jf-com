@@ -10,12 +10,17 @@ resource "random_id" "bucket_suffix" {
 
   keepers = {
     domain = var.domain_name
+    region = var.aws_region
   }
 }
 
 resource "aws_s3_bucket" "site" {
   bucket = lower("${var.project_name}-site-${random_id.bucket_suffix.hex}")
   tags   = var.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_ownership_controls" "site" {
@@ -245,6 +250,7 @@ resource "aws_s3_bucket_policy" "site" {
     ]
   })
 }
+
 
 resource "aws_route53_record" "apex_a" {
   count   = var.enable_custom_domain ? 1 : 0
