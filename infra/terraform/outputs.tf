@@ -29,3 +29,13 @@ output "signups_table_name" {
   description = "DynamoDB table name for stored email signups"
   value       = aws_dynamodb_table.signups.name
 }
+
+output "contact_api_base_url" {
+  description = "Base URL for the contact ingestion API (use as Vite env var VITE_CONTACT_API_URL)"
+  value       = aws_apigatewayv2_api.contact.api_endpoint
+}
+
+output "contact_messages_table_name" {
+  description = "DynamoDB table name for stored contact messages"
+  value       = aws_dynamodb_table.contact_messages.name
+}

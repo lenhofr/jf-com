@@ -62,6 +62,7 @@ jobs:
         if: github.event_name == 'push'
         env:
           VITE_SIGNUP_API_URL: ${{ vars.VITE_SIGNUP_API_URL }}
+          VITE_CONTACT_API_URL: ${{ vars.VITE_CONTACT_API_URL }}
         run: |
           if [ ! -d ../../frontend ]; then
             echo "frontend/ directory not found; skipping frontend deploy."

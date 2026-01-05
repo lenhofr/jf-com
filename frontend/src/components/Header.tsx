@@ -7,6 +7,7 @@ const navItems = [
   { label: "Platform", href: "#platform" },
   { label: "Endorsements", href: "#endorsements" },
   { label: "Stay Updated", href: "#newsletter" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Header = () => {
