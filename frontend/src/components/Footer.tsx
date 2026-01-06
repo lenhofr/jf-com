@@ -75,19 +75,19 @@ const Footer = () => {
             <ul className="space-y-3 text-background/70">
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-secondary" />
-                <a href="mailto:info@jesseforemanforky.com" className="hover:text-secondary transition-colors">
-                  info@jesseforeman.com
+                <a href="mailto:reply@jesseforeman.com" className="hover:text-secondary transition-colors">
+                  reply@jesseforeman.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-secondary" />
-                <a href="tel:+15551234567" className="hover:text-secondary transition-colors">
-                  (555) 123-4567
+                <a href="tel:+18594269000" className="hover:text-secondary transition-colors">
+                  (859) 426-9000
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-secondary flex-shrink-0" />
-                <span>Your Neighborhood, Kentucky</span>
+                <span>Florence, Kentucky</span>
               </li>
             </ul>
           </div>
@@ -96,9 +96,6 @@ const Footer = () => {
         <div className="border-t border-background/20 pt-8 text-center text-sm text-background/50">
           <p className="mb-2">
             © {currentYear} Jesse Foreman for Kentucky State Representative. All rights reserved.
-          </p>
-          <p>
-            Paid for by Jesse Foreman for Kentucky. Not authorized by any candidate or candidate's committee.
           </p>
         </div>
       </div>

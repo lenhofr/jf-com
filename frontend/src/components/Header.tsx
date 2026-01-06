@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import circleBadge from "@/assets/circle_transparent.png";
+import squareBadge from "@/assets/square_badge.png";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -44,9 +44,9 @@ const Header = () => {
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             <img
-              src={circleBadge}
-              alt="Jesse Foreman for Kentucky badge"
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
+              src={squareBadge}
+              alt="Jesse Foreman badge"
+              className="h-11 md:h-14 w-auto rounded-xl object-contain"
               loading="eager"
             />
             <span className={isScrolled ? "text-primary" : "text-white"}>
