@@ -1,53 +1,50 @@
 import { useState } from "react";
-import { Briefcase, GraduationCap, Heart, ChevronDown } from "lucide-react";
+import { Briefcase, Heart, Shield, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const issues = [
   {
-    id: "economy",
+    id: "business",
     icon: Briefcase,
-    title: "Economy & Jobs",
-    subtitle: "Building prosperity for all Kentuckians",
+    title: "A Business Mindset for Government",
+    subtitle: "Results matter. Accountability matters.",
     summary:
-      "Creating good-paying jobs, supporting local businesses, and ensuring every working Kentuckian can afford to live with dignity.",
+      "That’s the mindset we need representing our district — and I’ll bring it to Frankfort.",
     details: [
-      "Fight for a living wage that keeps pace with the cost of living",
-      "Support small businesses with tax incentives and reduced bureaucracy",
-      "Invest in workforce development and job training programs",
-      "Attract new industries while protecting existing Kentucky jobs",
-      "Expand broadband access to boost rural economic opportunities",
+      "I will fight for fiscal responsibility and a government that lives within its means.",
+      "I’ll stand up for small businesses, job creators, and working families — not bureaucrats and lifelong politicians.",
+      "I believe government should get out of the way, not stand in it.",
+      "I believe regulations are often a restraint on freedom.",
+      "Effectiveness in passing meaningful legislation is the measure voters should use to determine who should represent our district in Frankfort.",
     ],
     color: "primary" as const,
   },
   {
-    id: "education",
-    icon: GraduationCap,
-    title: "Education",
-    subtitle: "Investing in Kentucky's future",
+    id: "families",
+    icon: Heart,
+    title: "Putting Families First",
+    subtitle: "Family is everything.",
     summary:
-      "Every child in Kentucky deserves access to quality education, well-paid teachers, and pathways to success—whether that's college or career training.",
+      "It’s why we work, why we sacrifice, and why we care about the future.",
     details: [
-      "Increase teacher pay to attract and retain the best educators",
-      "Fully fund public schools and reduce class sizes",
-      "Expand vocational and technical education programs",
-      "Make higher education more affordable for Kentucky families",
-      "Support early childhood education and Pre-K programs",
+      "I will defend life and stand for Kentucky's values.",
+      "I’ll support strengthening our school systems and making sure our children are prepared for their future and are financially savvy.",
+      "I will always protect our constitutional freedoms, including the Second Amendment.",
     ],
     color: "secondary" as const,
   },
   {
-    id: "healthcare",
-    icon: Heart,
-    title: "Healthcare",
-    subtitle: "Care you can count on",
+    id: "communities",
+    icon: Shield,
+    title: "Safe Communities, Strong Values",
+    subtitle: "Safety, respect for the law, and responsibility.",
     summary:
-      "Healthcare is a right, not a privilege. I'll fight to ensure every Kentuckian has access to affordable, quality healthcare—no matter where they live.",
+      "A strong community starts with safety, respect for the law, and personal responsibility.",
     details: [
-      "Protect and expand Medicaid coverage for working families",
-      "Lower prescription drug costs through transparency and competition",
-      "Expand mental health services and addiction treatment",
-      "Support rural hospitals and community health centers",
-      "Ensure access to reproductive healthcare decisions",
+      "I support our law enforcement officers and first responders.",
+      "I’ll fight for policies that keep our neighborhoods safe.",
+      "I believe accountability applies to everyone, including government.",
+      "I'll stand up for our community members with mental health conditions and support legislation that gets them the help they need.",
     ],
     color: "accent" as const,
   },

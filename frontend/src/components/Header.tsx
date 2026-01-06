@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import circleBadge from "@/assets/circle_transparent.png";
 
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Platform", href: "#platform" },
-  { label: "Endorsements", href: "#endorsements" },
   { label: "Stay Updated", href: "#newsletter" },
   { label: "Contact", href: "#contact" },
 ];
@@ -40,9 +40,15 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <a
             href="#"
-            className="text-2xl md:text-3xl font-bold tracking-wide"
+            className="flex items-center gap-3 text-2xl md:text-3xl font-bold tracking-wide"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
+            <img
+              src={circleBadge}
+              alt="Jesse Foreman for Kentucky badge"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
+              loading="eager"
+            />
             <span className={isScrolled ? "text-primary" : "text-white"}>
               JESSE FOREMAN
             </span>

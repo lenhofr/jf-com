@@ -33,7 +33,7 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <p className="text-secondary font-semibold uppercase tracking-[0.3em] mb-4 animate-fade-in">
-            Kentucky State Representative
+            Built the Hard Way. Ready to Fight for You.
           </p>
           <h1
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-none animate-fade-in"
@@ -42,12 +42,17 @@ const HeroSection = () => {
             JESSE FOREMAN
             <span className="block text-secondary">FOR KENTUCKY</span>
           </h1>
-          <p
-            className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in"
+          <div
+            className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in space-y-4"
             style={{ animationDelay: "0.2s", fontFamily: "'Source Sans 3', sans-serif" }}
           >
-            Building a stronger future through better jobs, quality education, and accessible healthcare for every Kentuckian.
-          </p>
+            <p>
+              I’m Jesse Foreman, and I’m running for Kentucky State Representative in the 69th District because I know firsthand what it means to work hard, take risks, and fight through adversity to build a better life.
+            </p>
+            <p className="text-white/85">
+              Like so many families in Northern Kentucky, I’ve lived the reality of balancing work, family, and responsibility — and I believe government should reflect those same values.
+            </p>
+          </div>
           <div
             className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in"
             style={{ animationDelay: "0.3s" }}
