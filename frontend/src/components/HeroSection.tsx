@@ -30,7 +30,7 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 pb-20 md:pb-0 text-center">
+      <div className="relative z-10 container mx-auto px-4 pb-24 text-center">
         <div className="max-w-4xl mx-auto">
           <p className="text-secondary font-semibold uppercase tracking-[0.3em] mb-4 animate-fade-in">
             Built the Hard Way. Ready to Fight for You.
@@ -79,7 +79,7 @@ const HeroSection = () => {
       {/* Scroll indicator */}
       <button
         onClick={() => scrollToSection("#about")}
-        className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors animate-bounce"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors animate-bounce"
       >
         <ChevronDown size={36} />
       </button>
