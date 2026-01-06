@@ -17,8 +17,8 @@ const Footer = () => {
               <span className="text-secondary"> FOR KY</span>
             </h3>
             <p className="text-background/70 mb-4">
-              Fighting for better jobs, quality education, and accessible healthcare
-              for every Kentuckian.
+              Fighting for hard-working families, safer communities, and a government
+              that lives within its means.
             </p>
             <div className="flex gap-4">
               <a
@@ -57,11 +57,6 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#endorsements" className="hover:text-secondary transition-colors">
-                  Endorsements
-                </a>
-              </li>
-              <li>
                 <a href="#newsletter" className="hover:text-secondary transition-colors">
                   Stay Updated
                 </a>
@@ -81,7 +76,7 @@ const Footer = () => {
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-secondary" />
                 <a href="mailto:info@jesseforemanforky.com" className="hover:text-secondary transition-colors">
-                  info@jesseforemanforky.com
+                  info@jesseforeman.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -92,7 +87,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-secondary flex-shrink-0" />
-                <span>Campaign HQ, Kentucky</span>
+                <span>Your Neighborhood, Kentucky</span>
               </li>
             </ul>
           </div>
