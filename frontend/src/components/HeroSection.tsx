@@ -9,7 +9,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-6rem)] pt-20 md:pt-24 flex items-center justify-center overflow-hidden">
       {/* Background with gradient overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
