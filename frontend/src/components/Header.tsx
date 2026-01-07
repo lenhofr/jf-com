@@ -13,6 +13,7 @@ const navItems = [
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isSolidHeader = isScrolled || isMobileMenuOpen;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +32,7 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+        isSolidHeader
           ? "bg-background/95 backdrop-blur-md shadow-lg"
           : "bg-transparent"
       }`}
@@ -49,10 +50,10 @@ const Header = () => {
               className="h-11 md:h-14 w-auto rounded-xl object-contain"
               loading="eager"
             />
-            <span className={isScrolled ? "text-primary" : "text-white"}>
+            <span className={isSolidHeader ? "text-primary" : "text-white"}>
               JESSE FOREMAN
             </span>
-            <span className={isScrolled ? "text-secondary" : "text-secondary"}>
+            <span className="text-secondary">
               {" "}FOR KY
             </span>
           </a>
@@ -64,7 +65,7 @@ const Header = () => {
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
                 className={`text-sm font-semibold uppercase tracking-wider transition-colors hover:text-secondary ${
-                  isScrolled ? "text-foreground" : "text-white"
+                  isSolidHeader ? "text-foreground" : "text-white"
                 }`}
               >
                 {item.label}
@@ -76,7 +77,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="icon"
-            className={`md:hidden ${isScrolled ? "text-foreground" : "text-white"}`}
+            className={`md:hidden ${isSolidHeader ? "text-foreground" : "text-white"}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

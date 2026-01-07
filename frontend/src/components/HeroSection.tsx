@@ -47,7 +47,7 @@ const HeroSection = () => {
             style={{ animationDelay: "0.2s", fontFamily: "'Source Sans 3', sans-serif" }}
           >
             <p>
-              I’m Jesse Foreman, and I’m running for Kentucky State Representative in the 69th District because I know firsthand what it means to work hard, take risks, and fight through adversity to build a better life.
+              I’m Jesse Foreman, and I’m running for Kentucky State Representative in the 69th District. I know firsthand what it means to work hard, take risks, and fight through adversity to build a better life.
             </p>
             <p className="text-white/85">
               Like so many families in Northern Kentucky, I’ve lived the reality of balancing work, family, and responsibility — and I believe government should reflect those same values.

@@ -15,7 +15,7 @@ const issues = [
       "I’ll stand up for small businesses, job creators, and working families — not bureaucrats and lifelong politicians.",
       "I believe government should get out of the way, not stand in it.",
       "I believe regulations are often a restraint on freedom.",
-      "Effectiveness in passing meaningful legislation is the measure voters should use to determine who should represent our district in Frankfort.",
+      "Listening to constituents and delivering for the 69th district and Northern Kentucky should be the measure for success, not grandstanding and pontificating.  I will go to Frankfort to be a workhorse, not a show horse.",
     ],
     color: "primary" as const,
   },
@@ -28,7 +28,7 @@ const issues = [
       "It’s why we work, why we sacrifice, and why we care about the future.",
     details: [
       "I will defend life and stand for Kentucky's values.",
-      "I’ll support strengthening our school systems and making sure our children are prepared for their future and are financially savvy.",
+      "I’ll support strengthening our school systems and make sure our children are prepared for their future and are financially savvy.",
       "I will always protect our constitutional freedoms, including the Second Amendment.",
     ],
     color: "secondary" as const,
