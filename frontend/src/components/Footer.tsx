@@ -22,7 +22,9 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://www.facebook.com/61585932582250/"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Facebook"
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary transition-colors"
               >
