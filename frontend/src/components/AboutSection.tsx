@@ -34,15 +34,19 @@ const AboutSection = () => {
                 Nothing I’ve earned came easy. I wasn’t handed success — I built it through long hours, tough decisions, personal sacrifice, and perseverance.
               </p>
               <p>
-                I don’t come from politics, I come from real life. I have worked hard, failed, learned, and succeeded. I understand what it’s like to:
+                My background is as an entrepreneur, NFL player agent, and attorney.  I've lived in the real world, not in government.  In the real world I have learned to:
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Take responsibility when things go wrong</li>
-                <li>Earn trust through action and not talk</li>
+                <li>Earn trust through action, not talk</li>
                 <li>No matter how many times you get knocked down, you get back up and keep fighting</li>
               </ul>
               <p>
-                That experience matters, and it’s exactly what Frankfort needs.
+                That experience matters, and it's{" "}
+                <span className="underline underline-offset-4">
+                  exactly what I will bring
+                </span>
+                .
               </p>
             </div>
           </div>
