@@ -3,6 +3,9 @@ locals {
     var.domain_name,
     "www.${var.domain_name}",
   ] : []
+
+  # Common Microsoft 365 MX hostname pattern.
+  m365_mx_host = "${replace(var.domain_name, ".", "-")}.mail.protection.outlook.com"
 }
 
 resource "random_id" "bucket_suffix" {
@@ -122,6 +125,36 @@ resource "aws_route53_zone" "primary" {
 
   name = var.domain_name
   tags = var.tags
+}
+
+# Email DNS (Microsoft 365 via GoDaddy)
+resource "aws_route53_record" "spf" {
+  count   = var.enable_custom_domain ? 1 : 0
+  zone_id = aws_route53_zone.primary[0].zone_id
+  name    = var.domain_name
+  type    = "TXT"
+  ttl     = 300
+
+  # Keep secureserver.net for GoDaddy sending services; add Outlook for Microsoft 365.
+  records = ["v=spf1 include:secureserver.net include:spf.protection.outlook.com -all"]
+}
+
+resource "aws_route53_record" "mx" {
+  count   = var.enable_custom_domain ? 1 : 0
+  zone_id = aws_route53_zone.primary[0].zone_id
+  name    = var.domain_name
+  type    = "MX"
+  ttl     = 300
+  records = ["0 ${local.m365_mx_host}"]
+}
+
+resource "aws_route53_record" "autodiscover" {
+  count   = var.enable_custom_domain ? 1 : 0
+  zone_id = aws_route53_zone.primary[0].zone_id
+  name    = "autodiscover.${var.domain_name}"
+  type    = "CNAME"
+  ttl     = 300
+  records = ["autodiscover.outlook.com"]
 }
 
 resource "aws_acm_certificate" "site" {
