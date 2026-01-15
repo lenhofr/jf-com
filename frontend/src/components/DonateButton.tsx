@@ -3,10 +3,8 @@ import { Heart } from "lucide-react";
 
 const DonateButton = () => {
   const handleDonateClick = () => {
-    // Placeholder for donate functionality
-    // This will need to be updated with actual donate link/form
     const donateWindow = window.open(
-      "https://secure.actblue.com/donate/jesseforeman",
+      "https://secure.winred.com/foreman-for-ky/donate",
       "_blank"
     );
     if (donateWindow) {
