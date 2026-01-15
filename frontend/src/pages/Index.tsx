@@ -7,6 +7,7 @@ import FighterSection from "@/components/FighterSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import DonateButton from "@/components/DonateButton";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
+      <DonateButton />
     </div>
   );
 };
