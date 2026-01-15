@@ -116,6 +116,10 @@
     animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
+  .animate-ping-slow {
+    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
   @keyframes pulse-slow {
     0%, 100% {
       opacity: 1;
@@ -124,6 +128,13 @@
     50% {
       opacity: 0.95;
       transform: scale(1.05);
+    }
+  }
+
+  @keyframes ping-slow {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
     }
   }
 }
