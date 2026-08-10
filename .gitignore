@@ -9,3 +9,7 @@ frontend/.env
 .terraform.tfstate.lock.info
 
 .worktrees/
+
+# Raw mockup export — the design source lives in docs/mockups/ instead.
+JesseForemanWebsiteMockupsZIP/
+.thumbnail

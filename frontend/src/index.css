@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Public+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,32 +6,27 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 25% 15%;
+    /* shadcn tokens, mapped onto the brand palette from the mockup. */
+    --background: 80 8% 93%; /* #EDEEEB */
+    --foreground: 157 51% 12%; /* #0F2E22 */
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 157 51% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
-    --primary: 217 91% 45%;
+    --popover-foreground: 157 51% 12%;
+    --primary: 135 28% 43%; /* #4E8C5E */
     --primary-foreground: 0 0% 100%;
-    --secondary: 45 93% 47%;
-    --secondary-foreground: 215 25% 15%;
-    --muted: 210 15% 92%;
-    --muted-foreground: 215 15% 45%;
-    --accent: 156 64% 42%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
+    --secondary: 140 24% 93%; /* #E8F1EB */
+    --secondary-foreground: 158 51% 23%;
+    --muted: 120 11% 96%; /* #F5F7F5 */
+    --muted-foreground: 150 7% 58%; /* #8D9B94 */
+    --accent: 140 24% 93%;
+    --accent-foreground: 158 51% 23%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
-    --border: 214 20% 85%;
-    --input: 214 20% 85%;
-    --ring: 217 91% 45%;
-    --radius: 0.75rem;
-
-    /* Campaign-specific tokens */
-    --hero-gradient: linear-gradient(135deg, hsl(217 91% 45%) 0%, hsl(215 85% 35%) 100%);
-    --section-alt: 210 15% 96%;
-    --glow-primary: 0 8px 32px -8px hsl(217 91% 45% / 0.35);
-    --glow-secondary: 0 8px 32px -8px hsl(45 93% 47% / 0.35);
+    --border: 157 7% 89%;
+    --input: 157 7% 89%;
+    --ring: 135 28% 43%;
+    --radius: 0.1875rem; /* 3px — the mockup's corner radius */
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -40,101 +35,62 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 135 28% 43%;
   }
 
-  .dark {
-    --background: 215 25% 10%;
-    --foreground: 210 20% 98%;
-    --card: 215 25% 14%;
-    --card-foreground: 210 20% 98%;
-    --popover: 215 25% 14%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 217 91% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 45 93% 55%;
-    --secondary-foreground: 215 25% 10%;
-    --muted: 215 20% 20%;
-    --muted-foreground: 210 15% 65%;
-    --accent: 156 64% 48%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 215 20% 25%;
-    --input: 215 20% 25%;
-    --ring: 217 91% 55%;
-
-    --hero-gradient: linear-gradient(135deg, hsl(217 91% 35%) 0%, hsl(215 85% 25%) 100%);
-    --section-alt: 215 20% 12%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Source Sans 3', sans-serif;
+  html {
+    scroll-behavior: smooth;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 0.02em;
+  body {
+    @apply bg-paper font-sans text-slate-body antialiased;
+  }
+
+  ::selection {
+    background: #4e8c5e;
+    color: #fff;
+  }
+
+  /* Focus ring that reads on both the light and dark section backgrounds. */
+  :focus-visible {
+    outline: 2px solid #4e8c5e;
+    outline-offset: 2px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: #7fbe92;
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: var(--hero-gradient);
+@layer components {
+  /* Sections are full-bleed; their contents line up on a 1092px column,
+     matching the 1180px mockup frame minus its 44px gutters. */
+  .site-container {
+    @apply mx-auto w-full max-w-[1092px] px-6 md:px-11;
   }
 
-  .section-alt {
-    background-color: hsl(var(--section-alt));
+  /* The hatched fill the mockup uses for every unfilled image slot. */
+  .placeholder-hatch {
+    background: repeating-linear-gradient(135deg, #f3f5f3 0 9px, #e9edea 9px 18px);
   }
 
-  .glow-primary {
-    box-shadow: var(--glow-primary);
+  .placeholder-hatch-dark {
+    background: repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.07) 0 10px,
+      rgba(255, 255, 255, 0.02) 10px 20px
+    );
   }
 
-  .glow-secondary {
-    box-shadow: var(--glow-secondary);
-  }
-
-  .animate-pulse-slow {
-    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .animate-ping-slow {
-    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-  }
-
-  @keyframes pulse-slow {
-    0%, 100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.95;
-      transform: scale(1.05);
-    }
-  }
-
-  @keyframes ping-slow {
-    75%, 100% {
-      transform: scale(2);
-      opacity: 0;
-    }
+  .hero-hatch {
+    background: repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0 10px,
+      rgba(255, 255, 255, 0.015) 10px 20px
+    );
   }
 }
