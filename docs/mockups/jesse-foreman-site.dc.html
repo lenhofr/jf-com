@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDEEEB;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#4E8C5E;text-decoration:none}
+a:hover{color:#1C5741}
+*{box-sizing:border-box}
+input,button,textarea{font-family:'Public Sans',system-ui,sans-serif}
+summary::-webkit-details-marker{display:none}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#EDEEEB">
+
+<div style="position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 20px;background:#101413;border-bottom:1px solid rgba(255,255,255,.1)">
+  <span style="font:600 10px/1 'Public Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-right:12px">Mockups</span>
+  <button onClick="{{ goHome }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">Home</button>
+  <button onClick="{{ goAbout }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">About</button>
+  <button onClick="{{ goNfl }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">The NFL Agent</button>
+  <button onClick="{{ goLegal }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">Legal</button>
+  <button onClick="{{ goEnt }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">Entrepreneur</button>
+  <button onClick="{{ goSpeak }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">Speaking &amp; Media</button>
+  <button onClick="{{ goInsights }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">Insights</button>
+  <button onClick="{{ goContact }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">Contact</button>
+  <button onClick="{{ goBlog }}" style="padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.72);font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1);color:#fff">Blog</button>
+  <span style="margin-left:auto;font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(255,255,255,.5)">{{ pageLabel }}</span>
+</div>
+
+<div style="max-width:1180px;margin:28px auto 48px;background:#fff;border:1px solid rgba(15,46,34,.1);border-radius:6px;overflow:hidden;box-shadow:0 2px 18px rgba(15,46,34,.07)">
+
+  <header style="display:flex;align-items:center;gap:32px;padding:14px 28px;border-bottom:1px solid rgba(15,46,34,.09);background:#fff">
+    <div onClick="{{ goHome }}" style="width:42px;height:42px;flex:none;background:#0F1311;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <span style="font:700 15px/1 Archivo,sans-serif;letter-spacing:.04em;color:#fff">JF</span>
+    </div>
+    <nav style="display:flex;align-items:center;gap:26px;margin-left:auto">
+      <span onClick="{{ goAbout }}" style="font:500 13px/1 'Public Sans',sans-serif;color:#3C4A44;cursor:pointer" style-hover="color:#4E8C5E">About</span>
+      <span onClick="{{ goNfl }}" style="font:500 13px/1 'Public Sans',sans-serif;color:#3C4A44;cursor:pointer" style-hover="color:#4E8C5E">The NFL Agent</span>
+      <span onClick="{{ goLegal }}" style="font:500 13px/1 'Public Sans',sans-serif;color:#3C4A44;cursor:pointer" style-hover="color:#4E8C5E">Legal</span>
+      <span onClick="{{ goEnt }}" style="font:500 13px/1 'Public Sans',sans-serif;color:#3C4A44;cursor:pointer" style-hover="color:#4E8C5E">Entrepreneur</span>
+      <span onClick="{{ goSpeak }}" style="font:500 13px/1 'Public Sans',sans-serif;color:#3C4A44;cursor:pointer" style-hover="color:#4E8C5E">Speaking</span>
+      <span onClick="{{ goInsights }}" style="font:500 13px/1 'Public Sans',sans-serif;color:#3C4A44;cursor:pointer" style-hover="color:#4E8C5E">Insights</span>
+    </nav>
+    <button onClick="{{ goContact }}" style="margin-left:8px;padding:10px 18px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 12.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#3F7A4E">Work With Me</button>
+  </header>
+
+  <main data-pages="1">
+  <sc-if value="{{ isInsights }}" hint-placeholder-val="{{ false }}">
+    <section style="position:relative;min-height:400px;display:flex;align-items:flex-end;background:#0F2E22;overflow:hidden">
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 10px,rgba(255,255,255,.015) 10px 20px)"></div>
+      <div style="position:relative;padding:0 44px 60px;max-width:720px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 18px">Insights</p>
+        <h1 style="font:600 50px/1.08 Archivo,sans-serif;letter-spacing:-.03em;color:#fff;margin:0 0 18px;text-wrap:balance">The parts of the deal nobody puts in the press release.</h1>
+        <p style="font:300 16px/1.65 'Public Sans',sans-serif;color:rgba(255,255,255,.72);margin:0;max-width:500px">Contract mechanics, NIL, and the business of representation, written plainly.</p>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:80px 44px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:34px">
+        <h2 style="font:600 36px/1.14 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0">Latest.</h2>
+        <button onClick="{{ goBlog }}" style="padding:11px 20px;background:transparent;color:#0F2E22;border:1px solid rgba(15,46,34,.25);border-radius:3px;font:600 12.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="border-color:#4E8C5E;color:#4E8C5E">See All Posts</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <sc-for list="{{ posts }}" as="post" hint-placeholder-count="3">
+          <article>
+            <div style="height:190px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center;margin-bottom:18px"><span style="font:400 9px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Article image</span></div>
+            <p style="font:400 11.5px/1 'Public Sans',sans-serif;color:#8D9B94;margin:0 0 10px">{{ post.date }}</p>
+            <h3 style="font:600 18px/1.32 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 10px">{{ post.title }}</h3>
+            <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 14px">{{ post.excerpt }}</p>
+            <span style="font:600 12.5px/1 'Public Sans',sans-serif;color:#4E8C5E;cursor:pointer">Read more →</span>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#F5F7F5;padding:80px 44px;border-top:1px solid rgba(15,46,34,.09)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">Series</p>
+          <h3 style="font:600 24px/1.25 Archivo,sans-serif;letter-spacing:-.02em;color:#1C5741;margin:0 0 14px">Read Your Own Contract</h3>
+          <p style="font:400 14px/1.75 'Public Sans',sans-serif;color:#5B6A63;margin:0">A clause-by-clause walkthrough of a standard rookie deal. Offsets, guarantees, injury protection, and the language that quietly decides how much of a headline number is real.</p>
+        </div>
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">Series</p>
+          <h3 style="font:600 24px/1.25 Archivo,sans-serif;letter-spacing:-.02em;color:#1C5741;margin:0 0 14px">Conversations</h3>
+          <p style="font:400 14px/1.75 'Public Sans',sans-serif;color:#5B6A63;margin:0">Interviews with financial advisors, trainers, and former players about the decisions they wish they had made earlier. Practical, specific, and free of the usual motivational filler.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:80px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
+        <div style="height:280px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Interview still</span></div>
+        <div>
+          <h2 style="font:600 34px/1.16 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 16px">Insights from people who've been there.</h2>
+          <p style="font:400 14.5px/1.75 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 26px">Guests who have negotiated, signed, and occasionally regretted. The goal is a record of what the business actually looks like from the inside.</p>
+          <span style="font:600 12.5px/1 'Public Sans',sans-serif;color:#4E8C5E;cursor:pointer">Listen to the series →</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#123A2B;padding:76px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
+        <h2 style="font:600 36px/1.14 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0">Get new posts in your inbox.</h2>
+        <div>
+          <div style="display:flex;gap:10px;margin-bottom:14px">
+            <input placeholder="Enter your email" style="flex:1;padding:13px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:3px;color:#fff;font:400 13px/1 'Public Sans',sans-serif;outline:none">
+            <button style="padding:13px 26px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#5FA271">Subscribe</button>
+          </div>
+          <p style="font:400 11.5px/1.5 'Public Sans',sans-serif;color:rgba(255,255,255,.45);margin:0">No more than twice a month. Unsubscribe any time.</p>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#0F2E22;padding:88px 44px;text-align:center">
+      <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 20px">Contact</p>
+      <h1 style="font:600 52px/1.08 Archivo,sans-serif;letter-spacing:-.03em;color:#fff;margin:0 auto 20px;max-width:700px;text-wrap:balance">Tell me what you're working through.</h1>
+      <p style="font:300 16.5px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.72);margin:0 auto;max-width:520px">A contract, a representation question, or a strategic legal need. I'll review it personally and follow up. Response times vary based on active matters.</p>
+    </section>
+
+    <section style="background:#fff;padding:80px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">Reach Out</p>
+          <h2 style="font:600 34px/1.16 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 28px">Direct lines.</h2>
+          <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:32px">
+            <div style="display:flex;flex-direction:column;gap:5px;padding-bottom:16px;border-bottom:1px solid rgba(15,46,34,.1)">
+              <span style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8D9B94">Email</span>
+              <span style="font:400 15px/1 'Public Sans',sans-serif;color:#0F2E22">thenflagent@gmail.com</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;padding-bottom:16px;border-bottom:1px solid rgba(15,46,34,.1)">
+              <span style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8D9B94">Phone</span>
+              <span style="font:400 15px/1 'Public Sans',sans-serif;color:#0F2E22">(859) 640-8053</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;padding-bottom:16px;border-bottom:1px solid rgba(15,46,34,.1)">
+              <span style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8D9B94">Office</span>
+              <span style="font:400 15px/1.5 'Public Sans',sans-serif;color:#0F2E22">Florence, Kentucky</span>
+            </div>
+          </div>
+          <div style="height:230px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Map embed</span></div>
+        </div>
+        <div style="background:#F5F7F5;border:1px solid rgba(15,46,34,.1);padding:36px 34px">
+          <h3 style="font:600 22px/1.25 Archivo,sans-serif;letter-spacing:-.02em;color:#1C5741;margin:0 0 8px">Send a note</h3>
+          <p style="font:400 13.5px/1.65 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 26px">A short summary of your situation and any deadline you're working against is enough to start.</p>
+          <div style="display:grid;gap:14px">
+            <input placeholder="Full name" style="padding:13px 14px;background:#fff;border:1px solid rgba(15,46,34,.18);border-radius:3px;font:400 13.5px/1 'Public Sans',sans-serif;color:#0F2E22;outline:none">
+            <input placeholder="Email" style="padding:13px 14px;background:#fff;border:1px solid rgba(15,46,34,.18);border-radius:3px;font:400 13.5px/1 'Public Sans',sans-serif;color:#0F2E22;outline:none">
+            <input placeholder="Phone (optional)" style="padding:13px 14px;background:#fff;border:1px solid rgba(15,46,34,.18);border-radius:3px;font:400 13.5px/1 'Public Sans',sans-serif;color:#0F2E22;outline:none">
+            <select style="padding:13px 14px;background:#fff;border:1px solid rgba(15,46,34,.18);border-radius:3px;font:400 13.5px/1 'Public Sans',sans-serif;color:#5B6A63;outline:none">
+              <option>What is this about?</option>
+              <option>NFL representation</option>
+              <option>Contract review</option>
+              <option>Legal matter</option>
+              <option>NIL or brand deal</option>
+              <option>Speaking request</option>
+            </select>
+            <textarea placeholder="Tell me about your situation" rows="5" style="padding:13px 14px;background:#fff;border:1px solid rgba(15,46,34,.18);border-radius:3px;font:400 13.5px/1.6 'Public Sans',sans-serif;color:#0F2E22;outline:none;resize:vertical"></textarea>
+            <button style="padding:14px 24px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#3F7A4E">Submit Inquiry</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#E8F1EB;padding:80px 44px">
+      <div style="text-align:center;margin-bottom:36px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">FAQ</p>
+        <h2 style="font:600 36px/1.14 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0">Before you write.</h2>
+      </div>
+      <div style="max-width:720px;margin:0 auto">
+        <sc-for list="{{ contactFaqs }}" as="f" hint-placeholder-count="5">
+          <details style="border-bottom:1px solid rgba(15,46,34,.14);padding:18px 0">
+            <summary style="font:600 15px/1.4 'Public Sans',sans-serif;color:#0F2E22;cursor:pointer;list-style:none">{{ f.q }}</summary>
+            <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#3C4A44;margin:12px 0 0">{{ f.a }}</p>
+          </details>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isBlog }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#123A2B;padding:80px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 18px">Blog</p>
+          <h1 style="font:600 46px/1.1 Archivo,sans-serif;letter-spacing:-.03em;color:#fff;margin:0 0 18px;text-wrap:balance">Writing about the business, not the highlights.</h1>
+          <p style="font:300 16px/1.65 'Public Sans',sans-serif;color:rgba(255,255,255,.72);margin:0 0 28px">Everything I publish, in one place.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button onClick="{{ goInsights }}" style="padding:13px 24px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#5FA271">Featured Series</button>
+            <button onClick="{{ goContact }}" style="padding:13px 24px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.32);border-radius:3px;font:600 13px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1)">Get in Touch</button>
+          </div>
+        </div>
+        <div style="height:280px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 10px,rgba(255,255,255,.02) 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)">Feature image</span></div>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:80px 44px">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:36px">
+        <span style="padding:7px 15px;border-radius:99px;background:#0F2E22;color:#fff;font:600 12px/1 'Public Sans',sans-serif;cursor:pointer">All</span>
+        <span style="padding:7px 15px;border-radius:99px;background:transparent;border:1px solid rgba(15,46,34,.18);color:#3C4A44;font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="border-color:#4E8C5E;color:#4E8C5E">Contracts</span>
+        <span style="padding:7px 15px;border-radius:99px;background:transparent;border:1px solid rgba(15,46,34,.18);color:#3C4A44;font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="border-color:#4E8C5E;color:#4E8C5E">NIL</span>
+        <span style="padding:7px 15px;border-radius:99px;background:transparent;border:1px solid rgba(15,46,34,.18);color:#3C4A44;font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="border-color:#4E8C5E;color:#4E8C5E">Draft</span>
+        <span style="padding:7px 15px;border-radius:99px;background:transparent;border:1px solid rgba(15,46,34,.18);color:#3C4A44;font:500 12px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="border-color:#4E8C5E;color:#4E8C5E">Career</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px 24px">
+        <sc-for list="{{ blogPosts }}" as="post" hint-placeholder-count="6">
+          <article>
+            <div style="height:180px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center;margin-bottom:16px"><span style="font:400 9px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Article image</span></div>
+            <p style="font:400 11.5px/1 'Public Sans',sans-serif;color:#8D9B94;margin:0 0 9px">{{ post.date }}</p>
+            <h3 style="font:600 17px/1.32 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 10px">{{ post.title }}</h3>
+            <p style="font:400 13px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 12px">{{ post.excerpt }}</p>
+            <span style="font:600 12.5px/1 'Public Sans',sans-serif;color:#4E8C5E;cursor:pointer">Read more →</span>
+          </article>
+        </sc-for>
+      </div>
+      <div style="text-align:center;margin-top:44px">
+        <button style="padding:12px 24px;background:transparent;color:#0F2E22;border:1px solid rgba(15,46,34,.25);border-radius:3px;font:600 12.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="border-color:#4E8C5E;color:#4E8C5E">Load More</button>
+      </div>
+    </section>
+
+    <section style="background:#E8F1EB;padding:76px 44px;text-align:center">
+      <h2 style="font:600 36px/1.14 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 14px">Stay informed.</h2>
+      <p style="font:300 15.5px/1.7 'Public Sans',sans-serif;color:#3C4A44;margin:0 auto 28px;max-width:460px">New posts, delivered when there's something worth saying.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto">
+        <input placeholder="Email" style="flex:1 1 220px;padding:13px 14px;background:#fff;border:1px solid rgba(15,46,34,.18);border-radius:3px;font:400 13.5px/1 'Public Sans',sans-serif;color:#0F2E22;outline:none">
+        <button style="padding:13px 26px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#3F7A4E">Subscribe</button>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isLegal }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#F5F7F5;padding:92px 44px;text-align:center;border-bottom:1px solid rgba(15,46,34,.09)">
+      <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 20px">Legal</p>
+      <h1 style="font:600 52px/1.08 Archivo,sans-serif;letter-spacing:-.03em;color:#1C5741;margin:0 auto 20px;max-width:760px;text-wrap:balance">Courtroom instincts, applied before there is a courtroom.</h1>
+      <p style="font:300 16.5px/1.7 'Public Sans',sans-serif;color:#3C4A44;margin:0 auto 34px;max-width:560px">Jesse L. Foreman, Esq. JD, University of Cincinnati. Exposure on both the prosecution and defense side, now used to anticipate moves and de-risk outcomes for athletes and the businesses around them.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button onClick="{{ goContact }}" style="padding:13px 26px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#3F7A4E">Request a Review</button>
+        <button onClick="{{ goAbout }}" style="padding:13px 26px;background:transparent;color:#0F2E22;border:1px solid rgba(15,46,34,.25);border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(15,46,34,.05)">Credentials</button>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:84px 44px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(15,46,34,.12);border:1px solid rgba(15,46,34,.12)">
+        <sc-for list="{{ legalServices }}" as="s" hint-placeholder-count="3">
+          <div style="background:#fff;padding:36px 30px">
+            <div style="width:26px;height:26px;border:2px solid #4E8C5E;border-radius:2px;margin-bottom:22px"></div>
+            <h3 style="font:600 19px/1.3 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 12px">{{ s.title }}</h3>
+            <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 22px">{{ s.body }}</p>
+            <span onClick="{{ goContact }}" style="font:600 12.5px/1 'Public Sans',sans-serif;color:#4E8C5E;cursor:pointer">Discuss a matter →</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#0F2E22;padding:78px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center">
+        <div>
+          <h2 style="font:600 36px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 24px">What clients say.</h2>
+          <div style="display:flex;gap:10px">
+            <button onClick="{{ prevQuote }}" style="width:38px;height:38px;border-radius:99px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.12)">←</button>
+            <button onClick="{{ nextQuote }}" style="width:38px;height:38px;border-radius:99px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.12)">→</button>
+          </div>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,.16);padding-left:44px">
+          <p style="font:300 21px/1.55 Archivo,sans-serif;color:#fff;margin:0 0 24px;text-wrap:pretty">“{{ quote.text }}”</p>
+          <p style="font:600 14px/1 'Public Sans',sans-serif;color:#fff;margin:0 0 6px">{{ quote.name }}</p>
+          <p style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.55);margin:0">{{ quote.role }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:84px 44px">
+      <div style="text-align:center;margin-bottom:40px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">FAQ</p>
+        <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0">Common questions.</h2>
+      </div>
+      <div style="max-width:760px;margin:0 auto">
+        <sc-for list="{{ legalFaqs }}" as="f" hint-placeholder-count="6">
+          <details style="border-bottom:1px solid rgba(15,46,34,.12);padding:18px 0">
+            <summary style="font:600 15px/1.4 'Public Sans',sans-serif;color:#0F2E22;cursor:pointer;list-style:none">{{ f.q }}</summary>
+            <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:12px 0 0">{{ f.a }}</p>
+          </details>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display:grid;grid-template-columns:1fr 1fr">
+      <div style="background:#123A2B;padding:80px 44px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 16px">Next Step</p>
+        <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 18px">Send the document before you sign it.</h2>
+        <p style="font:300 15px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.68);margin:0 0 30px;max-width:400px">Response times vary with active matters, but every inquiry is read personally.</p>
+        <button onClick="{{ goContact }}" style="padding:14px 28px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#5FA271">Contact Me</button>
+      </div>
+      <div style="min-height:330px;background:repeating-linear-gradient(135deg,#F3F5F3 0 10px,#E9EDEA 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#8D9B94">Desk / documents photo</span></div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isEnt }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#0F2E22;padding:88px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 20px">Entrepreneur</p>
+          <h1 style="font:600 50px/1.08 Archivo,sans-serif;letter-spacing:-.03em;color:#fff;margin:0;text-wrap:balance">I've built the thing I'm advising you on.</h1>
+        </div>
+        <p style="font:300 16px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.72);margin:0 0 8px">Agency founder, early operator in sports digital rights, and a builder who has raised, hired, and shut things down. Advice from someone who has taken the risk, not read about it.</p>
+      </div>
+    </section>
+
+    <section style="background:#E8F1EB;padding:80px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">Track Record</p>
+          <h2 style="font:600 36px/1.14 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 20px">What I've actually run.</h2>
+          <p style="font:400 14.5px/1.75 'Public Sans',sans-serif;color:#3C4A44;margin:0 0 16px">I founded Global Sports and Entertainment out of law school with a business partner and learned the operations side of an agency the hard way. Later I led a digital rights division at Young Money APAA, one of the first in the industry.</p>
+          <p style="font:400 14.5px/1.75 'Public Sans',sans-serif;color:#3C4A44;margin:0">I was also early to social platforms as a recruiting channel when most of the industry still thought it was a distraction. Being early is uncomfortable and occasionally expensive. It is also where the advantage lives.</p>
+        </div>
+        <div style="height:340px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E7EBE8 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Working photo</span></div>
+      </div>
+    </section>
+
+    <section style="background:#123A2B;padding:88px 44px;text-align:center">
+      <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 22px">Advisory</p>
+      <p style="font:300 28px/1.45 Archivo,sans-serif;color:#fff;margin:0 auto 26px;max-width:820px;text-wrap:pretty">“Representation isn't just about reacting. It's positioning a client so the right opportunities become inevitable.”</p>
+      <p style="font:600 14px/1 'Public Sans',sans-serif;color:#fff;margin:0 0 5px">Jesse L. Foreman, Esq.</p>
+      <p style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.55);margin:0">NFLPA Certified Contract Advisor</p>
+    </section>
+
+    <section style="background:#fff;padding:84px 44px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:44px">
+        <div>
+          <span style="display:block;font:600 11px/1 ui-monospace,Menlo,monospace;color:#4E8C5E;margin-bottom:16px">01</span>
+          <h3 style="font:600 19px/1.3 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 12px">Venture Vetting</h3>
+          <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0">After a signing bonus, everyone has a deal for you. I read the cap table and the terms before you write the check.</p>
+        </div>
+        <div>
+          <span style="display:block;font:600 11px/1 ui-monospace,Menlo,monospace;color:#4E8C5E;margin-bottom:16px">02</span>
+          <h3 style="font:600 19px/1.3 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 12px">Brand &amp; Likeness</h3>
+          <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0">Endorsements, licensing, and digital rights structured so the value returns to you rather than the platform.</p>
+        </div>
+        <div>
+          <span style="display:block;font:600 11px/1 ui-monospace,Menlo,monospace;color:#4E8C5E;margin-bottom:16px">03</span>
+          <h3 style="font:600 19px/1.3 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 12px">Second Act Planning</h3>
+          <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0">Careers are short. The work of turning a playing income into a durable business starts long before the last snap.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#F5F7F5;padding:84px 44px;border-top:1px solid rgba(15,46,34,.09)">
+      <div style="text-align:center;margin-bottom:46px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">The Network</p>
+        <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 auto;max-width:620px">The specialists I bring in.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:26px 20px">
+        <sc-for list="{{ network }}" as="n" hint-placeholder-count="8">
+          <div style="background:#fff;border:1px solid rgba(15,46,34,.1);padding:24px 22px">
+            <div style="width:44px;height:44px;border-radius:99px;background:repeating-linear-gradient(135deg,#F1F3F1 0 6px,#E4E9E6 6px 12px);margin-bottom:16px"></div>
+            <h3 style="font:600 14.5px/1.3 Archivo,sans-serif;color:#0F2E22;margin:0 0 4px">{{ n.name }}</h3>
+            <p style="font:400 11.5px/1 'Public Sans',sans-serif;color:#4E8C5E;margin:0 0 12px">{{ n.role }}</p>
+            <p style="font:400 12.5px/1.65 'Public Sans',sans-serif;color:#5B6A63;margin:0">{{ n.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#0F2E22;padding:88px 44px;text-align:center">
+      <h2 style="font:600 40px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 16px">Let's turn the vision into a structure.</h2>
+      <p style="font:300 16px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.7);margin:0 auto 30px;max-width:500px">Bring me the idea, the term sheet, or the mess. I'll tell you what I'd do with it.</p>
+      <button onClick="{{ goContact }}" style="padding:14px 28px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#5FA271">Work With Me</button>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isSpeak }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#0F2E22;padding:88px 44px">
+      <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 20px">Speaking &amp; Media</p>
+      <h1 style="font:600 52px/1.08 Archivo,sans-serif;letter-spacing:-.03em;color:#fff;margin:0 0 20px;max-width:780px;text-wrap:balance">Talks about the money nobody explains to athletes.</h1>
+      <p style="font:300 16.5px/1.65 'Public Sans',sans-serif;color:rgba(255,255,255,.72);margin:0;max-width:540px">Financial literacy, NIL, contract mechanics, and the business of representation. For programs, summits, and law schools.</p>
+    </section>
+
+    <section style="background:#fff;padding:80px 44px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:34px">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">Media</p>
+          <h2 style="font:600 36px/1.14 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0">Selected appearances.</h2>
+        </div>
+        <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0;max-width:340px">Interviews and panels on representation, NIL, and digital rights in sports.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px">
+        <div style="height:330px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Podcast / interview still</span></div>
+        <div style="display:grid;grid-template-rows:1fr 1fr;gap:20px">
+          <div style="background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Panel photo</span></div>
+          <div style="background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Press clipping</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#E8F1EB;padding:84px 44px">
+      <div style="text-align:center;margin-bottom:44px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">Calendar</p>
+        <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0">Upcoming engagements.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid rgba(15,46,34,.1);padding:28px 26px">
+            <p style="font:600 11.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:#4E8C5E;margin:0 0 16px">{{ e.when }}</p>
+            <h3 style="font:600 18px/1.3 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 12px">{{ e.title }}</h3>
+            <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 22px">{{ e.body }}</p>
+            <span onClick="{{ goContact }}" style="font:600 12.5px/1 'Public Sans',sans-serif;color:#4E8C5E;cursor:pointer">Details →</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#123A2B;padding:84px 44px">
+      <h2 style="font:600 36px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 40px;text-align:center">What organizers say.</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <sc-for list="{{ speakQuotes }}" as="s" hint-placeholder-count="3">
+          <div style="border:1px solid rgba(255,255,255,.16);padding:28px 26px">
+            <p style="font:300 15px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.85);margin:0 0 24px">“{{ s.text }}”</p>
+            <p style="font:600 13.5px/1 'Public Sans',sans-serif;color:#fff;margin:0 0 5px">{{ s.name }}</p>
+            <p style="font:400 12px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.5);margin:0">{{ s.role }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:84px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
+        <div style="height:320px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Speaking on stage</span></div>
+        <div>
+          <h2 style="font:600 36px/1.14 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 18px">Book a session.</h2>
+          <p style="font:400 14.5px/1.75 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 28px">Tell me the audience, the room, and how long you have. I'll tailor the material rather than reuse a deck.</p>
+          <button onClick="{{ goContact }}" style="padding:14px 28px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#3F7A4E">Book Now</button>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#0F2E22;padding:92px 44px">
+      <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 20px">About</p>
+      <h1 style="font:600 54px/1.08 Archivo,sans-serif;letter-spacing:-.03em;color:#fff;margin:0 0 20px;max-width:820px;text-wrap:balance">From behind a bar in Cincinnati to the negotiating table.</h1>
+      <p style="font:300 17px/1.65 'Public Sans',sans-serif;color:rgba(255,255,255,.72);margin:0;max-width:560px">I got into this business because players kept telling me their agents wouldn't call them back. Fifteen years later, that is still the standard I hold myself to.</p>
+    </section>
+
+    <section style="background:#fff;padding:70px 44px">
+      <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:20px">
+        <div style="height:300px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Jesse portrait — office</span></div>
+        <div style="height:300px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Combine / sideline</span></div>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:20px 44px 90px">
+      <div style="display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:start">
+        <div style="position:sticky;top:80px">
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">The Path</p>
+          <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 22px">Milestones that mark the journey.</h2>
+          <p style="font:400 14.5px/1.75 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 16px">I was the second person in my family to finish high school and the first to finish college. A lot of my family had legal trouble, which is part of why the law ended up mattering to me.</p>
+          <p style="font:400 14.5px/1.75 'Public Sans',sans-serif;color:#5B6A63;margin:0">I used to own a club. Players would come in and complain about their agents. So I went to law school, got certified, and set out to be the agent they described wanting.</p>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ milestones }}" as="m" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:74px 1fr;gap:24px;padding:26px 0;border-top:1px solid rgba(15,46,34,.12)">
+              <span style="font:600 13px/1.5 ui-monospace,Menlo,monospace;color:#4E8C5E">{{ m.year }}</span>
+              <div>
+                <h3 style="font:600 18px/1.3 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 8px">{{ m.title }}</h3>
+                <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0">{{ m.body }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#123A2B;padding:84px 44px">
+      <div style="max-width:520px;margin-bottom:44px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 14px">The Bench</p>
+        <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 16px">You don't hire one person. You hire a bench.</h2>
+        <p style="font:300 14.5px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.66);margin:0">Representation is the front door. Behind it sits the network a career actually runs on.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+        <sc-for list="{{ team }}" as="t" hint-placeholder-count="4">
+          <div>
+            <div style="aspect-ratio:1/1;background:repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 9px,rgba(255,255,255,.02) 9px 18px);display:flex;align-items:center;justify-content:center;margin-bottom:16px"><span style="font:400 9px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38)">Headshot</span></div>
+            <h3 style="font:600 15px/1.3 Archivo,sans-serif;color:#fff;margin:0 0 5px">{{ t.name }}</h3>
+            <p style="font:400 12.5px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.55);margin:0">{{ t.role }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:84px 44px">
+      <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 40px;text-align:center">What clients say.</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+        <sc-for list="{{ quotes }}" as="c" hint-placeholder-count="4">
+          <div style="padding:26px 24px;border:1px solid rgba(15,46,34,.12);display:flex;flex-direction:column">
+            <span style="font:400 13px/1 'Public Sans',sans-serif;color:#C9A227;letter-spacing:.16em;margin-bottom:16px">★★★★★</span>
+            <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#3C4A44;margin:0 0 22px;flex:1">{{ c.text }}</p>
+            <p style="font:600 13.5px/1 'Public Sans',sans-serif;color:#0F2E22;margin:0 0 5px">{{ c.name }}</p>
+            <p style="font:400 12px/1 'Public Sans',sans-serif;color:#8D9B94;margin:0">{{ c.role }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#E8F1EB;padding:84px 44px;text-align:center">
+      <h2 style="font:600 40px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 16px">Have a question about your situation?</h2>
+      <p style="font:300 16px/1.7 'Public Sans',sans-serif;color:#3C4A44;margin:0 auto 30px;max-width:480px">Contract, representation, or a strategic legal need. Send it over and I'll read it personally.</p>
+      <button onClick="{{ goContact }}" style="padding:14px 28px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#3F7A4E">Get in Touch</button>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isNfl }}" hint-placeholder-val="{{ false }}">
+    <section style="position:relative;min-height:480px;display:flex;align-items:flex-end;background:#0F2E22;overflow:hidden">
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 10px,rgba(255,255,255,.015) 10px 20px)"></div>
+      <div style="position:absolute;top:22px;right:26px;font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35)">Stadium / draft photo</div>
+      <div style="position:relative;padding:0 44px 68px;max-width:720px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 20px">The NFL Agent</p>
+        <h1 style="font:600 54px/1.06 Archivo,sans-serif;letter-spacing:-.03em;color:#fff;margin:0 0 20px;text-wrap:balance">Certified since 2014. Still taking my own calls.</h1>
+        <p style="font:300 16.5px/1.65 'Public Sans',sans-serif;color:rgba(255,255,255,.75);margin:0;max-width:520px">Draft picks, Super Bowl winners, and veterans on their third contract. A small roster is a deliberate choice, not a limitation.</p>
+      </div>
+    </section>
+
+    <section style="background:#E8F1EB;padding:80px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">Representation</p>
+          <h2 style="font:600 36px/1.14 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 20px">What an agent is actually for.</h2>
+          <p style="font:400 14.5px/1.75 'Public Sans',sans-serif;color:#3C4A44;margin:0 0 16px">Representation isn't reacting to offers. It's positioning a client so the right opportunities become inevitable, then making sure the paperwork reflects it.</p>
+          <p style="font:400 14.5px/1.75 'Public Sans',sans-serif;color:#3C4A44;margin:0">I've represented draft picks, Super Bowl winners, and veterans negotiating a third deal. I stay ahead of where the business is going, and I tell clients the truth about their market even when it costs me the signature.</p>
+        </div>
+        <div style="height:340px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E7EBE8 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Jesse with client</span></div>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:84px 44px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(15,46,34,.12);border:1px solid rgba(15,46,34,.12)">
+        <sc-for list="{{ nflServices }}" as="s" hint-placeholder-count="3">
+          <div style="background:#fff;padding:36px 30px">
+            <div style="width:26px;height:26px;background:#4E8C5E;border-radius:2px;margin-bottom:22px"></div>
+            <h3 style="font:600 19px/1.3 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 12px">{{ s.title }}</h3>
+            <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:0">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#123A2B;padding:78px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center">
+        <div>
+          <h2 style="font:600 36px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 24px">What clients say.</h2>
+          <div style="display:flex;gap:10px">
+            <button onClick="{{ prevQuote }}" style="width:38px;height:38px;border-radius:99px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.12)">←</button>
+            <button onClick="{{ nextQuote }}" style="width:38px;height:38px;border-radius:99px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.12)">→</button>
+          </div>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,.16);padding-left:44px">
+          <p style="font:300 21px/1.55 Archivo,sans-serif;color:#fff;margin:0 0 24px;text-wrap:pretty">“{{ quote.text }}”</p>
+          <p style="font:600 14px/1 'Public Sans',sans-serif;color:#fff;margin:0 0 6px">{{ quote.name }}</p>
+          <p style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.55);margin:0">{{ quote.role }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:84px 44px">
+      <div style="text-align:center;margin-bottom:40px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">FAQ</p>
+        <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0">Common questions.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 32px;max-width:940px;margin:0 auto">
+        <sc-for list="{{ nflFaqs }}" as="f" hint-placeholder-count="6">
+          <details style="border-bottom:1px solid rgba(15,46,34,.12);padding:16px 0">
+            <summary style="font:600 14.5px/1.4 'Public Sans',sans-serif;color:#0F2E22;cursor:pointer;list-style:none">{{ f.q }}</summary>
+            <p style="font:400 13.5px/1.7 'Public Sans',sans-serif;color:#5B6A63;margin:12px 0 0">{{ f.a }}</p>
+          </details>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#0F2E22;padding:88px 44px;text-align:center">
+      <h2 style="font:600 42px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 16px">Ready to elevate your game?</h2>
+      <p style="font:300 16px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.7);margin:0 auto 30px;max-width:500px">Tell me where you are in your career. I'll give you an honest read on your market before either of us commits to anything.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button onClick="{{ goContact }}" style="padding:14px 28px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#5FA271">Book a Call</button>
+        <button onClick="{{ goAbout }}" style="padding:14px 28px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.32);border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1)">My Background</button>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <section style="position:relative;min-height:540px;display:flex;align-items:flex-end;background:#0F2E22;overflow:hidden">
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 10px,rgba(255,255,255,.015) 10px 20px)"></div>
+      <div style="position:absolute;top:22px;right:26px;font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35)">Hero photo — Jesse on the sideline</div>
+      <div style="position:relative;padding:0 44px 76px;max-width:760px">
+        <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 22px">NFLPA Certified Contract Advisor · Attorney</p>
+        <h1 style="font:600 62px/1.04 Archivo,sans-serif;letter-spacing:-.03em;color:#fff;margin:0 0 22px;text-wrap:balance">Representation that plays the long game.</h1>
+        <p style="font:300 17px/1.65 'Public Sans',sans-serif;color:rgba(255,255,255,.78);margin:0 0 34px;max-width:520px">I combine courtroom experience with a decade of NFL contract negotiation. Fewer clients, sharper terms, and a person who answers the phone.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button onClick="{{ goContact }}" style="padding:14px 26px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#5FA271">Work With Me</button>
+          <button onClick="{{ goAbout }}" style="padding:14px 26px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,.1)">My Background</button>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#123A2B;padding:80px 44px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:46px">
+        <div style="max-width:480px">
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 14px">What I Do</p>
+          <h2 style="font:600 40px/1.1 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0">Four practices, one relationship.</h2>
+        </div>
+        <p style="font:300 14.5px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.66);margin:0;max-width:380px">Most athletes get handed to a junior associate. Here the person who negotiates your contract is the person who reviews it, protects it, and picks up when you call.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14)">
+        <div style="background:#123A2B;padding:38px 34px" style-hover="background:#164434">
+          <span style="display:block;font:600 11px/1 ui-monospace,Menlo,monospace;color:#7FBE92;margin-bottom:20px">01</span>
+          <h3 style="font:600 21px/1.25 Archivo,sans-serif;letter-spacing:-.01em;color:#fff;margin:0 0 14px">NFL Representation</h3>
+          <p style="font:300 14px/1.75 'Public Sans',sans-serif;color:rgba(255,255,255,.68);margin:0 0 24px">Rookie contracts, extensions, and veteran negotiations. I model the cap consequences of every structure before a team hears a number from me.</p>
+          <span onClick="{{ goNfl }}" style="font:600 12.5px/1 'Public Sans',sans-serif;color:#7FBE92;cursor:pointer" style-hover="color:#fff">Explore now →</span>
+        </div>
+        <div style="background:#123A2B;padding:38px 34px" style-hover="background:#164434">
+          <span style="display:block;font:600 11px/1 ui-monospace,Menlo,monospace;color:#7FBE92;margin-bottom:20px">02</span>
+          <h3 style="font:600 21px/1.25 Archivo,sans-serif;letter-spacing:-.01em;color:#fff;margin:0 0 14px">Legal Counsel</h3>
+          <p style="font:300 14px/1.75 'Public Sans',sans-serif;color:rgba(255,255,255,.68);margin:0 0 24px">A JD from the University of Cincinnati and courtroom exposure on both sides of the aisle. Contract language, disputes, and risk read the way opposing counsel will read it.</p>
+          <span onClick="{{ goLegal }}" style="font:600 12.5px/1 'Public Sans',sans-serif;color:#7FBE92;cursor:pointer" style-hover="color:#fff">Explore now →</span>
+        </div>
+        <div style="background:#123A2B;padding:38px 34px" style-hover="background:#164434">
+          <span style="display:block;font:600 11px/1 ui-monospace,Menlo,monospace;color:#7FBE92;margin-bottom:20px">03</span>
+          <h3 style="font:600 21px/1.25 Archivo,sans-serif;letter-spacing:-.01em;color:#fff;margin:0 0 14px">NIL &amp; Brand</h3>
+          <p style="font:300 14px/1.75 'Public Sans',sans-serif;color:rgba(255,255,255,.68);margin:0 0 24px">Likeness rights are the asset most often signed away by accident. I built one of the first digital rights divisions in sports and I know where the traps sit.</p>
+          <span onClick="{{ goEnt }}" style="font:600 12.5px/1 'Public Sans',sans-serif;color:#7FBE92;cursor:pointer" style-hover="color:#fff">Explore now →</span>
+        </div>
+        <div style="background:#123A2B;padding:38px 34px" style-hover="background:#164434">
+          <span style="display:block;font:600 11px/1 ui-monospace,Menlo,monospace;color:#7FBE92;margin-bottom:20px">04</span>
+          <h3 style="font:600 21px/1.25 Archivo,sans-serif;letter-spacing:-.01em;color:#fff;margin:0 0 14px">Speaking &amp; Media</h3>
+          <p style="font:300 14px/1.75 'Public Sans',sans-serif;color:rgba(255,255,255,.68);margin:0 0 24px">Sessions on financial literacy, NIL, and the business of representation for programs, summits, and law schools.</p>
+          <span onClick="{{ goSpeak }}" style="font:600 12.5px/1 'Public Sans',sans-serif;color:#7FBE92;cursor:pointer" style-hover="color:#fff">Explore now →</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:66px 44px;border-bottom:1px solid rgba(15,46,34,.09)">
+      <p style="text-align:center;font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 32px">Affiliations &amp; Partnerships</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+        <div style="height:84px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">NFLPA</span></div>
+        <div style="height:84px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Delta Sports</span></div>
+        <div style="height:84px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">KY Bar Assoc</span></div>
+        <div style="height:84px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">UC Law</span></div>
+      </div>
+    </section>
+
+    <section style="background:#0F2E22;padding:78px 44px">
+      <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#7FBE92;margin:0 0 16px">Client Voices</p>
+          <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 26px">What clients say.</h2>
+          <div style="display:flex;gap:10px">
+            <button onClick="{{ prevQuote }}" style="width:38px;height:38px;border-radius:99px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.12)">←</button>
+            <button onClick="{{ nextQuote }}" style="width:38px;height:38px;border-radius:99px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.12)">→</button>
+          </div>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,.16);padding-left:44px">
+          <p style="font:300 22px/1.55 Archivo,sans-serif;color:#fff;margin:0 0 26px;text-wrap:pretty">“{{ quote.text }}”</p>
+          <p style="font:600 14px/1 'Public Sans',sans-serif;color:#fff;margin:0 0 6px">{{ quote.name }}</p>
+          <p style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.55);margin:0">{{ quote.role }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#fff;padding:84px 44px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:38px">
+        <div>
+          <p style="font:500 11px/1 'Public Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E8C5E;margin:0 0 14px">Insights</p>
+          <h2 style="font:600 38px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0">Notes from inside the negotiation.</h2>
+        </div>
+        <button onClick="{{ goBlog }}" style="padding:11px 20px;background:transparent;color:#0F2E22;border:1px solid rgba(15,46,34,.25);border-radius:3px;font:600 12.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="border-color:#4E8C5E;color:#4E8C5E">See All Articles</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
+        <sc-for list="{{ homePosts }}" as="post" hint-placeholder-count="4">
+          <article style="display:grid;grid-template-columns:150px 1fr;gap:20px;padding:20px;border:1px solid rgba(15,46,34,.1)" style-hover="border-color:rgba(78,140,94,.5)">
+            <div style="height:132px;background:repeating-linear-gradient(135deg,#F3F5F3 0 9px,#E9EDEA 9px 18px);display:flex;align-items:center;justify-content:center"><span style="font:400 9px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8D9B94">Article image</span></div>
+            <div>
+              <p style="font:400 11.5px/1 'Public Sans',sans-serif;color:#8D9B94;margin:0 0 9px">{{ post.date }}</p>
+              <h3 style="font:600 16px/1.35 Archivo,sans-serif;letter-spacing:-.01em;color:#0F2E22;margin:0 0 10px">{{ post.title }}</h3>
+              <p style="font:400 13px/1.65 'Public Sans',sans-serif;color:#5B6A63;margin:0 0 14px">{{ post.excerpt }}</p>
+              <span style="font:600 12px/1 'Public Sans',sans-serif;color:#4E8C5E;cursor:pointer">Read more →</span>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#E8F1EB;padding:88px 44px;text-align:center">
+      <h2 style="font:600 42px/1.12 Archivo,sans-serif;letter-spacing:-.025em;color:#1C5741;margin:0 0 18px;text-wrap:balance">Let's talk before you sign anything.</h2>
+      <p style="font:300 16px/1.7 'Public Sans',sans-serif;color:#3C4A44;margin:0 auto 32px;max-width:520px">Share a bit about your situation or goals. I review every inquiry personally and follow up.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button onClick="{{ goContact }}" style="padding:14px 28px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#3F7A4E">Contact Me</button>
+        <button onClick="{{ goNfl }}" style="padding:14px 28px;background:transparent;color:#0F2E22;border:1px solid rgba(15,46,34,.28);border-radius:3px;font:600 13.5px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:rgba(15,46,34,.06)">See Services</button>
+      </div>
+    </section>
+
+    <section style="background:#123A2B;display:grid;grid-template-columns:1fr 1fr;align-items:stretch">
+      <div style="padding:76px 44px">
+        <h2 style="font:600 34px/1.15 Archivo,sans-serif;letter-spacing:-.025em;color:#fff;margin:0 0 16px">Stay updated with my insights.</h2>
+        <p style="font:300 14.5px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.66);margin:0 0 28px;max-width:400px">Occasional notes on contracts, NIL, and the business of representation. No noise, no selling.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <input placeholder="Full name" style="flex:1 1 140px;padding:12px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:3px;color:#fff;font:400 13px/1 'Public Sans',sans-serif;outline:none">
+          <input placeholder="Email" style="flex:1 1 140px;padding:12px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:3px;color:#fff;font:400 13px/1 'Public Sans',sans-serif;outline:none">
+          <button style="padding:12px 24px;background:#4E8C5E;color:#fff;border:0;border-radius:3px;font:600 13px/1 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#5FA271">Join</button>
+        </div>
+      </div>
+      <div style="min-height:330px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 10px,rgba(255,255,255,.02) 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font:400 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)">Portrait / draft night photo</span></div>
+    </section>
+  </sc-if>
+</main>
+
+  <footer style="background:#0F2E22;padding:52px 44px 40px">
+    <div style="display:flex;align-items:flex-start;gap:40px;flex-wrap:wrap">
+      <div style="flex:1 1 260px;min-width:220px">
+        <div style="width:42px;height:42px;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <span style="font:700 15px/1 Archivo,sans-serif;letter-spacing:.04em;color:#0F1311">JF</span>
+        </div>
+        <p style="font:400 13px/1.7 'Public Sans',sans-serif;color:rgba(255,255,255,.62);margin:0;max-width:280px">Jesse L. Foreman, Esq. NFLPA-certified contract advisor and attorney. Athlete representation, contract negotiation, and strategic legal counsel.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;min-width:150px">
+        <span style="font:600 10.5px/1 'Public Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:3px">Services</span>
+        <span onClick="{{ goNfl }}" style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78);cursor:pointer" style-hover="color:#fff">NFL Representation</span>
+        <span onClick="{{ goLegal }}" style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78);cursor:pointer" style-hover="color:#fff">Legal Counsel</span>
+        <span onClick="{{ goEnt }}" style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78);cursor:pointer" style-hover="color:#fff">Entrepreneur Advisory</span>
+        <span onClick="{{ goSpeak }}" style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78);cursor:pointer" style-hover="color:#fff">Speaking &amp; Media</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;min-width:130px">
+        <span style="font:600 10.5px/1 'Public Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:3px">More</span>
+        <span onClick="{{ goAbout }}" style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78);cursor:pointer" style-hover="color:#fff">About</span>
+        <span onClick="{{ goInsights }}" style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78);cursor:pointer" style-hover="color:#fff">Insights</span>
+        <span onClick="{{ goBlog }}" style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78);cursor:pointer" style-hover="color:#fff">Blog</span>
+        <span onClick="{{ goContact }}" style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78);cursor:pointer" style-hover="color:#fff">Contact</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;min-width:180px">
+        <span style="font:600 10.5px/1 'Public Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:3px">Contact</span>
+        <span style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78)">thenflagent@gmail.com</span>
+        <span style="font:400 13px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.78)">(859) 640-8053</span>
+        <span style="font:400 13px/1.5 'Public Sans',sans-serif;color:rgba(255,255,255,.78)">Florence, Kentucky</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12)">
+      <span style="font:400 12px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.42)">© 2026 Jesse Foreman. All rights reserved.</span>
+      <span style="font:400 12px/1 'Public Sans',sans-serif;color:rgba(255,255,255,.42)">NFLPA Certified Contract Advisor since 2014</span>
+    </div>
+  </footer>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180}}">
+class Component extends DCLogic {
+  state = { page: 'home', q: 0 };
+
+  go(p) { return () => { this.setState({ page: p }); window.scrollTo(0, 0); }; }
+
+  renderVals() {
+    const p = this.state.page;
+    const quotes = [
+      { text: "Jesse read my deal line by line and found guarantees the last agent never asked for. He answers the phone. That alone puts him ahead.", name: "Client, NFL Veteran", role: "Third contract" },
+      { text: "He told me things I didn't want to hear about my market. He was right, and the offer we ended up signing proved it.", name: "Client, Draft Pick", role: "Rookie deal" },
+      { text: "The NIL structure he put together protected my likeness in ways I didn't know were negotiable.", name: "Client, Collegiate Athlete", role: "NIL representation" },
+      { text: "Straightforward, transparent, and quick. That combination is rare in this business.", name: "Client, Free Agent", role: "Free agency" }
+    ];
+    const labels = { home: 'Home', about: 'About', nfl: 'The NFL Agent', legal: 'Legal', ent: 'Entrepreneur', speak: 'Speaking & Media', insights: 'Insights', contact: 'Contact', blog: 'Blog' };
+
+    return {
+      pageLabel: labels[p],
+      isHome: p === 'home', isAbout: p === 'about', isNfl: p === 'nfl', isLegal: p === 'legal',
+      isEnt: p === 'ent', isSpeak: p === 'speak', isInsights: p === 'insights',
+      isContact: p === 'contact', isBlog: p === 'blog',
+      goHome: this.go('home'), goAbout: this.go('about'), goNfl: this.go('nfl'), goLegal: this.go('legal'),
+      goEnt: this.go('ent'), goSpeak: this.go('speak'), goInsights: this.go('insights'),
+      goContact: this.go('contact'), goBlog: this.go('blog'),
+
+      quote: quotes[this.state.q % quotes.length],
+      quotes,
+      prevQuote: () => this.setState(s => ({ q: (s.q + quotes.length - 1) % quotes.length })),
+      nextQuote: () => this.setState(s => ({ q: (s.q + 1) % quotes.length })),
+
+      homePosts: [
+        { title: "What guaranteed money actually guarantees", date: "March 2026", excerpt: "Offset language, injury protection, and the three clauses that decide whether a headline number ever reaches your account." },
+        { title: "The combine is a negotiation, not a tryout", date: "February 2026", excerpt: "How the weeks before the draft shape leverage long after a player is picked." },
+        { title: "NIL contracts are still being written badly", date: "January 2026", excerpt: "Perpetual likeness grants keep showing up in collegiate deals. Here is what to strike." },
+        { title: "Choosing an agent: questions nobody asks", date: "December 2025", excerpt: "Roster size, response time, and who actually sits in the room on your call." }
+      ],
+      posts: [
+        { title: "What guaranteed money actually guarantees", date: "March 2026", excerpt: "Offset language, injury protection, and the clauses that decide whether a headline number ever reaches your account." },
+        { title: "The combine is a negotiation, not a tryout", date: "February 2026", excerpt: "How the weeks before the draft shape leverage long after a player is picked." },
+        { title: "NIL contracts are still being written badly", date: "January 2026", excerpt: "Perpetual likeness grants keep showing up in collegiate deals. Here is what to strike." }
+      ],
+      blogPosts: [
+        { title: "What guaranteed money actually guarantees", date: "March 2026", excerpt: "Offset language, injury protection, and the clauses that decide whether a headline number reaches your account." },
+        { title: "The combine is a negotiation, not a tryout", date: "February 2026", excerpt: "How the weeks before the draft shape leverage long after a player is picked." },
+        { title: "NIL contracts are still being written badly", date: "January 2026", excerpt: "Perpetual likeness grants keep showing up in collegiate deals. Here is what to strike." },
+        { title: "Choosing an agent: questions nobody asks", date: "December 2025", excerpt: "Roster size, response time, and who actually sits in the room on your call." },
+        { title: "Digital rights caught the industry flat-footed", date: "November 2025", excerpt: "What running an NFT division taught me about how badly likeness is licensed." },
+        { title: "Financial literacy is a representation problem", date: "October 2025", excerpt: "If a player does not understand the deal, the deal was not explained well enough." }
+      ],
+      milestones: [
+        { year: "2012", title: "Became a football agent", body: "After years around athletes in the hospitality business, I started representing players full time." },
+        { year: "2014", title: "NFLPA certified", body: "Earned certification as a contract advisor after finishing my JD at the University of Cincinnati." },
+        { year: "2015", title: "Founded Global Sports and Entertainment", body: "Started an agency with a business partner and learned the operations side of representation the hard way." },
+        { year: "2021", title: "Young Money APAA", body: "Joined as an NFL agent and led the digital rights division, one of the first in the industry." },
+        { year: "2024", title: "Delta Sports Group", body: "Now a contract advisor at Delta Sports Group, founded by former NFL lineman Jammal Brown." }
+      ],
+      team: [
+        { name: "Financial Advisor", role: "Wealth & taxes" },
+        { name: "Marketing Lead", role: "Brand & endorsements" },
+        { name: "Performance Coach", role: "Training & combine prep" },
+        { name: "Legal Associate", role: "Contract review" }
+      ],
+      network: [
+        { name: "Financial Advisor", role: "Wealth planning", body: "Structures earnings so a short career funds a long life." },
+        { name: "Marketing Lead", role: "Brand strategy", body: "Builds endorsement pipelines that match the player, not the market." },
+        { name: "Performance Coach", role: "Combine prep", body: "Runs the training block between the last game and the draft." },
+        { name: "Legal Associate", role: "Contract review", body: "Second set of eyes on every document before it is signed." },
+        { name: "Tax Counsel", role: "Multi-state filing", body: "Handles the jock tax across every state a season touches." },
+        { name: "Media Trainer", role: "Press readiness", body: "Prepares clients for the interviews that shape their value." },
+        { name: "Business Advisor", role: "Ventures", body: "Vets the investments that come knocking after a signing bonus." },
+        { name: "Family Liaison", role: "Support", body: "Keeps parents and partners informed through the process." }
+      ],
+      nflServices: [
+        { title: "Contract Advisory", body: "Rookie deals, extensions, and veteran negotiations. I model the cap implications before I take a call with a team." },
+        { title: "Combine & Draft Prep", body: "Training placement, medical management, team interviews, and the positioning work that starts months before the draft." },
+        { title: "Career Management", body: "Trade requests, releases, and the mid-season conversations that decide where a career goes next." }
+      ],
+      legalServices: [
+        { title: "Contract Review", body: "Sharp, protective language written to your objectives rather than the team's template." },
+        { title: "Dispute Positioning", body: "Insight from both prosecution and defense angles to anticipate moves and reduce exposure." },
+        { title: "Likeness & IP", body: "Protecting identity, likeness, and long-term commercial value across every platform." }
+      ],
+      events: [
+        { when: "April 2026", title: "The Business of NIL", body: "A campus session for athletes and families on reading collegiate deals before signing them.", },
+        { when: "June 2026", title: "Family Office Sports Summit", body: "Panel on athlete investment structures and where representation fits alongside capital." },
+        { when: "September 2026", title: "Agent Certification Prep", body: "A candid session for law students considering the certification path." }
+      ],
+      speakQuotes: [
+        { text: "He explained cap mechanics to a room of nineteen-year-olds without talking down to a single one of them.", name: "Athletic Director", role: "Division I program" },
+        { text: "The most useful hour of our summit. Practical, specific, and no sales pitch.", name: "Conference Organizer", role: "Sports business summit" },
+        { text: "Our players still quote things he said about reading their own contracts.", name: "Head Coach", role: "Collegiate football" }
+      ],
+      nflFaqs: [
+        { q: "When should a player start talking to agents?", a: "Well before you are eligible to sign. The relationship matters more than the timing, and early conversations cost you nothing." },
+        { q: "How many clients do you represent?", a: "Deliberately few. Roster size is the single best predictor of whether your agent returns your call." },
+        { q: "What does representation cost?", a: "NFLPA rules cap contract advisor fees at three percent. I do not charge above the cap, and marketing terms are discussed separately." },
+        { q: "Do you work with undrafted players?", a: "Yes. Undrafted free agency is a negotiation too, and often a more important one." },
+        { q: "Does the law degree matter?", a: "It helps with contracts. Plenty of excellent agents do not have one, and I have never pretended otherwise." },
+        { q: "Who actually handles my account?", a: "I do. There is no associate layer between you and the person negotiating your deal." }
+      ],
+      legalFaqs: [
+        { q: "What types of clients do you work with?", a: "Professional athletes, performers, and the founders and businesses that operate around them." },
+        { q: "How do you approach a legal matter?", a: "Position first. I look at where a matter is likely to end before deciding how to open it." },
+        { q: "Is legal work separate from representation?", a: "It can be. Some clients bring me in only for contract review or a specific dispute." },
+        { q: "How quickly do you respond?", a: "Response times vary with active matters, but every inquiry is read personally." },
+        { q: "Do you handle matters outside Kentucky?", a: "Athlete matters routinely cross state lines. I will tell you plainly when local counsel is required." },
+        { q: "What should I send in a first message?", a: "A short summary of the situation and any deadline you are working against." }
+      ],
+      contactFaqs: [
+        { q: "How do I get started?", a: "Send a short note about your situation. If it is a fit, we will set up a call." },
+        { q: "What services do you offer?", a: "NFL representation, contract negotiation, legal counsel, NIL and brand advisory, and speaking." },
+        { q: "How do I book a consultation?", a: "Use the form above or email directly. I schedule calls myself." },
+        { q: "What can I expect on the first call?", a: "Questions about where you are, an honest read on your market, and no pressure to commit." },
+        { q: "Can I get ongoing support?", a: "That is the point. Representation is a multi-year relationship, not a single transaction." }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

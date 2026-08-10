@@ -63,6 +63,36 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+
+        /* Brand palette — values taken verbatim from the approved mockup. */
+        ink: "#0F1311",
+        forest: {
+          900: "#0F2E22",
+          800: "#123A2B",
+          700: "#1C5741",
+          hover: "#164434",
+        },
+        moss: {
+          DEFAULT: "#4E8C5E",
+          dark: "#3F7A4E",
+          light: "#5FA271",
+        },
+        mint: {
+          DEFAULT: "#7FBE92",
+          50: "#E8F1EB",
+        },
+        sage: {
+          50: "#F5F7F5",
+          100: "#E9EDEA",
+          200: "#F3F5F3",
+        },
+        paper: "#EDEEEB",
+        slate: {
+          dark: "#3C4A44",
+          body: "#5B6A63",
+          muted: "#8D9B94",
+        },
+        gold: "#C9A227",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -70,8 +100,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        display: ["'Bebas Neue'", "sans-serif"],
-        sans: ["'Source Sans 3'", "sans-serif"],
+        display: ["Archivo", "system-ui", "sans-serif"],
+        sans: ["'Public Sans'", "system-ui", "sans-serif"],
+        mono: ["ui-monospace", "Menlo", "monospace"],
       },
       keyframes: {
         "accordion-down": {
