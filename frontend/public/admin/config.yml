@@ -1,0 +1,103 @@
+# Decap CMS configuration for jesseforeman.com
+#
+# Editors reach this at https://jesseforeman.com/admin/. Vite copies
+# frontend/public/ verbatim into dist/, so this rides the existing deploy — no
+# separate bucket, distribution, or workflow step.
+#
+# There is no user database. Whoever may edit this site is decided entirely by
+# the collaborator list on github.com/lenhofr/jf-com; the OAuth broker hands
+# back a token reflecting what that GitHub user could already do.
+
+backend:
+  name: github
+  repo: lenhofr/jf-com
+  branch: main
+  # Shared broker, deployed from lenhofr/cms-oauth. It performs the OAuth code
+  # exchange that cannot happen in the browser, and serves every site we own.
+  base_url: https://cms-auth.lenhof.dev
+  auth_endpoint: auth
+
+# Opens a pull request on a cms/ branch instead of committing straight to main.
+# This IS the approval gate — GitHub's PR review is the supervising-attorney
+# checkpoint, so there is no separate approval UI to build. Removing this line
+# lets an editor publish to the live site unreviewed.
+publish_mode: editorial_workflow
+
+media_folder: "frontend/public/images/blog"
+public_folder: "/images/blog"
+
+collections:
+  - name: "blog"
+    label: "Blog posts"
+    label_singular: "Blog post"
+    description: >-
+      Posts appear at /blog and /blog/<slug>. Saving here opens a pull request
+      for review; nothing reaches the live site until that PR is merged.
+    folder: "content/blog"
+    create: true
+    # Name the file from the slug field rather than from the title, so the
+    # filename and the URL cannot drift apart. generate-posts.mjs warns when
+    # they do.
+    slug: "{{fields.slug}}"
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        hint: >-
+          URL segment — lowercase letters, numbers and single hyphens. This
+          becomes /blog/<slug> and the filename. Changing it on a published post
+          breaks any existing link to that post.
+        pattern:
+          [
+            "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "Lowercase letters, numbers and single hyphens only",
+          ]
+
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        # Without this, picking a date in a timezone behind UTC can store the
+        # previous day, which the site then renders as the wrong month.
+        picker_utc: true
+        hint: "Sorts the blog, newest first. Displayed as 'March 2026'."
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        # Must match postCategories in frontend/src/data/site.ts, which is the
+        # canonical list. There is no automated sync — but the build reads that
+        # array directly, so a value that drifts out of it fails the build with
+        # a clear error rather than rendering wrong.
+        options: ["Contracts", "NIL", "Draft", "Career"]
+
+      - label: "Excerpt"
+        name: "excerpt"
+        widget: "text"
+        hint: "Teaser shown on /blog, /insights and the home page. One or two sentences."
+
+      - label: "Hide from the site"
+        name: "draft"
+        widget: "boolean"
+        required: false
+        # Defaults to false because publication is already gated by the pull
+        # request. Defaulting to true means a merged post silently never appears
+        # until someone remembers to flip it — a failure mode with no error
+        # message anywhere.
+        default: false
+        hint: >-
+          Leave off. Turn on only to pull an already-published post from the
+          site while keeping the file.
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: >-
+          Raw HTML is not rendered — it appears as literal text on the page, and
+          HTML comments are stripped at build time.

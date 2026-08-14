@@ -12,3 +12,8 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# The CMS admin UI is a tool, not content. It is safe to expose — all authority
+# comes from GitHub repo permissions, not from reaching this page — but there is
+# no reason for it to appear in search results.
+Disallow: /admin/
