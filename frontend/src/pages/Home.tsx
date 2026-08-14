@@ -8,7 +8,7 @@ import {
   QuoteCarousel,
 } from "@/components/site/ui";
 import NewsletterForm from "@/components/site/NewsletterForm";
-import { affiliations, clientQuotes, posts } from "@/data/site";
+import { affiliations, clientQuotes, formatPostDate, posts } from "@/data/site";
 import heroPortrait from "@/assets/jForemanLI.jpeg";
 
 const practices = [
@@ -154,13 +154,13 @@ const Home = () => (
         <div className="grid gap-5 md:grid-cols-2">
           {posts.slice(0, 4).map((post) => (
             <article
-              key={post.title}
+              key={post.slug}
               className="grid gap-5 border border-forest-900/10 p-5 transition-colors hover:border-moss/50 sm:grid-cols-[150px_1fr]"
             >
               <ImageSlot label="Article image" className="h-[132px]" />
               <div>
                 <p className="m-0 mb-[9px] text-[11.5px] leading-none text-slate-muted">
-                  {post.date}
+                  {formatPostDate(post.date)}
                 </p>
                 <h3 className="m-0 mb-[10px] font-display text-base font-semibold leading-[1.35] tracking-[-0.01em] text-forest-900">
                   {post.title}
@@ -168,7 +168,7 @@ const Home = () => (
                 <p className="m-0 mb-[14px] text-[13px] leading-[1.65] text-slate-body">
                   {post.excerpt}
                 </p>
-                <ArrowLink to="/blog">Read more</ArrowLink>
+                <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
               </div>
             </article>
           ))}

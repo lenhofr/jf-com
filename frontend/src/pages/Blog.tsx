@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ArrowLink, Eyebrow, GhostButton, ImageSlot, PrimaryButton } from "@/components/site/ui";
 import NewsletterForm from "@/components/site/NewsletterForm";
-import { posts, postCategories } from "@/data/site";
+import { formatPostDate, posts, postCategories } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const PAGE_SIZE = 6;
@@ -68,16 +68,16 @@ const Blog = () => {
 
           <div className="grid gap-x-6 gap-y-7 md:grid-cols-2 lg:grid-cols-3">
             {visible.map((post) => (
-              <article key={post.title}>
+              <article key={post.slug}>
                 <ImageSlot label="Article image" className="mb-4 h-[180px]" />
                 <p className="m-0 mb-[9px] text-[11.5px] leading-none text-slate-muted">
-                  {post.date}
+                  {formatPostDate(post.date)}
                 </p>
                 <h3 className="m-0 mb-[10px] font-display text-[17px] font-semibold leading-[1.32] tracking-[-0.01em] text-forest-900">
                   {post.title}
                 </h3>
                 <p className="m-0 mb-3 text-[13px] leading-[1.7] text-slate-body">{post.excerpt}</p>
-                <ArrowLink>Read more</ArrowLink>
+                <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
               </article>
             ))}
           </div>

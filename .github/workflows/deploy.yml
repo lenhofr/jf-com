@@ -81,9 +81,13 @@ jobs:
           fi
           aws s3 sync ../../frontend/dist "s3://${{ steps.tf.outputs.bucket }}" --delete
 
+      # "/*" is a single billable invalidation path (1000/month are free), so a
+      # blanket invalidation costs the same as the old three-path list while also
+      # covering everything Vite copies verbatim out of frontend/public/ —
+      # /admin/config.yml, favicons, robots.txt — which the old list missed.
       - name: Invalidate CloudFront
         if: github.event_name == 'push'
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "${{ steps.tf.outputs.distribution_id }}" \
-            --paths "/index.html" "/" "/assets/*"
+            --paths "/*"
