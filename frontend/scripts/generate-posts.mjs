@@ -23,7 +23,15 @@ const outPath = path.join(repoRoot, "frontend/src/data/posts.generated.json");
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-const PLACEHOLDER_MARKER = "<!-- PLACEHOLDER BODY";
+
+/**
+ * Two grades of unfinished content, both flagged by an HTML comment at the top
+ * of the body. BODY means the frontmatter is approved mockup copy and only the
+ * prose is filler; POST means the whole entry is invented and nothing in it has
+ * been approved. Both are warned about on every build.
+ */
+const PLACEHOLDER_BODY_MARKER = "<!-- PLACEHOLDER BODY";
+const PLACEHOLDER_POST_MARKER = "<!-- PLACEHOLDER POST";
 
 /** Prefix every failure so the reason is obvious in CI log noise. */
 const fail = (message) => {
@@ -157,7 +165,8 @@ function readPost(file, categories, errors) {
   // <!-- comment --> would render as literal text on the page. Strip comments
   // here — after noting the placeholder marker, which is one of them.
   const rawBody = content.trim();
-  const hasPlaceholder = rawBody.includes(PLACEHOLDER_MARKER);
+  const placeholderBody = rawBody.includes(PLACEHOLDER_BODY_MARKER);
+  const placeholderPost = rawBody.includes(PLACEHOLDER_POST_MARKER);
   const body = stripHtmlComments(rawBody);
   if (body === "") {
     errors.push(`${file}: post body is empty.`);
@@ -180,7 +189,8 @@ function readPost(file, categories, errors) {
     category,
     excerpt,
     body,
-    hasPlaceholder,
+    placeholderBody,
+    placeholderPost,
     draft: data.draft === true,
     file,
   };
@@ -233,12 +243,25 @@ function main() {
     console.warn("⚠ generate-posts: every post is marked draft — the blog will render empty.");
   }
 
-  const placeholders = published.filter((post) => post.hasPlaceholder);
-  if (placeholders.length > 0) {
+  const wholesalePlaceholders = published.filter((post) => post.placeholderPost);
+  if (wholesalePlaceholders.length > 0) {
     console.warn(
-      `⚠ generate-posts: ${placeholders.length} post(s) still have placeholder lorem ipsum ` +
-        `bodies and need real content before this site is client-facing:\n` +
-        placeholders.map((p) => `    - ${p.slug}`).join("\n"),
+      `⚠ generate-posts: ${wholesalePlaceholders.length} post(s) are placeholders end to end — ` +
+        `title, excerpt, category and date are invented, not approved copy. Delete or replace ` +
+        `before this site is client-facing:\n` +
+        wholesalePlaceholders.map((p) => `    - ${p.slug}`).join("\n"),
+    );
+  }
+
+  const placeholderBodies = published.filter(
+    (post) => post.placeholderBody && !post.placeholderPost,
+  );
+  if (placeholderBodies.length > 0) {
+    console.warn(
+      `⚠ generate-posts: ${placeholderBodies.length} post(s) have approved frontmatter but ` +
+        `placeholder lorem ipsum bodies, and need real content before this site is ` +
+        `client-facing:\n` +
+        placeholderBodies.map((p) => `    - ${p.slug}`).join("\n"),
     );
   }
 

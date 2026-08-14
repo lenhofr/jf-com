@@ -33,17 +33,26 @@ The body is everything after the closing `---`, rendered as markdown.
 raw value — `formatPostDate()` in `site.ts` turns `2026-03-12` into
 `March 2026`. Storing a human string like `"March 2026"` here fails the build.
 
-## ⚠️ Placeholder bodies
+HTML comments are stripped from the body before it reaches the site.
+`react-markdown` escapes raw HTML rather than dropping it, so a comment left in
+would otherwise render as visible text on the page.
 
-All six migrated posts have **lorem ipsum bodies** and are marked with an HTML
-comment at the top:
+## ⚠️ Nothing here is finished content
 
-```
-<!-- PLACEHOLDER BODY — lorem ipsum. Needs real copy before this post is client-facing. -->
-```
+There are two grades of placeholder, each flagged by an HTML comment at the top
+of the body, and the generator warns about both — separately — on every build.
 
-Their titles, excerpts, categories, and dates are real copy from the approved
-mockup — only the bodies are filler, since the original `site.ts` array never
-had bodies. The generator prints a warning listing every post still carrying
-that marker. **Replace the bodies with real content before this site goes
-client-facing.**
+**`<!-- PLACEHOLDER BODY ... -->` — six posts.** Their titles, excerpts,
+categories, and dates are real copy from the approved mockup; only the bodies
+are lorem ipsum, since the original `site.ts` array never had bodies. Replace
+the prose, keep the frontmatter.
+
+**`<!-- PLACEHOLDER POST ... -->` — two posts.** Invented end to end: title,
+excerpt, category, and date included. Nothing in them has been approved by
+anyone. They exist only so the collection exceeds the `PAGE_SIZE = 6` on
+`/blog`, which makes the "Load More" control reachable — with exactly six posts
+it was unreachable dead code. They are dated oldest on purpose, so they sort to
+the second page and never surface in the home page or `/insights` teasers.
+Delete them once there is enough real content, or replace them.
+
+**Neither grade may reach a client-facing deploy as-is.**

@@ -69,7 +69,9 @@ problem it found and exits non-zero, failing the build rather than shipping a
 broken post. Dates are stored ISO (`2026-03-12`) and formatted for display
 (`March 2026`) by `formatPostDate()` in `site.ts`.
 
-> **Heads up:** the six migrated posts have lorem ipsum bodies. Their titles,
-> excerpts, categories, and dates are approved copy; the bodies are not. The
-> generator prints a warning naming each one. Replace them before this site is
-> client-facing.
+> **Heads up:** none of the eight posts is finished content, in two different
+> ways. Six carry approved titles, excerpts, categories, and dates from the
+> mockup but lorem ipsum bodies. The other two are invented end to end — they
+> exist only so the post count exceeds `PAGE_SIZE` and the "Load More" control
+> on `/blog` is reachable. The generator warns about each group by name on every
+> build. See [`content/README.md`](content/README.md).
