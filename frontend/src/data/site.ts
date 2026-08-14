@@ -2,7 +2,12 @@
  * All site copy in one place. Content comes verbatim from the approved
  * mockup (JesseForemanWebsiteMockupsZIP/Jesse Foreman Site.dc.html).
  * Edit here rather than in the page components.
+ *
+ * Blog posts are the exception: they live in content/blog/*.md at the repo root
+ * and are re-exported below from the generated JSON.
  */
+
+import generatedPosts from "./posts.generated.json";
 
 export const contact = {
   email: "thenflagent@gmail.com",
@@ -54,52 +59,59 @@ export const speakingQuotes: Quote[] = [
   },
 ];
 
+/**
+ * Canonical category list. The generator reads this declaration out of this
+ * file to validate frontmatter, and Decap's config.yml select must list the
+ * same values (kept in sync by hand for now).
+ */
 export const postCategories = ["Contracts", "NIL", "Draft", "Career"] as const;
 export type PostCategory = (typeof postCategories)[number];
 
-export type Post = { title: string; date: string; excerpt: string; category: PostCategory };
+export type Post = {
+  title: string;
+  /** ISO `YYYY-MM-DD`. Never rendered raw — run it through formatPostDate. */
+  date: string;
+  slug: string;
+  excerpt: string;
+  category: PostCategory;
+  /** Markdown source of the post body. */
+  body: string;
+};
 
-/** Sample posts from the mockup. Replace with real articles as they publish. */
-export const posts: Post[] = [
-  {
-    title: "What guaranteed money actually guarantees",
-    date: "March 2026",
-    excerpt:
-      "Offset language, injury protection, and the three clauses that decide whether a headline number ever reaches your account.",
-    category: "Contracts",
-  },
-  {
-    title: "The combine is a negotiation, not a tryout",
-    date: "February 2026",
-    excerpt: "How the weeks before the draft shape leverage long after a player is picked.",
-    category: "Draft",
-  },
-  {
-    title: "NIL contracts are still being written badly",
-    date: "January 2026",
-    excerpt:
-      "Perpetual likeness grants keep showing up in collegiate deals. Here is what to strike.",
-    category: "NIL",
-  },
-  {
-    title: "Choosing an agent: questions nobody asks",
-    date: "December 2025",
-    excerpt: "Roster size, response time, and who actually sits in the room on your call.",
-    category: "Career",
-  },
-  {
-    title: "Digital rights caught the industry flat-footed",
-    date: "November 2025",
-    excerpt: "What running an NFT division taught me about how badly likeness is licensed.",
-    category: "NIL",
-  },
-  {
-    title: "Financial literacy is a representation problem",
-    date: "October 2025",
-    excerpt: "If a player does not understand the deal, the deal was not explained well enough.",
-    category: "Career",
-  },
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
+
+/**
+ * Posts store ISO dates so they sort correctly and Decap's datetime widget can
+ * edit them, but the design shows "March 2026". Parsed by hand rather than via
+ * `new Date()` so a local timezone behind UTC can't roll the first of a month
+ * back into the previous one. Unparseable input falls back to the raw string.
+ */
+export function formatPostDate(iso: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!match) return iso;
+  const month = MONTHS[Number(match[2]) - 1];
+  return month ? `${month} ${match[1]}` : iso;
+}
+
+/**
+ * Posts come from markdown in content/blog/ at the repo root, compiled into
+ * posts.generated.json by scripts/generate-posts.mjs on every build. The
+ * generator has already validated every field and sorted newest first.
+ */
+export const posts: Post[] = generatedPosts as Post[];
 
 export const milestones = [
   {

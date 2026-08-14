@@ -1,6 +1,6 @@
 import { ArrowLink, Eyebrow, ImageSlot, OutlineButton } from "@/components/site/ui";
 import NewsletterForm from "@/components/site/NewsletterForm";
-import { posts } from "@/data/site";
+import { formatPostDate, posts } from "@/data/site";
 
 const series = [
   {
@@ -43,10 +43,10 @@ const Insights = () => (
 
         <div className="grid gap-6 md:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
-            <article key={post.title}>
+            <article key={post.slug}>
               <ImageSlot label="Article image" className="mb-[18px] h-[190px]" />
               <p className="m-0 mb-[10px] text-[11.5px] leading-none text-slate-muted">
-                {post.date}
+                {formatPostDate(post.date)}
               </p>
               <h3 className="m-0 mb-[10px] font-display text-[18px] font-semibold leading-[1.32] tracking-[-0.01em] text-forest-900">
                 {post.title}
@@ -54,7 +54,7 @@ const Insights = () => (
               <p className="m-0 mb-[14px] text-[13.5px] leading-[1.7] text-slate-body">
                 {post.excerpt}
               </p>
-              <ArrowLink to="/blog">Read more</ArrowLink>
+              <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
             </article>
           ))}
         </div>

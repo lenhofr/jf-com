@@ -3,6 +3,9 @@ frontend/node_modules/
 frontend/dist/
 frontend/.env
 
+# Build artifact — regenerated from content/blog/*.md by the prebuild hook.
+frontend/src/data/posts.generated.json
+
 .terraform/
 *.tfstate
 *.tfstate.backup
