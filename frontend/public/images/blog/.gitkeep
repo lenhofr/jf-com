@@ -1,0 +1,2 @@
+# Decap CMS uploads land here (media_folder in admin/config.yml).
+# Kept in git so the media library resolves before the first upload.

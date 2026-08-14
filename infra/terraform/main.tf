@@ -193,6 +193,31 @@ resource "aws_acm_certificate_validation" "site" {
   validation_record_fqdns = [for r in aws_route53_record.cert_validation : r.fqdn]
 }
 
+# default_root_object only applies to the distribution root, so a request for a
+# subdirectory like /admin/ asks S3 for the key "admin/", gets a 404, and falls
+# through custom_error_response into the SPA — which has no /admin route and
+# renders NotFound. This rewrites directory-style requests to their index.html
+# so the Decap admin UI resolves at /admin/.
+#
+# Paths without a trailing slash are untouched, so client-side routes such as
+# /blog/<slug> still 404 at S3 and fall through to the SPA as before.
+resource "aws_cloudfront_function" "directory_index" {
+  name    = "${var.project_name}-directory-index"
+  runtime = "cloudfront-js-2.0"
+  comment = "Rewrite /dir/ to /dir/index.html"
+  publish = true
+
+  code = <<-JS
+    function handler(event) {
+      var request = event.request;
+      if (request.uri.endsWith('/')) {
+        request.uri += 'index.html';
+      }
+      return request;
+    }
+  JS
+}
+
 resource "aws_cloudfront_distribution" "site" {
   enabled             = true
   is_ipv6_enabled     = true
@@ -214,6 +239,11 @@ resource "aws_cloudfront_distribution" "site" {
     cached_methods  = ["GET", "HEAD", "OPTIONS"]
 
     cache_policy_id = data.aws_cloudfront_cache_policy.caching_disabled.id
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.directory_index.arn
+    }
   }
 
   # Vite emits hashed assets under /assets; cache those aggressively.

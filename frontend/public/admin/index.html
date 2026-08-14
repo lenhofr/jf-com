@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The admin UI is not site content and should never be indexed. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Content admin — Jesse Foreman</title>
+  </head>
+  <body>
+    <!--
+      Pinned to an exact version rather than a range. This bundle can commit to
+      the content repository, so an unattended upgrade is not something we want
+      arriving via CDN on someone else's release schedule.
+    -->
+    <script src="https://unpkg.com/decap-cms@3.15.1/dist/decap-cms.js"></script>
+  </body>
+</html>

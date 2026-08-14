@@ -16,6 +16,14 @@ script runs automatically via npm's `prebuild` / `predev` hooks, so
 schema validation these files get, and it fails the build loudly on anything
 invalid rather than rendering a broken post.
 
+## Editing via the CMS
+
+Editors use the Decap admin UI at https://jesseforeman.com/admin/ rather than
+editing these files by hand. Saving there opens a pull request on a `cms/`
+branch; nothing reaches the live site until that PR is merged. The category
+dropdown in `frontend/public/admin/config.yml` must match `postCategories` in
+`site.ts` — the generator checks this and fails the build if they diverge.
+
 ## Frontmatter
 
 | Field      | Required | Notes                                                                     |

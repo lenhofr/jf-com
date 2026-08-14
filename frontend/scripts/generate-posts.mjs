@@ -19,6 +19,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptDir, "../..");
 const contentDir = path.join(repoRoot, "content/blog");
 const siteTsPath = path.join(repoRoot, "frontend/src/data/site.ts");
+const cmsConfigPath = path.join(repoRoot, "frontend/public/admin/config.yml");
 const outPath = path.join(repoRoot, "frontend/src/data/posts.generated.json");
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -66,6 +67,58 @@ function readCanonicalCategories() {
     fail(`postCategories in ${path.relative(repoRoot, siteTsPath)} is empty.`);
   }
   return categories;
+}
+
+/**
+ * Decap's category dropdown is a second copy of the same list, and nothing
+ * makes the two agree on their own. Divergence is already caught eventually —
+ * a post saved with an unknown category fails validation below — but only
+ * after an editor has written it and opened a pull request. Checking here moves
+ * that failure to whoever edits the config, which is where it belongs.
+ *
+ * The admin UI is optional: if config.yml is absent there is nothing to check.
+ */
+function assertCmsCategoriesMatch(categories) {
+  let source;
+  try {
+    source = fs.readFileSync(cmsConfigPath, "utf8");
+  } catch {
+    return;
+  }
+
+  const match = source.match(/name:\s*["']category["'][\s\S]*?options:\s*\[([^\]]*)\]/);
+  if (!match) {
+    fail(
+      `could not find the category 'options: [...]' list in ` +
+        `${path.relative(repoRoot, cmsConfigPath)}. It must stay in sync with ` +
+        `postCategories in ${path.relative(repoRoot, siteTsPath)}; if it was ` +
+        `reformatted, update this script to match.`,
+    );
+  }
+
+  const configured = [...match[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1]);
+  const missing = categories.filter((c) => !configured.includes(c));
+  const extra = configured.filter((c) => !categories.includes(c));
+
+  if (missing.length || extra.length) {
+    const lines = [];
+    if (extra.length) {
+      lines.push(
+        `  offers ${extra.map((c) => `"${c}"`).join(", ")}, which the site does not accept — ` +
+          `a post saved with one would fail this build.`,
+      );
+    }
+    if (missing.length) {
+      lines.push(`  is missing ${missing.map((c) => `"${c}"`).join(", ")}, so it cannot be chosen.`);
+    }
+    fail(
+      `the category list in ${path.relative(repoRoot, cmsConfigPath)} does not match ` +
+        `postCategories in ${path.relative(repoRoot, siteTsPath)}.\n` +
+        lines.join("\n") +
+        `\n\n  site.ts:    ${categories.join(", ")}\n` +
+        `  config.yml: ${configured.join(", ")}`,
+    );
+  }
 }
 
 /**
@@ -211,6 +264,7 @@ function main() {
   }
 
   const categories = readCanonicalCategories();
+  assertCmsCategoriesMatch(categories);
   const errors = [];
   const posts = files.map((file) => readPost(file, categories, errors)).filter(Boolean);
 
