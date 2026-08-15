@@ -5,6 +5,16 @@ import NewsletterForm from "@/components/site/NewsletterForm";
 import { formatPostDate, posts } from "@/data/site";
 import NotFound from "./NotFound";
 
+/**
+ * The CMS preview pane hand-mirrors this component's markup and class lists in
+ * `frontend/public/admin/index.html` — that page is static and cannot import
+ * from this bundle. Restyling here without updating it there leaves authors
+ * previewing a design the live site no longer uses. Nothing fails; the preview
+ * just quietly stops telling the truth.
+ *
+ * If this starts costing real time, the fix is making admin a Vite entry point
+ * so the preview can import this component directly.
+ */
 const BlogPost = () => {
   const { slug } = useParams();
   const index = posts.findIndex((p) => p.slug === slug);

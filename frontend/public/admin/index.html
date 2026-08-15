@@ -24,7 +24,22 @@
       The preview template below uses window.h and window.createClass, which
       this script defines. Both are part of Decap's documented extension API.
     -->
-    <script src="https://unpkg.com/decap-cms@3.15.1/dist/decap-cms.js"></script>
+    <!--
+      integrity pins the bytes, not just the version. This page holds a GitHub
+      token in localStorage, so a tampered CDN response would be running with
+      access to it; with SRI the browser refuses to execute anything that does
+      not hash to exactly this. Requires crossorigin, and unpkg serves
+      access-control-allow-origin: *.
+
+      Regenerate when bumping the version:
+        curl -s https://unpkg.com/decap-cms@<v>/dist/decap-cms.js \
+          | openssl dgst -sha384 -binary | openssl base64 -A
+    -->
+    <script
+      src="https://unpkg.com/decap-cms@3.15.1/dist/decap-cms.js"
+      integrity="sha384-in6eHztHveqQ7uMZ1fDaKlDmacQLFuLH2wWrFTiymyuS8zQ5bixwL8U3AeRi8h/L"
+      crossorigin="anonymous"
+    ></script>
 
     <script>
       (function () {
