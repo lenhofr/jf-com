@@ -4,6 +4,8 @@ slug: choosing-an-agent-questions-nobody-asks
 date: 2025-12-09
 category: Career
 excerpt: Roster size, response time, and who actually sits in the room on your call.
+image: /images/blog/jforemanli.jpeg
+imageAlt: jessehead
 draft: false
 ---
 <!-- PLACEHOLDER BODY — lorem ipsum. Needs real copy before this post is client-facing. -->
@@ -21,8 +23,6 @@ architecto beatae vitae dicta sunt explicabo.
 1. Nemo enim ipsam voluptatem quia voluptas sit aspernatur
 2. Aut odit aut fugit, sed quia consequuntur magni dolores
 3. Eos qui ratione voluptatem sequi nesciunt
-
-![](/images/blog/jforemanli.jpeg)
 
 ## Quis autem vel eum
 
