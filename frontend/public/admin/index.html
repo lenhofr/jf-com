@@ -9,10 +9,195 @@
   </head>
   <body>
     <!--
+      Manual init so the preview stylesheet is registered BEFORE the editor
+      mounts. Registering it afterwards leaves the first preview unstyled.
+    -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
+
+    <!--
       Pinned to an exact version rather than a range. This bundle can commit to
       the content repository, so an unattended upgrade is not something we want
       arriving via CDN on someone else's release schedule.
+
+      The preview template below uses window.h and window.createClass, which
+      this script defines. Both are part of Decap's documented extension API.
     -->
     <script src="https://unpkg.com/decap-cms@3.15.1/dist/decap-cms.js"></script>
+
+    <script>
+      (function () {
+        var h = window.h;
+
+        var MONTHS = [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December",
+        ];
+
+        /**
+         * Mirrors formatPostDate() in src/data/site.ts. Parsed by regex rather
+         * than with `new Date()` — in a timezone behind UTC, `new Date("2026-03-01")`
+         * lands on Feb 28 and the preview would show the wrong month.
+         *
+         * This is a deliberate duplicate: the admin page is plain static HTML and
+         * cannot import from the app bundle. If site.ts changes, change it here too.
+         */
+        function formatPostDate(value) {
+          if (!value) return "";
+          var match = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value));
+          if (!match) return String(value);
+          return MONTHS[Number(match[2]) - 1] + " " + match[1];
+        }
+
+        // Same class list as the .prose block in src/pages/BlogPost.tsx.
+        var PROSE =
+          "prose max-w-none " +
+          "prose-headings:font-display prose-headings:font-semibold " +
+          "prose-headings:tracking-[-0.02em] prose-headings:text-forest-900 " +
+          "prose-h2:mb-4 prose-h2:mt-10 prose-h2:text-[22px] prose-h2:leading-[1.25] " +
+          "prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-[18px] " +
+          "prose-p:text-[15.5px] prose-p:font-light prose-p:leading-[1.8] prose-p:text-slate-body " +
+          "prose-a:font-semibold prose-a:text-moss prose-a:no-underline hover:prose-a:text-forest-700 " +
+          "prose-strong:font-semibold prose-strong:text-forest-900 " +
+          "prose-blockquote:border-l prose-blockquote:border-moss " +
+          "prose-blockquote:font-display prose-blockquote:text-[17px] " +
+          "prose-blockquote:font-light prose-blockquote:not-italic " +
+          "prose-blockquote:text-forest-700 " +
+          "prose-li:text-[15.5px] prose-li:font-light prose-li:leading-[1.8] " +
+          "prose-li:text-slate-body " +
+          "prose-img:w-full";
+
+        /**
+         * Renders an entry the way /blog/<slug> renders it, so an author sees the
+         * real design rather than Decap's generic default preview. Markup tracks
+         * src/pages/BlogPost.tsx; the trailing newsletter and prev/next sections
+         * are omitted because neither depends on the entry being edited.
+         */
+        function BlogPostPreview(props) {
+          var data = props.entry.get("data");
+          var get = function (key) {
+            var value = data.get(key);
+            return value == null ? "" : value;
+          };
+
+          var image = get("image");
+          // Newly uploaded images are not committed yet, so resolve through
+          // getAsset — it hands back a local blob URL until the entry is saved.
+          var imageSrc = image ? props.getAsset(image).toString() : "";
+
+          return h(
+            "div",
+            null,
+            h(
+              "section",
+              { className: "on-dark bg-forest-800 py-16 md:py-20" },
+              h(
+                "div",
+                { className: "site-container max-w-[760px]" },
+                h(
+                  "p",
+                  {
+                    className:
+                      "m-0 mb-[18px] text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-mint",
+                  },
+                  get("category") || "Category",
+                ),
+                h(
+                  "h1",
+                  {
+                    className:
+                      "m-0 mb-[18px] text-balance font-display text-[32px] font-semibold leading-[1.1] tracking-[-0.03em] text-white md:text-[40px] lg:text-[44px]",
+                  },
+                  get("title") || "Untitled post",
+                ),
+                h(
+                  "p",
+                  { className: "m-0 mb-7 text-base font-light leading-[1.65] text-white/[0.72]" },
+                  get("excerpt"),
+                ),
+                h(
+                  "p",
+                  { className: "m-0 text-[11.5px] leading-none text-white/55" },
+                  formatPostDate(get("date")),
+                ),
+              ),
+            ),
+            h(
+              "section",
+              { className: "bg-white py-16 md:py-20" },
+              h(
+                "div",
+                { className: "site-container max-w-[760px]" },
+                imageSrc
+                  ? h(
+                      "div",
+                      { className: "mb-10 h-[240px] overflow-hidden md:h-[320px]" },
+                      h("img", {
+                        src: imageSrc,
+                        alt: get("imageAlt"),
+                        className: "h-full w-full object-cover",
+                      }),
+                    )
+                  : h(
+                      "div",
+                      {
+                        className:
+                          "placeholder-hatch mb-10 flex h-[240px] items-center justify-center md:h-[320px]",
+                        role: "img",
+                        "aria-label": "Article image",
+                      },
+                      h(
+                        "span",
+                        {
+                          className:
+                            "px-4 text-center font-mono text-[10px] uppercase leading-none tracking-[0.1em] text-slate-muted",
+                        },
+                        "Article image",
+                      ),
+                    ),
+                h("div", { className: PROSE }, props.widgetFor("body")),
+              ),
+            ),
+          );
+        }
+
+        /**
+         * The site's stylesheet is content-hashed by Vite, so its filename cannot
+         * be hard-coded here — it changes on every build that touches CSS. Read
+         * the live page and pull whatever it is currently linking.
+         */
+        function siteStylesheets() {
+          return fetch("/", { cache: "no-cache" })
+            .then(function (res) {
+              return res.text();
+            })
+            .then(function (html) {
+              var hrefs = [];
+              var re = /<link[^>]+href="([^"]+\.css)"[^>]*>/gi;
+              var match;
+              while ((match = re.exec(html)) !== null) hrefs.push(match[1]);
+              return hrefs;
+            });
+        }
+
+        siteStylesheets()
+          .then(function (hrefs) {
+            if (!hrefs.length) throw new Error("no stylesheet found on /");
+            hrefs.forEach(function (href) {
+              window.CMS.registerPreviewStyle(href);
+            });
+          })
+          .catch(function (err) {
+            // An unstyled preview is worse than a styled one but far better than
+            // an admin UI that will not load, so never block init on this.
+            console.warn("Falling back to an unstyled preview:", err);
+          })
+          .then(function () {
+            window.CMS.registerPreviewTemplate("blog", BlogPostPreview);
+            window.CMS.init();
+          });
+      })();
+    </script>
   </body>
 </html>

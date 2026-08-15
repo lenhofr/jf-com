@@ -23,6 +23,13 @@ backend:
 # lets an editor publish to the live site unreviewed.
 publish_mode: editorial_workflow
 
+# Branding. logo_url shows on the login screen and in the editor header;
+# site_url and display_url turn the header link into a way back to the live site
+# rather than a dead label.
+logo_url: /square_badge.png
+site_url: https://jesseforeman.com
+display_url: https://jesseforeman.com
+
 media_folder: "frontend/public/images/blog"
 public_folder: "/images/blog"
 
