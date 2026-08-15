@@ -82,6 +82,28 @@ collections:
         widget: "text"
         hint: "Teaser shown on /blog, /insights and the home page. One or two sentences."
 
+      - label: "Article image"
+        name: "image"
+        widget: "image"
+        required: false
+        # Uploads land in media_folder and the path written here comes from
+        # public_folder, so this ends up as /images/blog/<file>.
+        hint: >-
+          Shown at the top of the post and on its card in the blog list. Leave
+          empty to keep the hatched placeholder. Wide images work best — it is
+          cropped to fill a short banner.
+
+      - label: "Image description"
+        name: "imageAlt"
+        widget: "string"
+        required: false
+        # Not required by Decap, because Decap cannot make one field's necessity
+        # depend on another. The build enforces it instead, so a missing
+        # description fails CI on the pull request rather than shipping.
+        hint: >-
+          Required if you add an image. Describe what the image shows, for
+          screen readers and for when the image fails to load.
+
       - label: "Hide from the site"
         name: "draft"
         widget: "boolean"

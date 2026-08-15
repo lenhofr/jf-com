@@ -69,7 +69,12 @@ const Blog = () => {
           <div className="grid gap-x-6 gap-y-7 md:grid-cols-2 lg:grid-cols-3">
             {visible.map((post) => (
               <article key={post.slug}>
-                <ImageSlot label="Article image" className="mb-4 h-[180px]" />
+                <ImageSlot
+                  label="Article image"
+                  src={post.image}
+                  alt={post.imageAlt}
+                  className="mb-4 h-[180px]"
+                />
                 <p className="m-0 mb-[9px] text-[11.5px] leading-none text-slate-muted">
                   {formatPostDate(post.date)}
                 </p>

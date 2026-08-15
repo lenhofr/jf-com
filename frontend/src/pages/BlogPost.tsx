@@ -38,7 +38,12 @@ const BlogPost = () => {
 
       <section className="bg-white py-16 md:py-20">
         <div className="site-container max-w-[760px]">
-          <ImageSlot label="Article image" className="mb-10 h-[240px] md:h-[320px]" />
+          <ImageSlot
+            label="Article image"
+            src={post.image}
+            alt={post.imageAlt}
+            className="mb-10 h-[240px] md:h-[320px]"
+          />
 
           <div
             className="prose max-w-none
