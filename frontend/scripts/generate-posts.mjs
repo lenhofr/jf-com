@@ -191,6 +191,28 @@ function readPost(file, categories, errors) {
     );
   }
 
+  // Optional. Decap writes the public_folder path, e.g. /images/blog/foo.jpg.
+  const image = typeof data.image === "string" ? data.image.trim() : "";
+  const imageAlt = typeof data.imageAlt === "string" ? data.imageAlt.trim() : "";
+
+  if (image && !image.startsWith("/")) {
+    errors.push(
+      `${file}: 'image' must be a site-absolute path starting with "/" ` +
+        `(got "${image}"). Decap writes these using public_folder, so /images/blog/... is correct.`,
+    );
+  }
+  // A missing alt is invisible in review — the page looks fine and only screen
+  // reader users are affected — so it fails the build rather than warning.
+  if (image && !imageAlt) {
+    errors.push(
+      `${file}: 'imageAlt' is required when 'image' is set. Describe the image ` +
+        `for screen readers; if it is purely decorative, remove the image instead.`,
+    );
+  }
+  if (!image && imageAlt) {
+    errors.push(`${file}: 'imageAlt' is set but 'image' is not — nothing to describe.`);
+  }
+
   const date = normaliseDate(data.date);
   if (!date) {
     errors.push(
@@ -241,6 +263,8 @@ function readPost(file, categories, errors) {
     date,
     category,
     excerpt,
+    image,
+    imageAlt,
     body,
     placeholderBody,
     placeholderPost,
@@ -321,12 +345,16 @@ function main() {
 
   // Only the fields the site renders reach the bundle — draft/file/hasPlaceholder
   // are build-time bookkeeping.
-  const output = published.map(({ title, slug, date, category, excerpt, body }) => ({
+  // Omit image/imageAlt entirely when unset rather than emitting empty strings —
+  // ImageSlot switches on src being falsy, and "" would still be falsy but adds
+  // noise to every post in the bundle.
+  const output = published.map(({ title, slug, date, category, excerpt, image, imageAlt, body }) => ({
     title,
     slug,
     date,
     category,
     excerpt,
+    ...(image ? { image, imageAlt } : {}),
     body,
   }));
 

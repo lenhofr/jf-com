@@ -74,6 +74,13 @@ export type Post = {
   slug: string;
   excerpt: string;
   category: PostCategory;
+  /**
+   * Site-absolute path to the article image, e.g. `/images/blog/foo.jpg`.
+   * Optional — without it the hatched ImageSlot placeholder shows instead.
+   */
+  image?: string;
+  /** Alt text for `image`. Required by the build whenever `image` is set. */
+  imageAlt?: string;
   /** Markdown source of the post body. */
   body: string;
 };
