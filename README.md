@@ -69,9 +69,28 @@ problem it found and exits non-zero, failing the build rather than shipping a
 broken post. Dates are stored ISO (`2026-03-12`) and formatted for display
 (`March 2026`) by `formatPostDate()` in `site.ts`.
 
-> **Heads up:** none of the eight posts is finished content, in two different
-> ways. Six carry approved titles, excerpts, categories, and dates from the
-> mockup but lorem ipsum bodies. The other two are invented end to end — they
-> exist only so the post count exceeds `PAGE_SIZE` and the "Load More" control
-> on `/blog` is reachable. The generator warns about each group by name on every
-> build. See [`content/README.md`](content/README.md).
+> **Heads up:** all eight posts have real bodies, and **none of them was written
+> by Jesse.** They publish under his byline and need his sign-off. Two of the
+> eight are invented end to end, title and excerpt included — they exist only so
+> the post count exceeds `PAGE_SIZE` and the "Load More" control on `/blog` is
+> reachable. The generator warns about each group by name on every build. See
+> [`docs/content-review.md`](docs/content-review.md) for the full sign-off
+> checklist, and [`content/README.md`](content/README.md) for the frontmatter
+> schema.
+
+## Unfilled images
+
+The approved mockup left every image as a hatched placeholder, and most of the
+photography it calls for is of a real person, real clients, and real rooms — so
+it cannot be substituted with stock.
+
+Instead of shipping boxes captioned "Panel photo", unfilled slots render
+generated brand art from
+[`frontend/src/components/site/art.tsx`](frontend/src/components/site/art.tsx),
+or a panel of real information (credentials, ventures, session formats, press).
+The art is inline SVG — no assets, no requests, sharp at any size — and
+deterministic, so a post's card and its banner always match.
+
+Adding a real photograph needs no other change: pass `src` to `ImageSlot` and the
+art steps aside. `docs/content-review.md` lists which file each remaining slot
+lives in.

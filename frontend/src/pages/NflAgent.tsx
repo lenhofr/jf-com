@@ -1,20 +1,16 @@
-import {
-  Eyebrow,
-  FaqList,
-  GhostButton,
-  ImageSlot,
-  PrimaryButton,
-  QuoteCarousel,
-} from "@/components/site/ui";
-import { clientQuotes, nflFaqs, nflServices } from "@/data/site";
+import { Eyebrow, FaqList, GhostButton, PrimaryButton, QuoteCarousel } from "@/components/site/ui";
+import { FactList, FieldArt, StatementPanel } from "@/components/site/art";
+import { clientQuotes, credentials, nflFaqs, nflServices } from "@/data/site";
 
 const NflAgent = () => (
   <>
     <section className="on-dark relative flex min-h-[420px] items-end overflow-hidden bg-forest-900 md:min-h-[480px]">
+      {/* Art fills the right half where the mockup called for a stadium photo. */}
+      <div className="absolute inset-y-0 right-0 hidden w-[52%] md:block">
+        <FieldArt seed="nfl-hero" tone="dark" variant={0} className="h-full w-full" />
+        <div className="absolute inset-0 bg-gradient-to-r from-forest-900 via-forest-900/70 to-forest-900/25" />
+      </div>
       <div className="hero-hatch absolute inset-0" />
-      <span className="absolute right-[26px] top-[22px] font-mono text-[10px] uppercase leading-none tracking-[0.12em] text-white/35">
-        Stadium / draft photo
-      </span>
       <div className="site-container relative pb-14 pt-24 md:pb-[68px]">
         <div className="max-w-[720px]">
           <Eyebrow tone="dark" className="mb-5">
@@ -48,7 +44,14 @@ const NflAgent = () => (
             market even when it costs me the signature.
           </p>
         </div>
-        <ImageSlot label="Jesse with client" className="h-[260px] md:h-[340px]" />
+        <StatementPanel
+          eyebrow="Credentials"
+          seed="nfl-credentials"
+          tone="dark"
+          className="min-h-[260px] md:min-h-[340px]"
+        >
+          <FactList items={credentials} />
+        </StatementPanel>
       </div>
     </section>
 

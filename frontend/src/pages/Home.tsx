@@ -7,8 +7,10 @@ import {
   PrimaryButton,
   QuoteCarousel,
 } from "@/components/site/ui";
+import { StatementPanel, WordmarkTile } from "@/components/site/art";
+import { categoryAccent } from "@/lib/art-tokens";
 import NewsletterForm from "@/components/site/NewsletterForm";
-import { affiliations, clientQuotes, formatPostDate, posts } from "@/data/site";
+import { affiliations, clientQuotes, formatPostDate, posts, pressMentions } from "@/data/site";
 import heroPortrait from "@/assets/jForemanLI.jpeg";
 
 const practices = [
@@ -48,9 +50,9 @@ const Home = () => (
           src={heroPortrait}
           alt=""
           aria-hidden="true"
-          className="h-full w-full object-cover object-[50%_22%] opacity-75"
+          className="h-full w-full object-cover object-[50%_22%] opacity-90"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-forest-900 via-forest-900/60 to-forest-900/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-forest-900 via-forest-900/45 to-transparent" />
       </div>
       <div className="hero-hatch absolute inset-0" />
       <div className="site-container relative pb-14 pt-24 md:pb-[76px]">
@@ -125,7 +127,7 @@ const Home = () => (
         <Eyebrow className="mb-8 text-center">Affiliations &amp; Partnerships</Eyebrow>
         <div className="grid grid-cols-2 gap-[14px] md:grid-cols-4">
           {affiliations.map((a) => (
-            <ImageSlot key={a} label={a} className="h-[84px]" />
+            <WordmarkTile key={a} name={a} className="h-[84px]" />
           ))}
         </div>
       </div>
@@ -157,7 +159,14 @@ const Home = () => (
               key={post.slug}
               className="grid gap-5 border border-forest-900/10 p-5 transition-colors hover:border-moss/50 sm:grid-cols-[150px_1fr]"
             >
-              <ImageSlot label="Article image" className="h-[132px]" />
+              <ImageSlot
+                label="Article image"
+                src={post.image}
+                alt={post.imageAlt}
+                seed={post.slug}
+                accent={categoryAccent(post.category)}
+                className="h-[132px]"
+              />
               <div>
                 <p className="m-0 mb-[9px] text-[11.5px] leading-none text-slate-muted">
                   {formatPostDate(post.date)}
@@ -205,11 +214,27 @@ const Home = () => (
         </p>
         <NewsletterForm tone="dark" withName buttonLabel="Join" />
       </div>
-      <ImageSlot
-        label="Portrait / draft night photo"
+      <StatementPanel
+        eyebrow="Featured In"
+        seed="home-press"
         tone="dark"
         className="min-h-[240px] lg:min-h-[330px]"
-      />
+      >
+        <div className="flex flex-wrap gap-x-8 gap-y-4">
+          {pressMentions.map((p) => (
+            <span
+              key={p}
+              className="font-display text-[19px] font-semibold leading-none tracking-[-0.01em] text-white/85 md:text-[22px]"
+            >
+              {p}
+            </span>
+          ))}
+        </div>
+        <p className="m-0 mt-7 max-w-[320px] text-[13px] font-light leading-[1.7] text-white/55">
+          Quoted on representation, NIL, and digital rights. Former Forbes Business Council member
+          and contributor.
+        </p>
+      </StatementPanel>
     </section>
   </>
 );

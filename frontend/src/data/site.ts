@@ -146,6 +146,54 @@ export const milestones = [
     title: "Delta Sports Group",
     body: "Now a contract advisor at Delta Sports Group, founded by former NFL lineman Jammal Brown.",
   },
+  {
+    year: "2025",
+    title: "Licensed to practice in Kentucky",
+    body: "Eleven years after finishing the JD, I took the bar and began practising law alongside the agency work.",
+  },
+];
+
+/**
+ * Credentials and press below are drawn from docs/bio.txt, the client-supplied
+ * biography in this repo. They are the only factual claims on the site that did
+ * not come from the approved mockup — worth a check against the record before a
+ * client-facing sign-off.
+ */
+export const credentials = [
+  { label: "Certification", value: "NFLPA Certified Contract Advisor" },
+  { label: "Bar Admission", value: "Licensed attorney, Kentucky" },
+  { label: "Juris Doctor", value: "University of Cincinnati College of Law" },
+  { label: "Practice", value: "Delta Sports Group" },
+];
+
+export const pressMentions = ["Forbes", "Yahoo", "Nasdaq", "ESPN"];
+
+/** Restates the legalServices copy below as a scannable list for the CTA panel. */
+export const legalScope = [
+  { label: "Before Signing", value: "Contract and offer-sheet review" },
+  { label: "Disputes", value: "Positioning and exposure assessment" },
+  { label: "Likeness & IP", value: "Rights, licensing, and takedowns" },
+  { label: "Multi-State", value: "Counsel coordination across jurisdictions" },
+];
+
+export const ventures = [
+  { label: "2015", value: "Global Sports and Entertainment, co-founder" },
+  { label: "2021", value: "Young Money APAA, digital rights division" },
+  { label: "Since 2024", value: "Delta Sports Group, contract advisor" },
+  { label: "Advisory", value: "Likeness, licensing, and brand structures" },
+];
+
+export const seriesFacts = [
+  { label: "Format", value: "Long-form conversations, published as written pieces" },
+  { label: "Guests", value: "Players, advisors, and front-office voices" },
+  { label: "Subjects", value: "Contracts, NIL, the draft, and life after it" },
+];
+
+export const speakingFormats = [
+  { label: "Team & Program", value: "Locker-room and position-group sessions" },
+  { label: "Campus", value: "NIL briefings for athletes and families" },
+  { label: "Industry", value: "Summit panels and keynote sessions" },
+  { label: "Law School", value: "Certification path and sports-practice talks" },
 ];
 
 export const team = [

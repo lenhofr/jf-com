@@ -1,4 +1,5 @@
 import { Eyebrow, ImageSlot, PrimaryButton } from "@/components/site/ui";
+import { RoleTile, StatementPanel } from "@/components/site/art";
 import { clientQuotes, milestones, team } from "@/data/site";
 import officePortrait from "@/assets/jess_working.jpeg";
 
@@ -28,7 +29,19 @@ const About = () => (
           className="h-[240px] md:h-[300px]"
           imgClassName="object-[50%_28%]"
         />
-        <ImageSlot label="Combine / sideline" className="h-[240px] md:h-[300px]" />
+        <StatementPanel
+          eyebrow="In Short"
+          seed="about-quote"
+          tone="dark"
+          className="min-h-[240px] md:min-h-[300px]"
+        >
+          <blockquote className="m-0">
+            <p className="m-0 font-display text-[19px] font-light leading-[1.45] text-white md:text-[21px]">
+              “I went to law school to become an agent. Eleven years later I went back and took the
+              bar, because reading the contract yourself is the whole job.”
+            </p>
+          </blockquote>
+        </StatementPanel>
       </div>
     </section>
 
@@ -86,9 +99,9 @@ const About = () => (
         </div>
 
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
-          {team.map((t) => (
+          {team.map((t, i) => (
             <div key={t.name}>
-              <ImageSlot label="Headshot" tone="dark" className="mb-4 aspect-square" />
+              <RoleTile index={i} className="mb-4 aspect-square" />
               <h3 className="m-0 mb-[5px] font-display text-[15px] font-semibold leading-[1.3] text-white">
                 {t.name}
               </h3>

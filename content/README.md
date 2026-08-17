@@ -45,22 +45,28 @@ HTML comments are stripped from the body before it reaches the site.
 `react-markdown` escapes raw HTML rather than dropping it, so a comment left in
 would otherwise render as visible text on the page.
 
-## ⚠️ Nothing here is finished content
+## ⚠️ Every post is ghostwritten and unapproved
 
-There are two grades of placeholder, each flagged by an HTML comment at the top
-of the body, and the generator warns about both — separately — on every build.
+The lorem ipsum is gone — all eight posts now have real, substantive bodies. But
+none of them was written by Jesse, and they publish under his byline. Two grades
+of flag, each an HTML comment at the top of the body, each warned about
+separately by the generator on every build:
 
-**`<!-- PLACEHOLDER BODY ... -->` — six posts.** Their titles, excerpts,
-categories, and dates are real copy from the approved mockup; only the bodies
-are lorem ipsum, since the original `site.ts` array never had bodies. Replace
-the prose, keep the frontmatter.
+**`<!-- GHOSTWRITTEN ... -->` — six posts.** Titles, excerpts, categories, and
+dates are approved mockup copy. The bodies were drafted for him and have not
+been reviewed by him. They are deliberately educational and general: contract
+and NIL mechanics, no client names, no deal figures, no case outcomes, nothing
+asserted about his personal history that is not already elsewhere in this repo.
+That keeps the exposure low, but it does not make them his words.
 
-**`<!-- PLACEHOLDER POST ... -->` — two posts.** Invented end to end: title,
-excerpt, category, and date included. Nothing in them has been approved by
-anyone. They exist only so the collection exceeds the `PAGE_SIZE = 6` on
-`/blog`, which makes the "Load More" control reachable — with exactly six posts
-it was unreachable dead code. They are dated oldest on purpose, so they sort to
-the second page and never surface in the home page or `/insights` teasers.
-Delete them once there is enough real content, or replace them.
+**`<!-- PLACEHOLDER POST ... -->` — two posts.** Everything invented, title and
+excerpt included. They exist only so the collection exceeds `PAGE_SIZE = 6` in
+`Blog.tsx`, which makes the "Load More" control reachable — with exactly six
+posts it was unreachable dead code. Dated oldest on purpose, so they sort to the
+second page and never surface in the home page or `/insights` teasers. Deleting
+the two files is the whole rollback.
 
-**Neither grade may reach a client-facing deploy as-is.**
+**A licensed attorney's byline is not a placeholder.** Jesse should read all
+eight before this counts as client-facing, and the two invented ones need his
+sign-off on the premise, not just the prose. `docs/content-review.md` is the
+checklist.

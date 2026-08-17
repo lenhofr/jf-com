@@ -1,5 +1,6 @@
-import { ArrowLink, Eyebrow, ImageSlot, PrimaryButton } from "@/components/site/ui";
-import { events, speakingQuotes } from "@/data/site";
+import { ArrowLink, Eyebrow, PrimaryButton } from "@/components/site/ui";
+import { FactList, StatementPanel } from "@/components/site/art";
+import { events, pressMentions, speakingFormats, speakingQuotes } from "@/data/site";
 
 const Speaking = () => (
   <>
@@ -33,10 +34,44 @@ const Speaking = () => (
         </div>
 
         <div className="grid gap-5 md:grid-cols-[1.4fr_1fr]">
-          <ImageSlot label="Podcast / interview still" className="h-[240px] md:h-[330px]" />
+          <StatementPanel
+            eyebrow="Featured In"
+            seed="speaking-press"
+            tone="dark"
+            className="min-h-[240px] md:min-h-[330px]"
+          >
+            <div className="flex flex-wrap gap-x-9 gap-y-5">
+              {pressMentions.map((p) => (
+                <span
+                  key={p}
+                  className="font-display text-[22px] font-semibold leading-none tracking-[-0.01em] text-white/85 md:text-[27px]"
+                >
+                  {p}
+                </span>
+              ))}
+            </div>
+            <p className="m-0 mt-8 max-w-[380px] text-[13.5px] font-light leading-[1.7] text-white/55">
+              Interviewed and quoted on representation, NIL, and digital rights, and a Forbes
+              Business Council member and contributor for several years.
+            </p>
+          </StatementPanel>
           <div className="grid gap-5 md:grid-rows-2">
-            <ImageSlot label="Panel photo" className="h-[155px]" />
-            <ImageSlot label="Press clipping" className="h-[155px]" />
+            <div className="flex flex-col justify-center border border-forest-900/[0.12] bg-sage-50 px-7 py-6">
+              <p className="m-0 mb-2 font-mono text-[10.5px] font-semibold uppercase leading-none tracking-[0.1em] text-moss">
+                Formats
+              </p>
+              <p className="m-0 text-[14px] leading-[1.6] text-forest-900">
+                Keynotes, panels, campus briefings, and locker-room sessions.
+              </p>
+            </div>
+            <div className="flex flex-col justify-center border border-forest-900/[0.12] bg-sage-50 px-7 py-6">
+              <p className="m-0 mb-2 font-mono text-[10.5px] font-semibold uppercase leading-none tracking-[0.1em] text-moss">
+                Audiences
+              </p>
+              <p className="m-0 text-[14px] leading-[1.6] text-forest-900">
+                Athletes and families, athletic departments, summits, and law schools.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -90,7 +125,14 @@ const Speaking = () => (
 
     <section className="bg-white py-16 md:py-[84px]">
       <div className="site-container grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-        <ImageSlot label="Speaking on stage" className="h-[240px] md:h-[320px]" />
+        <StatementPanel
+          eyebrow="Session Types"
+          seed="speaking-formats"
+          tone="dark"
+          className="min-h-[240px] md:min-h-[320px]"
+        >
+          <FactList items={speakingFormats} />
+        </StatementPanel>
         <div>
           <h2 className="m-0 mb-[18px] font-display text-[30px] font-semibold leading-[1.14] tracking-[-0.025em] text-forest-700 md:text-[36px]">
             Book a session.

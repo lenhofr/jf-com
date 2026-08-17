@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowLink, Eyebrow, GhostButton, ImageSlot, PrimaryButton } from "@/components/site/ui";
+import { categoryAccent } from "@/lib/art-tokens";
 import NewsletterForm from "@/components/site/NewsletterForm";
 import { formatPostDate, posts, postCategories } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -41,7 +42,12 @@ const Blog = () => {
               </GhostButton>
             </div>
           </div>
-          <ImageSlot label="Feature image" tone="dark" className="h-[220px] lg:h-[280px]" />
+          <ImageSlot
+            label="Feature image"
+            tone="dark"
+            seed="blog-hero"
+            className="h-[220px] lg:h-[280px]"
+          />
         </div>
       </section>
 
@@ -73,6 +79,8 @@ const Blog = () => {
                   label="Article image"
                   src={post.image}
                   alt={post.imageAlt}
+                  seed={post.slug}
+                  accent={categoryAccent(post.category)}
                   className="mb-4 h-[180px]"
                 />
                 <p className="m-0 mb-[9px] text-[11.5px] leading-none text-slate-muted">
