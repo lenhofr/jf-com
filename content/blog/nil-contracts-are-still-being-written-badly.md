@@ -1,9 +1,10 @@
 ---
-title: "NIL contracts are still being written badly"
-slug: "nil-contracts-are-still-being-written-badly"
-date: "2026-01-21"
-category: "NIL"
-excerpt: "Perpetual likeness grants keep showing up in collegiate deals. Here is what to strike."
+title: NIL contracts are still being written badly ROBTEST
+slug: nil-contracts-are-still-being-written-badly
+date: 2026-01-21
+category: NIL
+excerpt: Perpetual likeness grants keep showing up in collegiate deals. Here is
+  what to strike.
 draft: false
 ---
 
