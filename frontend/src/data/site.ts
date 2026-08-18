@@ -105,6 +105,11 @@ const MONTHS = [
  * edit them, but the design shows "March 2026". Parsed by hand rather than via
  * `new Date()` so a local timezone behind UTC can't roll the first of a month
  * back into the previous one. Unparseable input falls back to the raw string.
+ *
+ * DUPLICATED in `frontend/public/admin/index.html`, which powers the CMS preview
+ * pane. That page is static and cannot import from this bundle, so changing the
+ * format here without changing it there makes the preview disagree with the live
+ * site — silently, and only visible to whoever is writing the post.
  */
 export function formatPostDate(iso: string): string {
   const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
