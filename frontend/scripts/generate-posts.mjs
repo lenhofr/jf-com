@@ -26,12 +26,17 @@ const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 /**
- * Two grades of unfinished content, both flagged by an HTML comment at the top
- * of the body. BODY means the frontmatter is approved mockup copy and only the
- * prose is filler; POST means the whole entry is invented and nothing in it has
- * been approved. Both are warned about on every build.
+ * Two grades of unapproved content, both flagged by an HTML comment at the top
+ * of the body, and both warned about on every build.
+ *
+ * GHOSTWRITTEN: the frontmatter is approved mockup copy and the body was
+ * drafted for Jesse rather than by him. It publishes under his byline, so it
+ * needs his sign-off even though it reads as finished.
+ *
+ * PLACEHOLDER POST: the whole entry is invented — title and excerpt included —
+ * and nothing in it has been approved by anyone.
  */
-const PLACEHOLDER_BODY_MARKER = "<!-- PLACEHOLDER BODY";
+const GHOSTWRITTEN_MARKER = "<!-- GHOSTWRITTEN";
 const PLACEHOLDER_POST_MARKER = "<!-- PLACEHOLDER POST";
 
 /** Prefix every failure so the reason is obvious in CI log noise. */
@@ -109,7 +114,9 @@ function assertCmsCategoriesMatch(categories) {
       );
     }
     if (missing.length) {
-      lines.push(`  is missing ${missing.map((c) => `"${c}"`).join(", ")}, so it cannot be chosen.`);
+      lines.push(
+        `  is missing ${missing.map((c) => `"${c}"`).join(", ")}, so it cannot be chosen.`,
+      );
     }
     fail(
       `the category list in ${path.relative(repoRoot, cmsConfigPath)} does not match ` +
@@ -240,7 +247,7 @@ function readPost(file, categories, errors) {
   // <!-- comment --> would render as literal text on the page. Strip comments
   // here — after noting the placeholder marker, which is one of them.
   const rawBody = content.trim();
-  const placeholderBody = rawBody.includes(PLACEHOLDER_BODY_MARKER);
+  const placeholderBody = rawBody.includes(GHOSTWRITTEN_MARKER);
   const placeholderPost = rawBody.includes(PLACEHOLDER_POST_MARKER);
   const body = stripHtmlComments(rawBody);
   if (body === "") {
@@ -336,9 +343,8 @@ function main() {
   );
   if (placeholderBodies.length > 0) {
     console.warn(
-      `⚠ generate-posts: ${placeholderBodies.length} post(s) have approved frontmatter but ` +
-        `placeholder lorem ipsum bodies, and need real content before this site is ` +
-        `client-facing:\n` +
+      `⚠ generate-posts: ${placeholderBodies.length} post(s) have approved frontmatter but a ` +
+        `ghostwritten body, published under Jesse's byline without his sign-off:\n` +
         placeholderBodies.map((p) => `    - ${p.slug}`).join("\n"),
     );
   }
@@ -348,15 +354,17 @@ function main() {
   // Omit image/imageAlt entirely when unset rather than emitting empty strings —
   // ImageSlot switches on src being falsy, and "" would still be falsy but adds
   // noise to every post in the bundle.
-  const output = published.map(({ title, slug, date, category, excerpt, image, imageAlt, body }) => ({
-    title,
-    slug,
-    date,
-    category,
-    excerpt,
-    ...(image ? { image, imageAlt } : {}),
-    body,
-  }));
+  const output = published.map(
+    ({ title, slug, date, category, excerpt, image, imageAlt, body }) => ({
+      title,
+      slug,
+      date,
+      category,
+      excerpt,
+      ...(image ? { image, imageAlt } : {}),
+      body,
+    }),
+  );
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, `${JSON.stringify(output, null, 2)}\n`);

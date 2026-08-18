@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { FieldArt } from "./art";
 import type { Faq, Quote } from "@/data/site";
 
 /* ------------------------------------------------------------------ *
@@ -151,14 +152,28 @@ export function ArrowLink({
 }
 
 /**
- * Image slot. Renders the real photo when one is supplied, and otherwise the
- * mockup's hatched placeholder with its caption, so unfilled slots stay obvious.
+ * Image slot. Renders the real photo when one is supplied.
+ *
+ * With no photo it renders generated art (see art.tsx) rather than the
+ * mockup's captioned hatch. Most of the photography the mockup asks for is of
+ * a real person, real clients, and real rooms, so it cannot be substituted —
+ * and a box reading "Panel photo" makes a finished page look broken. The art
+ * is decorative and hidden from assistive tech: it depicts nothing, so
+ * announcing `label` would describe a photograph that isn't there.
+ *
+ * `label` still names what belongs here for whoever fills it in later, and
+ * doubles as the art seed, so each slot gets its own composition. Pass `seed`
+ * to pin two slots to the same artwork, or to keep it stable if the label is
+ * reworded.
  */
 export function ImageSlot({
   label,
   src,
   alt,
   tone = "light",
+  seed,
+  variant,
+  accent,
   className,
   imgClassName,
 }: {
@@ -166,6 +181,9 @@ export function ImageSlot({
   src?: string;
   alt?: string;
   tone?: "light" | "dark";
+  seed?: string;
+  variant?: number;
+  accent?: string;
   className?: string;
   imgClassName?: string;
 }) {
@@ -182,24 +200,13 @@ export function ImageSlot({
     );
   }
   return (
-    <div
-      className={cn(
-        "flex items-center justify-center",
-        tone === "dark" ? "placeholder-hatch-dark" : "placeholder-hatch",
-        className,
-      )}
-      role="img"
-      aria-label={label}
-    >
-      <span
-        className={cn(
-          "px-4 text-center font-mono text-[10px] uppercase leading-none tracking-[0.1em]",
-          tone === "dark" ? "text-white/40" : "text-slate-muted",
-        )}
-      >
-        {label}
-      </span>
-    </div>
+    <FieldArt
+      seed={seed ?? label}
+      tone={tone}
+      variant={variant}
+      accent={accent}
+      className={className}
+    />
   );
 }
 

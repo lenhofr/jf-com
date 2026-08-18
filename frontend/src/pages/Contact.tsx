@@ -1,6 +1,7 @@
-import { Eyebrow, FaqList, ImageSlot } from "@/components/site/ui";
+import { Eyebrow, FaqList } from "@/components/site/ui";
 import ContactForm from "@/components/site/ContactForm";
 import { contact, contactFaqs } from "@/data/site";
+import kentuckyLandscape from "@/assets/hero-kentucky.jpg";
 
 const Contact = () => (
   <>
@@ -58,7 +59,34 @@ const Contact = () => (
             </div>
           </div>
 
-          <ImageSlot label="Map embed" className="h-[230px]" />
+          {/* Stands in for the mockup's map embed: a real photo of the region
+              rather than a third-party iframe that would load an outside
+              tracker on every visit. The address links out to a live map. */}
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Florence%2C+Kentucky"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="group relative block h-[230px] overflow-hidden focus-visible:outline-offset-4"
+          >
+            <img
+              src={kentuckyLandscape}
+              alt="Rolling Northern Kentucky farmland at sunset"
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/95 via-forest-900/55 to-forest-900/10" />
+            <div className="absolute inset-x-0 bottom-0 p-6">
+              <p className="m-0 mb-[6px] font-mono text-[10.5px] font-semibold uppercase leading-none tracking-[0.12em] text-mint">
+                Based In
+              </p>
+              <p className="m-0 mb-1 font-display text-[19px] font-semibold leading-none text-white">
+                {contact.location}
+              </p>
+              <p className="m-0 text-[12.5px] leading-none text-white/70">
+                Serving clients nationwide · Open in Maps →
+              </p>
+            </div>
+          </a>
         </div>
 
         <ContactForm />

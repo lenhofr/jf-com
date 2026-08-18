@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { ArrowLink, Eyebrow, ImageSlot } from "@/components/site/ui";
+import { categoryAccent } from "@/lib/art-tokens";
 import NewsletterForm from "@/components/site/NewsletterForm";
 import { formatPostDate, posts } from "@/data/site";
 import NotFound from "./NotFound";
@@ -42,6 +43,8 @@ const BlogPost = () => {
             label="Article image"
             src={post.image}
             alt={post.imageAlt}
+            seed={post.slug}
+            accent={categoryAccent(post.category)}
             className="mb-10 h-[240px] md:h-[320px]"
           />
 

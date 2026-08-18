@@ -1,5 +1,6 @@
-import { Eyebrow, ImageSlot, PrimaryButton } from "@/components/site/ui";
-import { network } from "@/data/site";
+import { Eyebrow, PrimaryButton } from "@/components/site/ui";
+import { FactList, StatementPanel } from "@/components/site/art";
+import { network, ventures } from "@/data/site";
 
 const pillars = [
   {
@@ -57,7 +58,14 @@ const Entrepreneur = () => (
             expensive. It is also where the advantage lives.
           </p>
         </div>
-        <ImageSlot label="Working photo" className="h-[260px] md:h-[340px]" />
+        <StatementPanel
+          eyebrow="Ventures"
+          seed="entrepreneur-ventures"
+          tone="dark"
+          className="min-h-[260px] md:min-h-[340px]"
+        >
+          <FactList items={ventures} />
+        </StatementPanel>
       </div>
     </section>
 
@@ -108,7 +116,14 @@ const Entrepreneur = () => (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {network.map((n) => (
             <div key={n.name} className="border border-forest-900/10 bg-white px-[22px] py-6">
-              <div className="placeholder-hatch mb-4 h-11 w-11 rounded-full" />
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full border border-moss/30 bg-mint-50">
+                <span className="font-mono text-[12px] font-semibold leading-none text-moss">
+                  {n.name
+                    .split(" ")
+                    .map((w) => w[0])
+                    .join("")}
+                </span>
+              </div>
               <h3 className="m-0 mb-1 font-display text-[14.5px] font-semibold leading-[1.3] text-forest-900">
                 {n.name}
               </h3>

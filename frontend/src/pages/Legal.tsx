@@ -3,11 +3,11 @@ import {
   Eyebrow,
   FaqList,
   GhostButton,
-  ImageSlot,
   PrimaryButton,
   QuoteCarousel,
 } from "@/components/site/ui";
-import { clientQuotes, legalFaqs, legalServices } from "@/data/site";
+import { FactList, StatementPanel } from "@/components/site/art";
+import { clientQuotes, legalFaqs, legalScope, legalServices } from "@/data/site";
 
 const Legal = () => (
   <>
@@ -81,7 +81,14 @@ const Legal = () => (
           </PrimaryButton>
         </div>
       </div>
-      <ImageSlot label="Desk / documents photo" className="min-h-[240px] lg:min-h-[330px]" />
+      <StatementPanel
+        eyebrow="What Gets Reviewed"
+        seed="legal-scope"
+        tone="dark"
+        className="min-h-[240px] lg:min-h-[330px]"
+      >
+        <FactList items={legalScope} />
+      </StatementPanel>
     </section>
   </>
 );

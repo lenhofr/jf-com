@@ -1,6 +1,8 @@
 import { ArrowLink, Eyebrow, ImageSlot, OutlineButton } from "@/components/site/ui";
+import { FactList, StatementPanel } from "@/components/site/art";
+import { categoryAccent } from "@/lib/art-tokens";
 import NewsletterForm from "@/components/site/NewsletterForm";
-import { formatPostDate, posts } from "@/data/site";
+import { formatPostDate, posts, seriesFacts } from "@/data/site";
 
 const series = [
   {
@@ -77,7 +79,14 @@ const Insights = () => (
 
     <section className="bg-white py-16 md:py-20">
       <div className="site-container grid items-center gap-10 md:grid-cols-2 md:gap-14">
-        <ImageSlot label="Interview still" className="h-[220px] md:h-[280px]" />
+        <StatementPanel
+          eyebrow="The Series"
+          seed="insights-series"
+          tone="dark"
+          className="min-h-[220px] md:min-h-[280px]"
+        >
+          <FactList items={seriesFacts} />
+        </StatementPanel>
         <div>
           <h2 className="m-0 mb-4 font-display text-[28px] font-semibold leading-[1.16] tracking-[-0.025em] text-forest-700 md:text-[34px]">
             Insights from people who've been there.
