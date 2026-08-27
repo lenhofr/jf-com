@@ -61,7 +61,7 @@ const Home = () => (
             NFLPA Certified Contract Advisor · Attorney
           </Eyebrow>
           <h1 className="m-0 mb-[22px] text-balance font-display text-[38px] font-semibold leading-[1.04] tracking-[-0.03em] text-white md:text-[52px] lg:text-[62px]">
-            Representation that plays the long game.
+            Representation built to go the distance.
           </h1>
           <p className="m-0 mb-[34px] max-w-[520px] text-[16px] font-light leading-[1.65] text-white/[0.78] md:text-[17px]">
             I combine courtroom experience with a decade of NFL contract negotiation. Fewer clients,
