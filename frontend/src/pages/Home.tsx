@@ -144,50 +144,52 @@ const Home = () => (
       </div>
     </section>
 
-    {/* Insights */}
-    <section className="bg-white py-16 md:py-[84px]">
-      <div className="site-container">
-        <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <Eyebrow className="mb-[14px]">Insights</Eyebrow>
-            <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.025em] text-charcoal-700 md:text-[38px]">
-              Notes of Interest
-            </h2>
+    {/* Insights (hidden when every post is unpublished) */}
+    {posts.length > 0 && (
+      <section className="bg-white py-16 md:py-[84px]">
+        <div className="site-container">
+          <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Eyebrow className="mb-[14px]">Insights</Eyebrow>
+              <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.025em] text-charcoal-700 md:text-[38px]">
+                Notes of Interest
+              </h2>
+            </div>
+            <OutlineButton to="/blog">See All Articles</OutlineButton>
           </div>
-          <OutlineButton to="/blog">See All Articles</OutlineButton>
-        </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {posts.slice(0, 4).map((post) => (
-            <article
-              key={post.slug}
-              className="grid gap-5 border border-black/[0.12] p-5 transition-colors hover:border-gold/50 sm:grid-cols-[150px_1fr]"
-            >
-              <ImageSlot
-                label="Article image"
-                src={post.image}
-                alt={post.imageAlt}
-                seed={post.slug}
-                accent={categoryAccent(post.category)}
-                className="h-[132px]"
-              />
-              <div>
-                <p className="m-0 mb-[9px] text-[11.5px] leading-none text-grey-muted">
-                  {formatPostDate(post.date)}
-                </p>
-                <h3 className="m-0 mb-[10px] font-display text-base font-semibold leading-[1.35] tracking-[-0.01em] text-charcoal-900">
-                  {post.title}
-                </h3>
-                <p className="m-0 mb-[14px] text-[13px] leading-[1.65] text-grey-body">
-                  {post.excerpt}
-                </p>
-                <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
-              </div>
-            </article>
-          ))}
+          <div className="grid gap-5 md:grid-cols-2">
+            {posts.slice(0, 4).map((post) => (
+              <article
+                key={post.slug}
+                className="grid gap-5 border border-black/[0.12] p-5 transition-colors hover:border-gold/50 sm:grid-cols-[200px_1fr]"
+              >
+                <ImageSlot
+                  label="Article image"
+                  src={post.image}
+                  alt={post.imageAlt}
+                  seed={post.slug}
+                  accent={categoryAccent(post.category)}
+                  className="aspect-[1.91/1] self-start"
+                />
+                <div>
+                  <p className="m-0 mb-[9px] text-[11.5px] leading-none text-grey-muted">
+                    {formatPostDate(post.date)}
+                  </p>
+                  <h3 className="m-0 mb-[10px] font-display text-base font-semibold leading-[1.35] tracking-[-0.01em] text-charcoal-900">
+                    {post.title}
+                  </h3>
+                  <p className="m-0 mb-[14px] text-[13px] leading-[1.65] text-grey-body">
+                    {post.excerpt}
+                  </p>
+                  <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     {/* CTA */}
     <section className="bg-champagne-50 py-16 text-center md:py-[88px]">

@@ -58,10 +58,10 @@ export function artHash(seed: string): number {
 }
 
 const CATEGORY_ACCENT: Record<string, string> = {
-  Contracts: ART_PALETTE.gold,
-  NIL: ART_PALETTE.champagne,
-  Draft: ART_PALETTE.silver,
-  Career: ART_PALETTE.greyMuted,
+  Sports: ART_PALETTE.gold,
+  Law: ART_PALETTE.champagne,
+  Business: ART_PALETTE.silver,
+  Technology: ART_PALETTE.greyMuted,
 };
 
 /** Accent colour for a post category, so the blog index reads as a set. */

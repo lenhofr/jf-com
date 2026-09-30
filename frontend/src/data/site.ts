@@ -73,7 +73,7 @@ export const speakingQuotes: Quote[] = [
  * file to validate frontmatter, and Decap's config.yml select must list the
  * same values (kept in sync by hand for now).
  */
-export const postCategories = ["Contracts", "NIL", "Draft", "Career"] as const;
+export const postCategories = ["Sports", "Law", "Business", "Technology"] as const;
 export type PostCategory = (typeof postCategories)[number];
 
 export type Post = {
@@ -187,9 +187,9 @@ export const pressLogos = [
 
 /** Restates the legalServices copy below as a scannable list for the CTA panel. */
 export const legalScope = [
-  { label: "Before Signing", value: "Contract and offer-sheet review" },
-  { label: "Disputes", value: "Positioning and exposure assessment" },
-  { label: "Likeness & IP", value: "Rights, licensing, and takedowns" },
+  { label: "Personal Injury", value: "Accident claims, insurance, and compensation" },
+  { label: "Corporate", value: "Formation, contracts, and transactions" },
+  { label: "Regulations", value: "Compliance in regulated industries" },
 ];
 
 export const ventures = [
@@ -236,10 +236,9 @@ export const legalServices = [
   },
 ];
 
-/** Entries with an empty date are "More to come" placeholders. */
+/** An entry with an empty date is the "More to come" placeholder. */
 export const events = [
   { when: "September 2026", title: "NFT.NYC", body: "Beyond NIL: The future of digital rights." },
-  { when: "", title: "More to come", body: "" },
   { when: "", title: "More to come", body: "" },
 ];
 
@@ -340,7 +339,7 @@ export const contactFaqs: Faq[] = [
   },
   {
     q: "What services do you offer?",
-    a: `NFL representation, contract negotiation, legal counsel, NIL and brand advisory, and speaking. ${CTA}`,
+    a: `Legal counsel, including personal injury, corporate, and regulatory matters; NFL representation and NIL; entrepreneur and startup advisory; and speaking. ${CTA}`,
   },
   {
     q: "How do I book a consultation?",
@@ -356,11 +355,12 @@ export const contactFaqs: Faq[] = [
   },
 ];
 
+/** Mirrors the practice areas: Legal, NFL Representation, Entrepreneur, Speaking. */
 export const contactTopics = [
-  "NFL representation",
-  "Contract review",
-  "Legal matter",
-  "NIL or brand deal",
+  "Personal injury",
+  "Legal matter or contract review",
+  "NFL representation or NIL",
+  "Business or startup",
   "Speaking request",
 ];
 

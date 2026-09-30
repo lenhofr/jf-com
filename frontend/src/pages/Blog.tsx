@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLink, Eyebrow, GhostButton, ImageSlot, PrimaryButton } from "@/components/site/ui";
+import { ArrowLink, Eyebrow, ImageSlot, PrimaryButton } from "@/components/site/ui";
 import { categoryAccent } from "@/lib/art-tokens";
 import NewsletterForm from "@/components/site/NewsletterForm";
 import { formatPostDate, posts, postCategories } from "@/data/site";
@@ -11,6 +11,8 @@ const Blog = () => {
   const [filter, setFilter] = useState<string>("All");
   const [shown, setShown] = useState(PAGE_SIZE);
 
+  // Only offer categories that have posts; an empty filter reads as a broken page.
+  const categories = postCategories.filter((c) => posts.some((p) => p.category === c));
   const filtered = filter === "All" ? posts : posts.filter((p) => p.category === filter);
   const visible = filtered.slice(0, shown);
 
@@ -33,14 +35,9 @@ const Blog = () => {
             <p className="m-0 mb-7 text-base font-light leading-[1.65] text-white/[0.72]">
               Everything I publish, in one place.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <PrimaryButton to="/insights" tone="dark">
-                Featured Series
-              </PrimaryButton>
-              <GhostButton to="/contact" tone="dark">
-                Get in Touch
-              </GhostButton>
-            </div>
+            <PrimaryButton to="/contact" tone="dark">
+              Get in Touch
+            </PrimaryButton>
           </div>
           <ImageSlot
             label="Feature image"
@@ -53,24 +50,26 @@ const Blog = () => {
 
       <section className="bg-white py-16 md:py-20">
         <div className="site-container">
-          <div className="mb-9 flex flex-wrap items-center gap-[10px]">
-            {["All", ...postCategories].map((c) => (
-              <button
-                key={c}
-                type="button"
-                onClick={() => selectFilter(c)}
-                aria-pressed={filter === c}
-                className={cn(
-                  "rounded-full px-[15px] py-[7px] text-xs leading-none transition-colors",
-                  filter === c
-                    ? "bg-charcoal-900 font-semibold text-white"
-                    : "border border-black/[0.18] font-medium text-grey-dark hover:border-gold hover:text-gold",
-                )}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
+          {categories.length > 1 && (
+            <div className="mb-9 flex flex-wrap items-center gap-[10px]">
+              {["All", ...categories].map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => selectFilter(c)}
+                  aria-pressed={filter === c}
+                  className={cn(
+                    "rounded-full px-[15px] py-[7px] text-xs leading-none transition-colors",
+                    filter === c
+                      ? "bg-charcoal-900 font-semibold text-white"
+                      : "border border-black/[0.18] font-medium text-grey-dark hover:border-gold-dark hover:text-gold-dark",
+                  )}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          )}
 
           <div className="grid gap-x-6 gap-y-7 md:grid-cols-2 lg:grid-cols-3">
             {visible.map((post) => (
@@ -81,7 +80,7 @@ const Blog = () => {
                   alt={post.imageAlt}
                   seed={post.slug}
                   accent={categoryAccent(post.category)}
-                  className="mb-4 h-[180px]"
+                  className="mb-4 aspect-[1.91/1]"
                 />
                 <p className="m-0 mb-[9px] text-[11.5px] leading-none text-grey-muted">
                   {formatPostDate(post.date)}
