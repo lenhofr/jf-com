@@ -32,41 +32,43 @@ const Insights = () => (
       </div>
     </section>
 
-    <section className="bg-white py-16 md:py-20">
-      <div className="site-container">
-        <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
-          <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.14] tracking-[-0.025em] text-charcoal-700 md:text-[36px]">
-            Latest.
-          </h2>
-          <OutlineButton to="/blog">See All Posts</OutlineButton>
-        </div>
+    {posts.length > 0 && (
+      <section className="bg-white py-16 md:py-20">
+        <div className="site-container">
+          <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
+            <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.14] tracking-[-0.025em] text-charcoal-700 md:text-[36px]">
+              Latest.
+            </h2>
+            <OutlineButton to="/blog">See All Posts</OutlineButton>
+          </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {posts.slice(0, 3).map((post) => (
-            <article key={post.slug}>
-              <ImageSlot
-                label="Article image"
-                src={post.image}
-                alt={post.imageAlt}
-                seed={post.slug}
-                accent={categoryAccent(post.category)}
-                className="mb-[18px] h-[190px]"
-              />
-              <p className="m-0 mb-[10px] text-[11.5px] leading-none text-grey-muted">
-                {formatPostDate(post.date)}
-              </p>
-              <h3 className="m-0 mb-[10px] font-display text-[18px] font-semibold leading-[1.32] tracking-[-0.01em] text-charcoal-900">
-                {post.title}
-              </h3>
-              <p className="m-0 mb-[14px] text-[13.5px] leading-[1.7] text-grey-body">
-                {post.excerpt}
-              </p>
-              <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
-            </article>
-          ))}
+          <div className="grid gap-6 md:grid-cols-3">
+            {posts.slice(0, 3).map((post) => (
+              <article key={post.slug}>
+                <ImageSlot
+                  label="Article image"
+                  src={post.image}
+                  alt={post.imageAlt}
+                  seed={post.slug}
+                  accent={categoryAccent(post.category)}
+                  className="mb-[18px] aspect-[1.91/1]"
+                />
+                <p className="m-0 mb-[10px] text-[11.5px] leading-none text-grey-muted">
+                  {formatPostDate(post.date)}
+                </p>
+                <h3 className="m-0 mb-[10px] font-display text-[18px] font-semibold leading-[1.32] tracking-[-0.01em] text-charcoal-900">
+                  {post.title}
+                </h3>
+                <p className="m-0 mb-[14px] text-[13.5px] leading-[1.7] text-grey-body">
+                  {post.excerpt}
+                </p>
+                <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     <section className="on-dark bg-charcoal-800 py-16 md:py-[76px]">
       <div className="site-container grid items-center gap-8 md:grid-cols-2 md:gap-14">

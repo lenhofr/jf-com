@@ -82,7 +82,7 @@ collections:
         # canonical list. There is no automated sync — but the build reads that
         # array directly, so a value that drifts out of it fails the build with
         # a clear error rather than rendering wrong.
-        options: ["Contracts", "NIL", "Draft", "Career"]
+        options: ["Sports", "Law", "Business", "Technology"]
 
       - label: "Excerpt"
         name: "excerpt"

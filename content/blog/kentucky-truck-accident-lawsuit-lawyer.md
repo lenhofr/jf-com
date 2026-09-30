@@ -2,19 +2,18 @@
 title: "Kentucky Truck Accident Lawsuits: What Injury Victims Should Know"
 slug: kentucky-truck-accident-lawsuit-lawyer
 date: 2026-08-27
-category: Career
+category: Law
 excerpt: A Kentucky trucking-accident lawsuit may allow an injured person to
   pursue compensation from the truck driver, trucking company, cargo company,
   maintenance contractor, manufacturer, or another responsible party. However,
   trucking cases are considerably more complex than ordinary automobile-accident
   claims.
-image: /images/blog/chatgpt-image-sep-30-2026-02_15_26-pm.png
+image: /images/blog/kentucky-truck-accident.jpg
 imageAlt: "A black semi-truck driving across a bridge at dusk toward a Kentucky
   sign, beside the text: Injured in a trucking accident? Jesse Foreman, Esq.,
-  859-426-9000."
+  859-880-8801."
 draft: false
 ---
-# Injured in a Trucking Accident? What You Should Know About Kentucky Personal Injury Lawsuits
 
 A collision with a tractor-trailer or commercial truck can change a person’s life in seconds. Because commercial trucks are larger and heavier than passenger vehicles, trucking accidents frequently cause catastrophic injuries, permanent disabilities, and significant financial losses.
 

@@ -17,7 +17,8 @@ const infoBoxes = [
 const Speaking = () => (
   <>
     <section className="on-dark relative flex min-h-[420px] items-end overflow-hidden bg-charcoal-900 md:min-h-[480px]">
-      <HeroPhoto src={panelPhoto} imgClassName="object-[50%_45%]" />
+      {/* The venue lighting is saturated purple; muted so it sits in the palette. */}
+      <HeroPhoto src={panelPhoto} imgClassName="object-[50%_45%] saturate-[0.15]" />
       <div className="hero-hatch absolute inset-0" />
       <div className="site-container relative pb-14 pt-24 md:pb-[68px]">
         <div className="max-w-[720px]">
@@ -93,7 +94,7 @@ const Speaking = () => (
             Upcoming engagements.
           </h2>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="mx-auto grid max-w-[760px] gap-5 md:grid-cols-2">
           {events.map((e, i) => (
             <div key={`event-${i}`} className="border border-black/10 bg-white px-[26px] py-7">
               {e.when && (

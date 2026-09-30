@@ -55,7 +55,7 @@ const BlogPost = () => {
             alt={post.imageAlt}
             seed={post.slug}
             accent={categoryAccent(post.category)}
-            className="mb-10 h-[240px] md:h-[320px]"
+            className="mb-10 aspect-[1.91/1]"
           />
 
           <div

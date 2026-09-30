@@ -199,19 +199,34 @@ resource "aws_acm_certificate_validation" "site" {
 # renders NotFound. This rewrites directory-style requests to their index.html
 # so the Decap admin UI resolves at /admin/.
 #
-# Paths without a trailing slash are untouched, so client-side routes such as
-# /blog/<slug> still 404 at S3 and fall through to the SPA as before.
+# Extensionless paths such as /legal or /blog/<slug> are rewritten the same way.
+# The build writes a prerendered copy of the app shell at /legal/index.html with
+# that page's title and share-preview tags (frontend/vite-plugins/prerender-meta.ts),
+# so link-preview crawlers see the right page. Paths with no prerendered file
+# still 403 at S3 and fall through custom_error_response to the SPA as before.
 resource "aws_cloudfront_function" "directory_index" {
   name    = "${var.project_name}-directory-index"
   runtime = "cloudfront-js-2.0"
-  comment = "Rewrite /dir/ to /dir/index.html"
+  comment = "Rewrite /dir/ and extensionless paths to index.html"
   publish = true
 
   code = <<-JS
     function handler(event) {
       var request = event.request;
-      if (request.uri.endsWith('/')) {
-        request.uri += 'index.html';
+      var uri = request.uri;
+      // Decap loads config.yml relative to the page, so /admin must become
+      // /admin/ in the address bar rather than being served in place.
+      if (uri === '/admin') {
+        return {
+          statusCode: 301,
+          statusDescription: 'Moved Permanently',
+          headers: { location: { value: '/admin/' } },
+        };
+      }
+      if (uri.endsWith('/')) {
+        request.uri = uri + 'index.html';
+      } else if (uri.lastIndexOf('.') <= uri.lastIndexOf('/')) {
+        request.uri = uri + '/index.html';
       }
       return request;
     }

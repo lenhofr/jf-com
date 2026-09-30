@@ -120,24 +120,27 @@ const About = () => (
         <h2 className="m-0 mb-10 text-center font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.025em] text-charcoal-700 md:text-[38px]">
           What clients say.
         </h2>
-        <div className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
-          {clientQuotes.map((c, i) => (
-            <div
-              key={c.name || `quote-${i}`}
-              className="flex flex-col border border-black/[0.12] px-6 py-[26px]"
-            >
-              <span className="mb-4 text-[13px] leading-none tracking-[0.16em] text-gold">
-                ★★★★★
-              </span>
-              <p className="m-0 mb-[22px] flex-1 text-[13.5px] leading-[1.7] text-grey-dark">
-                {c.text}
-              </p>
-              <p className="m-0 mb-[5px] text-[13.5px] font-semibold leading-none text-charcoal-900">
-                {c.name}
-              </p>
-              <p className="m-0 text-xs leading-none text-grey-muted">{c.role}</p>
-            </div>
-          ))}
+        <div className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+          {/* Empty entries are placeholders awaiting client copy. */}
+          {clientQuotes
+            .filter((c) => c.text.trim())
+            .map((c, i) => (
+              <div
+                key={c.name || `quote-${i}`}
+                className="flex flex-col border border-black/[0.12] px-6 py-[26px]"
+              >
+                <span className="mb-4 text-[13px] leading-none tracking-[0.16em] text-gold">
+                  ★★★★★
+                </span>
+                <p className="m-0 mb-[22px] flex-1 text-[13.5px] leading-[1.7] text-grey-dark">
+                  {c.text}
+                </p>
+                <p className="m-0 mb-[5px] text-[13.5px] font-semibold leading-none text-charcoal-900">
+                  {c.name}
+                </p>
+                <p className="m-0 text-xs leading-none text-grey-muted">{c.role}</p>
+              </div>
+            ))}
         </div>
       </div>
     </section>
