@@ -1,18 +1,20 @@
 # Docs
 
-This directory tracks decisions and step-by-step work to deploy the **kentucky-forward** frontend as a static site on AWS using **Terraform** and **GitHub Actions**.
+Current reference:
 
-## Recommended approach (high-level)
-- Host build artifacts in **S3** (private bucket)
-- Serve through **CloudFront** (TLS + caching)
-- Use **ACM** certificate in **us-east-1**
-- Manage DNS via **Route 53** (recommended), even if the domain is registered at GoDaddy
-- Configure SPA routing so unknown paths return `/index.html`
+| File                                                   | What it is                                                                                                   |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| [`design-handoff/README.md`](design-handoff/README.md) | September 2026 rebrand spec (palette, logo, photos, copy, mobile rules). The current design source of truth. |
+| [`mockups/`](mockups/README.md)                        | The original approved multi-page mockup (pre-rebrand, green palette). Layout reference only.                 |
+| [`content-review.md`](content-review.md)               | What on the site still needs Jesse's sign-off.                                                               |
 
-## Monorepo layout
-- `frontend/` — the Vite/React SPA
-- `infra/terraform/` — AWS infrastructure + GitHub Actions deploy role
+Historical notes, kept for context but **not** current:
 
-## Start here
-- [AWS Static SPA plan](./aws-static-spa.md)
-- [Terraform + GitHub Actions checklist](./checklist.md)
+| File                                                                     | Why it is out of date                                                                                                                                          |
+| ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`aws-static-spa.md`](aws-static-spa.md), [`checklist.md`](checklist.md) | Original hosting plan and setup checklist, written for the earlier campaign site. The live setup is described in the [root README](../README.md#architecture). |
+| [`contact-form.md`](contact-form.md)                                     | Superseded; see the note in the file.                                                                                                                          |
+| [`ui-polish-recommendations.md`](ui-polish-recommendations.md)           | Notes on the campaign-era layout.                                                                                                                              |
+| `bio.txt`, `content.txt`                                                 | Campaign-era biography and campaign copy. `content.txt` is State Representative campaign material and should not be reused on this site.                       |
+
+For how the site is built and deployed, start with the [root README](../README.md).

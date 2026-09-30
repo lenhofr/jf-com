@@ -9,6 +9,10 @@ and everything that was deliberately **not** invented.
 
 ## 1. The eight blog posts — all ghostwritten
 
+> **Resolved 2026-09-30:** all eight of these posts were deleted through the CMS.
+> The one post on the site now, the Kentucky truck-accident article, was added
+> through the CMS directly. The notes below are kept for the record.
+
 Every post at `/blog` has a real body now, and none of it was written by Jesse.
 Each file carries an HTML comment saying so, and `npm run build` prints a warning
 naming each one on every single build, so this cannot quietly go stale.
