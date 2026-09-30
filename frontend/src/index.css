@@ -7,25 +7,25 @@
 @layer base {
   :root {
     /* shadcn tokens, mapped onto the brand palette from the mockup. */
-    --background: 80 8% 93%; /* #EDEEEB */
-    --foreground: 157 51% 12%; /* #0F2E22 */
+    --background: 60 7% 94%; /* #F2F2F0 */
+    --foreground: 0 0% 8%; /* #141414 */
     --card: 0 0% 100%;
-    --card-foreground: 157 51% 12%;
+    --card-foreground: 0 0% 8%;
     --popover: 0 0% 100%;
-    --popover-foreground: 157 51% 12%;
-    --primary: 135 28% 43%; /* #4E8C5E */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 140 24% 93%; /* #E8F1EB */
-    --secondary-foreground: 158 51% 23%;
-    --muted: 120 11% 96%; /* #F5F7F5 */
-    --muted-foreground: 150 7% 58%; /* #8D9B94 */
-    --accent: 140 24% 93%;
-    --accent-foreground: 158 51% 23%;
+    --popover-foreground: 0 0% 8%;
+    --primary: 46 68% 47%; /* #C9A227 */
+    --primary-foreground: 0 0% 4%; /* #0B0B0B */
+    --secondary: 44 61% 92%; /* #F7F1DF */
+    --secondary-foreground: 0 0% 17%;
+    --muted: 60 5% 96%; /* #F6F6F5 */
+    --muted-foreground: 0 0% 55%; /* #8C8C8C */
+    --accent: 44 61% 92%;
+    --accent-foreground: 0 0% 17%;
     --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
-    --border: 157 7% 89%;
-    --input: 157 7% 89%;
-    --ring: 135 28% 43%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 45 71% 38%; /* #A8871C */
     --radius: 0.1875rem; /* 3px — the mockup's corner radius */
 
     --sidebar-background: 0 0% 98%;
@@ -35,7 +35,7 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 135 28% 43%;
+    --sidebar-ring: 45 71% 38%;
   }
 
   * {
@@ -47,22 +47,22 @@
   }
 
   body {
-    @apply bg-paper font-sans text-slate-body antialiased;
+    @apply bg-paper font-sans text-grey-body antialiased;
   }
 
   ::selection {
-    background: #4e8c5e;
-    color: #fff;
+    background: #c9a227;
+    color: #0b0b0b;
   }
 
   /* Focus ring that reads on both the light and dark section backgrounds. */
   :focus-visible {
-    outline: 2px solid #4e8c5e;
+    outline: 2px solid #a8871c;
     outline-offset: 2px;
   }
 
   .on-dark :focus-visible {
-    outline-color: #7fbe92;
+    outline-color: #e0c871;
   }
 }
 
@@ -75,7 +75,7 @@
 
   /* The hatched fill the mockup uses for every unfilled image slot. */
   .placeholder-hatch {
-    background: repeating-linear-gradient(135deg, #f3f5f3 0 9px, #e9edea 9px 18px);
+    background: repeating-linear-gradient(135deg, #f4f4f3 0 9px, #eaeaea 9px 18px);
   }
 
   .placeholder-hatch-dark {

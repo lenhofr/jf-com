@@ -22,7 +22,7 @@ export function Eyebrow({
     <p
       className={cn(
         "m-0 text-[11px] font-medium uppercase leading-none tracking-[0.2em]",
-        tone === "dark" ? "text-mint" : "text-moss",
+        tone === "dark" ? "text-champagne" : "text-gold-dark",
         className,
       )}
     >
@@ -84,8 +84,8 @@ export function PrimaryButton({
       {...props}
       className={cn(
         buttonBase,
-        "bg-moss px-7 py-[14px] text-white",
-        tone === "dark" ? "hover:bg-moss-light" : "hover:bg-moss-dark",
+        "bg-gold px-7 py-[14px] text-ink",
+        tone === "dark" ? "hover:bg-gold-light" : "hover:bg-gold-dark",
         "disabled:cursor-not-allowed disabled:opacity-60",
         className,
       )}
@@ -106,7 +106,7 @@ export function GhostButton({
         "border px-7 py-[14px]",
         tone === "dark"
           ? "border-white/30 text-white hover:bg-white/10"
-          : "border-forest-900/25 text-forest-900 hover:bg-forest-900/5",
+          : "border-black/25 text-charcoal-900 hover:bg-black/5",
         className,
       )}
     />
@@ -119,7 +119,7 @@ export function OutlineButton({ className, ...props }: ActionProps) {
       {...props}
       className={cn(
         buttonBase,
-        "border border-forest-900/25 px-5 py-[11px] text-[12.5px] text-forest-900 hover:border-moss hover:text-moss",
+        "border border-black/25 px-5 py-[11px] text-[12.5px] text-charcoal-900 hover:border-gold hover:text-gold",
         className,
       )}
     />
@@ -140,7 +140,7 @@ export function ArrowLink({
 }) {
   const cls = cn(
     "inline-block text-[12.5px] font-semibold leading-none transition-colors",
-    tone === "dark" ? "text-mint hover:text-white" : "text-moss hover:text-forest-700",
+    tone === "dark" ? "text-champagne hover:text-white" : "text-gold hover:text-charcoal-700",
     className,
   );
   if (!to) return <span className={cls}>{children} →</span>;
@@ -210,18 +210,51 @@ export function ImageSlot({
   );
 }
 
+/**
+ * Right-hand hero photograph, faded into the charcoal on its left edge. Render
+ * it before the section's `hero-hatch` layer so the hatch lies over the photo
+ * too; otherwise a hard seam shows where the photo starts. Hidden below 768px,
+ * where the headline needs the full width.
+ */
+export function HeroPhoto({
+  src,
+  className = "w-[52%]",
+  imgClassName,
+  scrim = "bg-gradient-to-r from-charcoal-900 via-black/45 to-transparent",
+  children,
+}: {
+  src: string;
+  className?: string;
+  imgClassName?: string;
+  scrim?: string;
+  children?: ReactNode;
+}) {
+  return (
+    <div className={cn("absolute inset-y-0 right-0 hidden md:block", className)}>
+      <img
+        src={src}
+        alt=""
+        aria-hidden="true"
+        className={cn("h-full w-full object-cover opacity-90", imgClassName)}
+      />
+      <div className={cn("absolute inset-0", scrim)} />
+      {children}
+    </div>
+  );
+}
+
 export function FaqList({ items, className }: { items: Faq[]; className?: string }) {
   return (
     <div className={className}>
       {items.map((f) => (
-        <details key={f.q} className="group border-b border-forest-900/[0.12] py-[18px]">
-          <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-semibold leading-[1.4] text-forest-900 [&::-webkit-details-marker]:hidden">
+        <details key={f.q} className="group border-b border-black/[0.12] py-[18px]">
+          <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-semibold leading-[1.4] text-charcoal-900 [&::-webkit-details-marker]:hidden">
             {f.q}
-            <span className="mt-1 shrink-0 text-moss transition-transform group-open:rotate-45">
+            <span className="mt-1 shrink-0 text-gold transition-transform group-open:rotate-45">
               +
             </span>
           </summary>
-          <p className="m-0 mt-3 text-[13.5px] leading-[1.7] text-slate-body">{f.a}</p>
+          <p className="m-0 mt-3 text-[13.5px] leading-[1.7] text-grey-body">{f.a}</p>
         </details>
       ))}
     </div>
@@ -239,7 +272,10 @@ export function QuoteCarousel({
   heading?: string;
 }) {
   const [i, setI] = useState(0);
-  const quote = quotes[i % quotes.length];
+  // Placeholder entries (empty text) are waiting on client copy; never show them.
+  const shown = quotes.filter((q) => q.text.trim());
+  const quote = shown[i % shown.length];
+  if (!quote) return null;
 
   return (
     <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
@@ -256,7 +292,7 @@ export function QuoteCarousel({
           <button
             type="button"
             aria-label="Previous quote"
-            onClick={() => setI((n) => (n + quotes.length - 1) % quotes.length)}
+            onClick={() => setI((n) => (n + shown.length - 1) % shown.length)}
             className="h-[38px] w-[38px] rounded-full border border-white/30 text-sm text-white transition-colors hover:bg-white/[0.12]"
           >
             ←
@@ -264,7 +300,7 @@ export function QuoteCarousel({
           <button
             type="button"
             aria-label="Next quote"
-            onClick={() => setI((n) => (n + 1) % quotes.length)}
+            onClick={() => setI((n) => (n + 1) % shown.length)}
             className="h-[38px] w-[38px] rounded-full border border-white/30 text-sm text-white transition-colors hover:bg-white/[0.12]"
           >
             →

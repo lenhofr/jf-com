@@ -65,35 +65,37 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
 
-        /* Brand palette — values taken verbatim from the approved mockup. */
-        ink: "#0F1311",
-        forest: {
-          900: "#0F2E22",
-          800: "#123A2B",
-          700: "#1C5741",
-          hover: "#164434",
+        /* Brand palette — black, gold, silver, grey, and white, from the
+           design handoff (docs/design-handoff/README.md). */
+        ink: "#0B0B0B",
+        charcoal: {
+          900: "#141414",
+          800: "#1E1E1E",
+          700: "#2B2B2B",
+          hover: "#262626",
         },
-        moss: {
-          DEFAULT: "#4E8C5E",
-          dark: "#3F7A4E",
-          light: "#5FA271",
+        gold: {
+          DEFAULT: "#C9A227",
+          dark: "#A8871C",
+          light: "#DDBB4E",
         },
-        mint: {
-          DEFAULT: "#7FBE92",
-          50: "#E8F1EB",
+        champagne: {
+          DEFAULT: "#E0C871",
+          50: "#F7F1DF",
         },
-        sage: {
-          50: "#F5F7F5",
-          100: "#E9EDEA",
-          200: "#F3F5F3",
+        silver: {
+          DEFAULT: "#C6C8CA",
+          light: "#E4E6E8",
         },
-        paper: "#EDEEEB",
-        slate: {
-          dark: "#3C4A44",
-          body: "#5B6A63",
-          muted: "#8D9B94",
+        grey: {
+          50: "#F6F6F5",
+          100: "#EAEAEA",
+          200: "#F4F4F3",
+          dark: "#333333",
+          body: "#5A5A5A",
+          muted: "#8C8C8C",
         },
-        gold: "#C9A227",
+        paper: "#F2F2F0",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -3,7 +3,7 @@ import { useToast } from "@/hooks/use-toast";
 import { contactTopics } from "@/data/site";
 
 const inputCls =
-  "w-full rounded-[3px] border border-forest-900/[0.18] bg-white px-[14px] py-[13px] text-[13.5px] leading-none text-forest-900 outline-none placeholder:text-slate-muted focus:border-moss";
+  "w-full rounded-[3px] border border-black/[0.18] bg-white px-[14px] py-[13px] text-[13.5px] leading-none text-charcoal-900 outline-none placeholder:text-grey-muted focus:border-gold";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -78,17 +78,17 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="border border-forest-900/10 bg-sage-50 px-6 py-9 md:px-[34px]">
-      <h3 className="m-0 mb-2 font-display text-[22px] font-semibold leading-[1.25] tracking-[-0.02em] text-forest-700">
+    <div className="border border-black/10 bg-grey-50 px-6 py-9 md:px-[34px]">
+      <h3 className="m-0 mb-2 font-display text-[22px] font-semibold leading-[1.25] tracking-[-0.02em] text-charcoal-700">
         Send a note
       </h3>
-      <p className="m-0 mb-[26px] text-[13.5px] leading-[1.65] text-slate-body">
+      <p className="m-0 mb-[26px] text-[13.5px] leading-[1.65] text-grey-body">
         A short summary of your situation and any deadline you're working against is enough to
         start.
       </p>
 
       {isSubmitted ? (
-        <p className="m-0 text-[14px] leading-[1.7] text-forest-700">
+        <p className="m-0 text-[14px] leading-[1.7] text-charcoal-700">
           Thanks — your note came through. I read every inquiry personally and will follow up.
         </p>
       ) : (
@@ -121,7 +121,7 @@ const ContactForm = () => {
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
             aria-label="What is this about?"
-            className={`${inputCls} ${topic ? "text-forest-900" : "text-slate-body"}`}
+            className={`${inputCls} ${topic ? "text-charcoal-900" : "text-grey-body"}`}
           >
             <option value="">What is this about?</option>
             {contactTopics.map((t) => (
@@ -151,7 +151,7 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-[3px] bg-moss px-6 py-[14px] text-[13.5px] font-semibold leading-none text-white transition-colors hover:bg-moss-dark disabled:opacity-60"
+            className="rounded-[3px] bg-gold px-6 py-[14px] text-[13.5px] font-semibold leading-none text-ink transition-colors hover:bg-gold-dark disabled:opacity-60"
           >
             {isSubmitting ? "Sending…" : "Submit Inquiry"}
           </button>

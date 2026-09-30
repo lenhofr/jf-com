@@ -9,6 +9,7 @@ excerpt: A Kentucky trucking-accident lawsuit may allow an injured person to
   trucking cases are considerably more complex than ordinary automobile-accident
   claims.
 image: /images/blog/chatgpt-image-aug-27-2026-10_31_24-am.png
+imageAlt: "A black semi-truck driving across a bridge at dusk toward a Kentucky sign, beside the text: Injured in a trucking accident? Jesse Foreman, Esq., 859-426-9000."
 draft: false
 ---
 # Injured in a Trucking Accident? What You Should Know About Kentucky Personal Injury Lawsuits

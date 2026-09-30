@@ -21,7 +21,7 @@ const Blog = () => {
 
   return (
     <>
-      <section className="on-dark bg-forest-800 py-16 md:py-20">
+      <section className="on-dark bg-charcoal-800 py-16 md:py-20">
         <div className="site-container grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
             <Eyebrow tone="dark" className="mb-[18px]">
@@ -63,8 +63,8 @@ const Blog = () => {
                 className={cn(
                   "rounded-full px-[15px] py-[7px] text-xs leading-none transition-colors",
                   filter === c
-                    ? "bg-forest-900 font-semibold text-white"
-                    : "border border-forest-900/[0.18] font-medium text-slate-dark hover:border-moss hover:text-moss",
+                    ? "bg-charcoal-900 font-semibold text-white"
+                    : "border border-black/[0.18] font-medium text-grey-dark hover:border-gold hover:text-gold",
                 )}
               >
                 {c}
@@ -83,13 +83,13 @@ const Blog = () => {
                   accent={categoryAccent(post.category)}
                   className="mb-4 h-[180px]"
                 />
-                <p className="m-0 mb-[9px] text-[11.5px] leading-none text-slate-muted">
+                <p className="m-0 mb-[9px] text-[11.5px] leading-none text-grey-muted">
                   {formatPostDate(post.date)}
                 </p>
-                <h3 className="m-0 mb-[10px] font-display text-[17px] font-semibold leading-[1.32] tracking-[-0.01em] text-forest-900">
+                <h3 className="m-0 mb-[10px] font-display text-[17px] font-semibold leading-[1.32] tracking-[-0.01em] text-charcoal-900">
                   {post.title}
                 </h3>
-                <p className="m-0 mb-3 text-[13px] leading-[1.7] text-slate-body">{post.excerpt}</p>
+                <p className="m-0 mb-3 text-[13px] leading-[1.7] text-grey-body">{post.excerpt}</p>
                 <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
               </article>
             ))}
@@ -100,7 +100,7 @@ const Blog = () => {
               <button
                 type="button"
                 onClick={() => setShown((n) => n + PAGE_SIZE)}
-                className="rounded-[3px] border border-forest-900/25 px-6 py-3 text-[12.5px] font-semibold leading-none text-forest-900 transition-colors hover:border-moss hover:text-moss"
+                className="rounded-[3px] border border-black/25 px-6 py-3 text-[12.5px] font-semibold leading-none text-charcoal-900 transition-colors hover:border-gold hover:text-gold"
               >
                 Load More
               </button>
@@ -109,12 +109,12 @@ const Blog = () => {
         </div>
       </section>
 
-      <section className="bg-mint-50 py-16 text-center md:py-[76px]">
+      <section className="bg-champagne-50 py-16 text-center md:py-[76px]">
         <div className="site-container">
-          <h2 className="m-0 mb-[14px] font-display text-[30px] font-semibold leading-[1.14] tracking-[-0.025em] text-forest-700 md:text-[36px]">
+          <h2 className="m-0 mb-[14px] font-display text-[30px] font-semibold leading-[1.14] tracking-[-0.025em] text-charcoal-700 md:text-[36px]">
             Stay informed.
           </h2>
-          <p className="m-0 mx-auto mb-7 max-w-[460px] text-[15.5px] font-light leading-[1.7] text-slate-dark">
+          <p className="m-0 mx-auto mb-7 max-w-[460px] text-[15.5px] font-light leading-[1.7] text-grey-dark">
             New posts, delivered when there's something worth saying.
           </p>
           <NewsletterForm tone="light" className="mx-auto max-w-[480px]" />

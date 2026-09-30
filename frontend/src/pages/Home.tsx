@@ -2,40 +2,41 @@ import {
   ArrowLink,
   Eyebrow,
   GhostButton,
+  HeroPhoto,
   ImageSlot,
   OutlineButton,
   PrimaryButton,
   QuoteCarousel,
 } from "@/components/site/ui";
-import { StatementPanel, WordmarkTile } from "@/components/site/art";
+import { StatementPanel } from "@/components/site/art";
 import { categoryAccent } from "@/lib/art-tokens";
 import NewsletterForm from "@/components/site/NewsletterForm";
-import { affiliations, clientQuotes, formatPostDate, posts, pressMentions } from "@/data/site";
+import { affiliations, clientQuotes, formatPostDate, posts, pressLogos } from "@/data/site";
 import heroPortrait from "@/assets/jForemanLI.jpeg";
 
 const practices = [
   {
     n: "01",
-    title: "NFL Representation",
-    body: "Rookie contracts, extensions, and veteran negotiations. I model the cap consequences of every structure before a team hears a number from me.",
-    to: "/nfl-agent",
-  },
-  {
-    n: "02",
     title: "Legal Counsel",
-    body: "A JD from the University of Cincinnati and courtroom exposure on both sides of the aisle. Contract language, disputes, and risk read the way opposing counsel will read it.",
+    body: "A JD from the University of Cincinnati and litigation experience. Extensive experience in business, contracts, and negotiations.",
     to: "/legal",
   },
   {
+    n: "02",
+    title: "NFL Representation",
+    body: "Rookie contracts, extensions, and veteran negotiations. I account for the effects each decision has now and throughout my clients career.",
+    to: "/nfl-agent",
+  },
+  {
     n: "03",
-    title: "NIL & Brand",
-    body: "Likeness rights are the asset most often signed away by accident. I built one of the first digital rights divisions in sports and I know where the traps sit.",
+    title: "Entrepreneur",
+    body: "Developing and advising start up corporations in tech, sports, and marketing. From incorporating your corporation, filing the appropriate forms, reviewing/developing contracts, and advising on important decisions, I can help you through it all.",
     to: "/entrepreneur",
   },
   {
     n: "04",
     title: "Speaking & Media",
-    body: "Sessions on financial literacy, NIL, and the business of representation for programs, summits, and law schools.",
+    body: "Sessions on financial literacy, tech, AI, entrepreneurship, NIL, and NFL representation.",
     to: "/speaking",
   },
 ];
@@ -43,29 +44,20 @@ const practices = [
 const Home = () => (
   <>
     {/* Hero */}
-    <section className="on-dark relative flex min-h-[470px] items-end overflow-hidden bg-forest-900 md:min-h-[540px]">
+    <section className="on-dark relative flex min-h-[470px] items-end overflow-hidden bg-charcoal-900 md:min-h-[540px]">
       {/* Portrait sits in the right half so it never fights the headline. */}
-      <div className="absolute inset-y-0 right-0 hidden w-[58%] md:block">
-        <img
-          src={heroPortrait}
-          alt=""
-          aria-hidden="true"
-          className="h-full w-full object-cover object-[50%_22%] opacity-90"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-forest-900 via-forest-900/45 to-transparent" />
-      </div>
+      <HeroPhoto src={heroPortrait} className="w-[58%]" imgClassName="object-[50%_22%]" />
       <div className="hero-hatch absolute inset-0" />
       <div className="site-container relative pb-14 pt-24 md:pb-[76px]">
         <div className="max-w-[760px]">
           <Eyebrow tone="dark" className="mb-5">
-            NFLPA Certified Contract Advisor · Attorney
+            Attorney &amp; NFLPA Certified Contract Advisor
           </Eyebrow>
           <h1 className="m-0 mb-[22px] text-balance font-display text-[38px] font-semibold leading-[1.04] tracking-[-0.03em] text-white md:text-[52px] lg:text-[62px]">
             Representation built to go the distance.
           </h1>
           <p className="m-0 mb-[34px] max-w-[520px] text-[16px] font-light leading-[1.65] text-white/[0.78] md:text-[17px]">
-            I combine courtroom experience with a decade of NFL contract negotiation. Fewer clients,
-            sharper terms, and a person who answers the phone.
+            Protecting People. Building the Future
           </p>
           <div className="flex flex-wrap gap-3">
             <PrimaryButton to="/contact" tone="dark">
@@ -80,7 +72,7 @@ const Home = () => (
     </section>
 
     {/* Four practices */}
-    <section className="on-dark bg-forest-800 py-16 md:py-20">
+    <section className="on-dark bg-charcoal-800 py-16 md:py-20">
       <div className="site-container">
         <div className="mb-11 flex flex-wrap items-end justify-between gap-8">
           <div className="max-w-[480px]">
@@ -88,12 +80,13 @@ const Home = () => (
               What I Do
             </Eyebrow>
             <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.1] tracking-[-0.025em] text-white md:text-[40px]">
-              Four practices, one relationship.
+              Clear advice for your future.
             </h2>
           </div>
           <p className="m-0 max-w-[380px] text-[14.5px] font-light leading-[1.7] text-white/[0.66]">
-            Most athletes get handed to a junior associate. Here the person who negotiates your
-            contract is the person who reviews it, protects it, and picks up when you call.
+            The people who have succeeded the most are the ones who have one focus and have stuck
+            with it. I help those individuals with their business decisions so that they can keep
+            their focus.
           </p>
         </div>
 
@@ -101,9 +94,9 @@ const Home = () => (
           {practices.map((p) => (
             <div
               key={p.n}
-              className="bg-forest-800 px-[34px] py-[38px] transition-colors hover:bg-forest-hover"
+              className="bg-charcoal-800 px-[34px] py-[38px] transition-colors hover:bg-charcoal-hover"
             >
-              <span className="mb-5 block font-mono text-[11px] font-semibold leading-none text-mint">
+              <span className="mb-5 block font-mono text-[11px] font-semibold leading-none text-champagne">
                 {p.n}
               </span>
               <h3 className="m-0 mb-[14px] font-display text-[21px] font-semibold leading-[1.25] tracking-[-0.01em] text-white">
@@ -122,19 +115,30 @@ const Home = () => (
     </section>
 
     {/* Affiliations */}
-    <section className="border-b border-forest-900/[0.09] bg-white py-14 md:py-[66px]">
+    <section className="border-b border-black/[0.09] bg-white py-14 md:py-[66px]">
       <div className="site-container">
-        <Eyebrow className="mb-8 text-center">Affiliations &amp; Partnerships</Eyebrow>
-        <div className="grid grid-cols-2 gap-[14px] md:grid-cols-4">
+        <Eyebrow className="mb-8 text-center">Affiliations</Eyebrow>
+        <div className="flex flex-wrap justify-center gap-[14px]">
           {affiliations.map((a) => (
-            <WordmarkTile key={a} name={a} className="h-[84px]" />
+            <div
+              key={a.name}
+              className="flex h-[120px] max-w-[250px] flex-[1_1_200px] items-center justify-center border border-black/[0.12] bg-grey-50 px-5"
+            >
+              <img
+                src={a.src}
+                alt={a.name}
+                loading="lazy"
+                style={{ height: a.height }}
+                className="block w-auto max-w-full object-contain"
+              />
+            </div>
           ))}
         </div>
       </div>
     </section>
 
     {/* Testimonials */}
-    <section className="on-dark bg-forest-900 py-16 md:py-[78px]">
+    <section className="on-dark bg-charcoal-900 py-16 md:py-[78px]">
       <div className="site-container">
         <QuoteCarousel quotes={clientQuotes} eyebrow="Client Voices" />
       </div>
@@ -146,8 +150,8 @@ const Home = () => (
         <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
           <div>
             <Eyebrow className="mb-[14px]">Insights</Eyebrow>
-            <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.025em] text-forest-700 md:text-[38px]">
-              Notes from inside the negotiation.
+            <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.025em] text-charcoal-700 md:text-[38px]">
+              Notes of Interest
             </h2>
           </div>
           <OutlineButton to="/blog">See All Articles</OutlineButton>
@@ -157,7 +161,7 @@ const Home = () => (
           {posts.slice(0, 4).map((post) => (
             <article
               key={post.slug}
-              className="grid gap-5 border border-forest-900/10 p-5 transition-colors hover:border-moss/50 sm:grid-cols-[150px_1fr]"
+              className="grid gap-5 border border-black/[0.12] p-5 transition-colors hover:border-gold/50 sm:grid-cols-[150px_1fr]"
             >
               <ImageSlot
                 label="Article image"
@@ -168,13 +172,13 @@ const Home = () => (
                 className="h-[132px]"
               />
               <div>
-                <p className="m-0 mb-[9px] text-[11.5px] leading-none text-slate-muted">
+                <p className="m-0 mb-[9px] text-[11.5px] leading-none text-grey-muted">
                   {formatPostDate(post.date)}
                 </p>
-                <h3 className="m-0 mb-[10px] font-display text-base font-semibold leading-[1.35] tracking-[-0.01em] text-forest-900">
+                <h3 className="m-0 mb-[10px] font-display text-base font-semibold leading-[1.35] tracking-[-0.01em] text-charcoal-900">
                   {post.title}
                 </h3>
-                <p className="m-0 mb-[14px] text-[13px] leading-[1.65] text-slate-body">
+                <p className="m-0 mb-[14px] text-[13px] leading-[1.65] text-grey-body">
                   {post.excerpt}
                 </p>
                 <ArrowLink to={`/blog/${post.slug}`}>Read more</ArrowLink>
@@ -186,12 +190,12 @@ const Home = () => (
     </section>
 
     {/* CTA */}
-    <section className="bg-mint-50 py-16 text-center md:py-[88px]">
+    <section className="bg-champagne-50 py-16 text-center md:py-[88px]">
       <div className="site-container">
-        <h2 className="m-0 mb-[18px] text-balance font-display text-[32px] font-semibold leading-[1.12] tracking-[-0.025em] text-forest-700 md:text-[42px]">
+        <h2 className="m-0 mb-[18px] text-balance font-display text-[32px] font-semibold leading-[1.12] tracking-[-0.025em] text-charcoal-700 md:text-[42px]">
           Let's talk before you sign anything.
         </h2>
-        <p className="m-0 mx-auto mb-8 max-w-[520px] text-base font-light leading-[1.7] text-slate-dark">
+        <p className="m-0 mx-auto mb-8 max-w-[520px] text-base font-light leading-[1.7] text-grey-dark">
           Share a bit about your situation or goals. I review every inquiry personally and follow
           up.
         </p>
@@ -203,14 +207,14 @@ const Home = () => (
     </section>
 
     {/* Newsletter */}
-    <section className="on-dark grid items-stretch bg-forest-800 lg:grid-cols-2">
+    <section className="on-dark grid items-stretch bg-charcoal-800 lg:grid-cols-2">
       <div className="site-container py-16 md:py-[76px] lg:mx-0 lg:ml-auto lg:max-w-[546px] lg:pr-11">
         <h2 className="m-0 mb-4 font-display text-[28px] font-semibold leading-[1.15] tracking-[-0.025em] text-white md:text-[34px]">
           Stay updated with my insights.
         </h2>
         <p className="m-0 mb-7 max-w-[400px] text-[14.5px] font-light leading-[1.7] text-white/[0.66]">
-          Occasional notes on contracts, NIL, and the business of representation. No noise, no
-          selling.
+          Occasional notes on the biggest regulation news in sports, tech, and business. No selling,
+          just personal insights.
         </p>
         <NewsletterForm tone="dark" withName buttonLabel="Join" />
       </div>
@@ -220,19 +224,21 @@ const Home = () => (
         tone="dark"
         className="min-h-[240px] lg:min-h-[330px]"
       >
-        <div className="flex flex-wrap gap-x-8 gap-y-4">
-          {pressMentions.map((p) => (
-            <span
-              key={p}
-              className="font-display text-[19px] font-semibold leading-none tracking-[-0.01em] text-white/85 md:text-[22px]"
-            >
-              {p}
-            </span>
+        <div className="flex flex-wrap items-center gap-x-[34px] gap-y-5">
+          {pressLogos.map((p) => (
+            <img
+              key={p.name}
+              src={p.src}
+              alt={p.name}
+              loading="lazy"
+              style={{ height: Math.round(26 * p.scale) }}
+              className="block w-auto opacity-[0.88]"
+            />
           ))}
         </div>
         <p className="m-0 mt-7 max-w-[320px] text-[13px] font-light leading-[1.7] text-white/55">
-          Quoted on representation, NIL, and digital rights. Former Forbes Business Council member
-          and contributor.
+          Featured in articles on tech, regulations, representation, marketing, NIL, and digital
+          rights.
         </p>
       </StatementPanel>
     </section>

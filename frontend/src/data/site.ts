@@ -1,61 +1,70 @@
 /**
- * All site copy in one place. Content comes verbatim from the approved
- * mockup (JesseForemanWebsiteMockupsZIP/Jesse Foreman Site.dc.html).
- * Edit here rather than in the page components.
+ * All site copy in one place. Content comes verbatim from the client-approved
+ * design handoff (docs/design-handoff/README.md, whose prototype data.js is
+ * the source of truth for copy). Edit here rather than in the page components.
  *
  * Blog posts are the exception: they live in content/blog/*.md at the repo root
  * and are re-exported below from the generated JSON.
  */
 
 import generatedPosts from "./posts.generated.json";
+import kbaLogo from "@/assets/affiliations/kba.png";
+import nflpaLogo from "@/assets/affiliations/nflpa.png";
+import nkbaLogo from "@/assets/affiliations/nkba.png";
+import nflAlumniLogo from "@/assets/affiliations/nfl-alumni.png";
+import forbesLogo from "@/assets/press/forbes-white.png";
+import yahooLogo from "@/assets/press/yahoo-white.png";
+import nasdaqLogo from "@/assets/press/nasdaq-white.png";
+import espnLogo from "@/assets/press/espn-white.png";
 
 export const contact = {
-  email: "thenflagent@gmail.com",
-  phone: "(859) 640-8053",
-  phoneHref: "tel:+18596408053",
-  location: "Florence, Kentucky",
+  email: "info@jesseforeman.com",
+  phone: "(859) 880-8801",
+  phoneHref: "tel:+18598808801",
+  location: "Northern Kentucky",
 };
 
 export type Quote = { text: string; name: string; role: string };
 
+/**
+ * Entries with empty text are placeholders the client will fill in: the
+ * carousels skip them, and About shows the card's stars only.
+ */
 export const clientQuotes: Quote[] = [
   {
-    text: "Jesse read my deal line by line and found guarantees the last agent never asked for. He answers the phone. That alone puts him ahead.",
-    name: "Client, NFL Veteran",
-    role: "Third contract",
+    text: "Jesse is someone I know I can trust to give me honest and well-thought-out advice. He isn't someone who will agree with you just to appease you.",
+    name: "Jammal Brown",
+    role: "Super Bowl Champ, All Pro, and Pro-Bowler",
   },
   {
-    text: "He told me things I didn't want to hear about my market. He was right, and the offer we ended up signing proved it.",
-    name: "Client, Draft Pick",
-    role: "Rookie deal",
+    text: "Jesse Foreman, that's the guy with the plan. He is the guy to listen to. I always go to him for advice.",
+    name: "Isaiah Iton",
+    role: "New England Patriots",
   },
   {
-    text: "The NIL structure he put together protected my likeness in ways I didn't know were negotiable.",
-    name: "Client, Collegiate Athlete",
-    role: "NIL representation",
+    text: "Jesse believed in me when I was a college student, chasing my dream of playing in the NFL. He played a huge role in helping me get there and last for 4 and a half years. Forever grateful for him!!",
+    name: "Rico Gafford",
+    role: "Former NFL Player",
   },
-  {
-    text: "Straightforward, transparent, and quick. That combination is rare in this business.",
-    name: "Client, Free Agent",
-    role: "Free agency",
-  },
+  { text: "", name: "", role: "" },
 ];
 
+/** Organizer quotes run without attribution, by request. */
 export const speakingQuotes: Quote[] = [
   {
-    text: "He explained cap mechanics to a room of nineteen-year-olds without talking down to a single one of them.",
-    name: "Athletic Director",
-    role: "Division I program",
+    text: "He provided the audience with a real understanding of possibilities of NFTs if built and utilized properly.",
+    name: "",
+    role: "",
   },
   {
-    text: "The most useful hour of our summit. Practical, specific, and no sales pitch.",
-    name: "Conference Organizer",
-    role: "Sports business summit",
+    text: "The students walked away with a much more realistic understanding of the ins and outs of athlete representation.",
+    name: "",
+    role: "",
   },
   {
-    text: "Our players still quote things he said about reading their own contracts.",
-    name: "Head Coach",
-    role: "Collegiate football",
+    text: "He spoke on a high level regulatory issue with such knowledge that anyone could understand and appreciate the speech.",
+    name: "",
+    role: "",
   },
 ];
 
@@ -144,214 +153,183 @@ export const milestones = [
   {
     year: "2021",
     title: "Young Money APAA",
-    body: "Joined as an NFL agent and led the digital rights division, one of the first in the industry.",
+    body: "NFL agent and started the NIL division, one of the first in the industry.",
   },
   {
     year: "2024",
     title: "Delta Sports Group",
-    body: "Now a contract advisor at Delta Sports Group, founded by former NFL lineman Jammal Brown.",
+    body: "NFL Agent with Delta Sports Group and helped them to launch their NIL division.",
   },
   {
     year: "2025",
     title: "Licensed to practice in Kentucky",
-    body: "Eleven years after finishing the JD, I took the bar and began practising law alongside the agency work.",
+    body: "Eleven years after receiving my JD, I took the bar and began practicing.",
   },
 ];
 
-/**
- * Credentials and press below are drawn from docs/bio.txt, the client-supplied
- * biography in this repo. They are the only factual claims on the site that did
- * not come from the approved mockup — worth a check against the record before a
- * client-facing sign-off.
- */
 export const credentials = [
   { label: "Certification", value: "NFLPA Certified Contract Advisor" },
-  { label: "Bar Admission", value: "Licensed attorney, Kentucky" },
+  { label: "Bar Admission", value: "Licensed attorney" },
   { label: "Juris Doctor", value: "University of Cincinnati College of Law" },
-  { label: "Practice", value: "Delta Sports Group" },
+  { label: "Graduate Degrees", value: "MBA and Masters in AI for Businesses" },
 ];
 
-export const pressMentions = ["Forbes", "Yahoo", "Nasdaq", "ESPN"];
+/**
+ * White, trimmed versions of the outlets' own logos. `scale` is an optical
+ * multiplier on the base height so the four marks read at equal weight.
+ */
+export const pressLogos = [
+  { name: "Forbes", src: forbesLogo, scale: 1.05 },
+  { name: "Yahoo", src: yahooLogo, scale: 1.05 },
+  { name: "Nasdaq", src: nasdaqLogo, scale: 0.95 },
+  { name: "ESPN", src: espnLogo, scale: 0.85 },
+];
 
 /** Restates the legalServices copy below as a scannable list for the CTA panel. */
 export const legalScope = [
   { label: "Before Signing", value: "Contract and offer-sheet review" },
   { label: "Disputes", value: "Positioning and exposure assessment" },
   { label: "Likeness & IP", value: "Rights, licensing, and takedowns" },
-  { label: "Multi-State", value: "Counsel coordination across jurisdictions" },
 ];
 
 export const ventures = [
-  { label: "2015", value: "Global Sports and Entertainment, co-founder" },
-  { label: "2021", value: "Young Money APAA, digital rights division" },
-  { label: "Since 2024", value: "Delta Sports Group, contract advisor" },
-  { label: "Advisory", value: "Likeness, licensing, and brand structures" },
-];
-
-export const seriesFacts = [
-  { label: "Format", value: "Long-form conversations, published as written pieces" },
-  { label: "Guests", value: "Players, advisors, and front-office voices" },
-  { label: "Subjects", value: "Contracts, NIL, the draft, and life after it" },
+  { label: "2015", value: "Global Sports and Entertainment, Co-founder" },
+  { label: "2018", value: "Fanoptic, Founder" },
+  { label: "2023", value: "YMAPAA Kingdom, Co-Founder" },
+  { label: "2026", value: "Barristers Boosters, Co-Founder" },
 ];
 
 export const speakingFormats = [
-  { label: "Team & Program", value: "Locker-room and position-group sessions" },
-  { label: "Campus", value: "NIL briefings for athletes and families" },
-  { label: "Industry", value: "Summit panels and keynote sessions" },
-  { label: "Law School", value: "Certification path and sports-practice talks" },
+  { label: "Technology", value: "AI and Non-Fungible Token" },
+  { label: "Business", value: "Summit panels and keynote sessions" },
+  { label: "Education", value: "Certification and Career Advice" },
 ];
 
 export const team = [
   { name: "Financial Advisor", role: "Wealth & taxes" },
   { name: "Marketing Lead", role: "Brand & endorsements" },
   { name: "Performance Coach", role: "Training & combine prep" },
-  { name: "Legal Associate", role: "Contract review" },
-];
-
-export const network = [
-  {
-    name: "Financial Advisor",
-    role: "Wealth planning",
-    body: "Structures earnings so a short career funds a long life.",
-  },
-  {
-    name: "Marketing Lead",
-    role: "Brand strategy",
-    body: "Builds endorsement pipelines that match the player, not the market.",
-  },
-  {
-    name: "Performance Coach",
-    role: "Combine prep",
-    body: "Runs the training block between the last game and the draft.",
-  },
-  {
-    name: "Legal Associate",
-    role: "Contract review",
-    body: "Second set of eyes on every document before it is signed.",
-  },
-  {
-    name: "Tax Counsel",
-    role: "Multi-state filing",
-    body: "Handles the jock tax across every state a season touches.",
-  },
-  {
-    name: "Media Trainer",
-    role: "Press readiness",
-    body: "Prepares clients for the interviews that shape their value.",
-  },
-  {
-    name: "Business Advisor",
-    role: "Ventures",
-    body: "Vets the investments that come knocking after a signing bonus.",
-  },
-  {
-    name: "Family Liaison",
-    role: "Support",
-    body: "Keeps parents and partners informed through the process.",
-  },
+  { name: "Technical Developers", role: "Tech review" },
 ];
 
 export const nflServices = [
+  { title: "Contracts Negotiated", body: "Over 100 Million in Contracts Negotiated" },
   {
-    title: "Contract Advisory",
-    body: "Rookie deals, extensions, and veteran negotiations. I model the cap implications before I take a call with a team.",
+    title: "NIL",
+    body: "Guiding student athletes through NIL deals and preparing them for their future career",
   },
-  {
-    title: "Combine & Draft Prep",
-    body: "Training placement, medical management, team interviews, and the positioning work that starts months before the draft.",
-  },
-  {
-    title: "Career Management",
-    body: "Trade requests, releases, and the mid-season conversations that decide where a career goes next.",
-  },
+  { title: "Post Career", body: "Preparing clients for life after their career." },
 ];
 
 export const legalServices = [
   {
-    title: "Contract Review",
-    body: "Sharp, protective language written to your objectives rather than the team's template.",
+    title: "Personal Injury",
+    body: "Serious injuries can change a life in an instant. I help navigate the legal, financial, and insurance challenges that arise and help you get the compensation you deserve.",
   },
   {
-    title: "Dispute Positioning",
-    body: "Insight from both prosecution and defense angles to anticipate moves and reduce exposure.",
+    title: "Corporate",
+    body: "From formation and contracts to transactions, governance, risk, and growth, The focus is practical: understand the risk, protect what you're building, and make decisions with the future in mind.",
   },
   {
-    title: "Likeness & IP",
-    body: "Protecting identity, likeness, and long-term commercial value across every platform.",
+    title: "Regulations",
+    body: "Highly regulated industries operate where business opportunity and legal risk frequently collide. Helping leaders understand the rules while continuing to move their organizations forward.",
   },
 ];
 
+/** Entries with an empty date are "More to come" placeholders. */
 export const events = [
-  {
-    when: "April 2026",
-    title: "The Business of NIL",
-    body: "A campus session for athletes and families on reading collegiate deals before signing them.",
-  },
-  {
-    when: "June 2026",
-    title: "Family Office Sports Summit",
-    body: "Panel on athlete investment structures and where representation fits alongside capital.",
-  },
-  {
-    when: "September 2026",
-    title: "Agent Certification Prep",
-    body: "A candid session for law students considering the certification path.",
-  },
+  { when: "September 2026", title: "NFT.NYC", body: "Beyond NIL: The future of digital rights." },
+  { when: "", title: "More to come", body: "" },
+  { when: "", title: "More to come", body: "" },
 ];
 
 export type Faq = { q: string; a: string };
 
+/*
+ * Site-wide rule from the client: every FAQ answer ends "Contact me and let's
+ * discuss further." except Legal's response-time and first-message answers
+ * and Contact's "How do I get started?".
+ */
+const CTA = "Contact me and let's discuss further.";
+
 export const nflFaqs: Faq[] = [
   {
     q: "When should a player start talking to agents?",
-    a: "Well before you are eligible to sign. The relationship matters more than the timing, and early conversations cost you nothing.",
+    a: `Well before you are eligible to sign. The relationship matters more than the timing, and early conversations cost you nothing. ${CTA}`,
   },
   {
-    q: "How many clients do you represent?",
-    a: "Deliberately few. Roster size is the single best predictor of whether your agent returns your call.",
+    q: "How many clients do you normally sign during a draft class?",
+    a: `Three or less. Roster size is the single best predictor of whether your agent returns your call. ${CTA}`,
   },
   {
     q: "What does representation cost?",
-    a: "NFLPA rules cap contract advisor fees at three percent. I do not charge above the cap, and marketing terms are discussed separately.",
+    a: `NFLPA rules cap contract advisor fees at 3% of the compensation negotiated in a player's official NFL playing contract. This is described in the Standard Representation Agreement (SRA). ${CTA}`,
   },
   {
     q: "Do you work with undrafted players?",
-    a: "Yes. Undrafted free agency is a negotiation too, and often a more important one.",
+    a: `Yes. Undrafted free agency is a negotiation too, and often a more important one. ${CTA}`,
   },
   {
     q: "Does the law degree matter?",
-    a: "It helps with contracts. Plenty of excellent agents do not have one, and I have never pretended otherwise.",
+    a: `It helps with contracts. Plenty of excellent agents do not have one, but I find the information I gained in law lets me better predict unforeseen issues that may arise. ${CTA}`,
   },
   {
     q: "Who actually handles my account?",
-    a: "I do. There is no associate layer between you and the person negotiating your deal.",
+    a: `I do. There is no associate layer between you and the person negotiating your deal. ${CTA}`,
   },
 ];
 
 export const legalFaqs: Faq[] = [
   {
     q: "What types of clients do you work with?",
-    a: "Professional athletes, performers, and the founders and businesses that operate around them.",
+    a: `Ambitious individuals looking to build towards the future. ${CTA}`,
   },
   {
     q: "How do you approach a legal matter?",
-    a: "Position first. I look at where a matter is likely to end before deciding how to open it.",
+    a: `Position first. I look at where a matter is likely to end before deciding where to start. ${CTA}`,
   },
   {
     q: "Is legal work separate from representation?",
-    a: "It can be. Some clients bring me in only for contract review or a specific dispute.",
+    a: `Yes for athletes looking for representation. ${CTA}`,
   },
   {
     q: "How quickly do you respond?",
-    a: "Response times vary with active matters, but every inquiry is read personally.",
+    a: "Response times vary with active matters, but every inquiry is read personally and as soon as possible.",
   },
   {
     q: "Do you handle matters outside Kentucky?",
-    a: "Athlete matters routinely cross state lines. I will tell you plainly when local counsel is required.",
+    a: `Matters I advise on routinely cross state lines. I will tell you plainly when local counsel is required. ${CTA}`,
   },
   {
     q: "What should I send in a first message?",
-    a: "A short summary of the situation and any deadline you are working against.",
+    a: "A short summary of the situation with no confidential information and any deadline you are working against.",
+  },
+];
+
+export const entrepreneurFaqs: Faq[] = [
+  {
+    q: "Should I form an LLC or a C-Corp?",
+    a: `It depends on how you plan to fund and grow the business. An LLC is simpler to run and taxed as a pass-through. A C-Corp is usually what institutional investors expect. ${CTA}`,
+  },
+  {
+    q: "Where should I incorporate?",
+    a: `Many venture-backed companies incorporate in Delaware for its established corporate law. Smaller or locally owned businesses often stay in their home state to avoid a second set of filings and fees. ${CTA}`,
+  },
+  {
+    q: "What documents do I need after forming the company?",
+    a: `At minimum, an operating agreement or bylaws, a clear record of who owns what, and founder agreements covering vesting and what happens if someone leaves. ${CTA}`,
+  },
+  {
+    q: "What is an 83(b) election, and when is it due?",
+    a: `It lets founders pay tax on restricted stock at today's value rather than as it vests. It must be filed with the IRS within 30 days of the grant, and that deadline cannot be extended. ${CTA}`,
+  },
+  {
+    q: "Should I raise on a SAFE or a priced round?",
+    a: `A SAFE is faster and cheaper for early money. A priced round sets a valuation and board terms. I walk through what each does to your ownership before you sign. ${CTA}`,
+  },
+  {
+    q: "What should I check before investing in someone else's company?",
+    a: `The cap table, the terms of your security, who else is investing, and what rights you actually receive. Most regrets come from terms nobody read. ${CTA}`,
   },
 ];
 
@@ -362,19 +340,19 @@ export const contactFaqs: Faq[] = [
   },
   {
     q: "What services do you offer?",
-    a: "NFL representation, contract negotiation, legal counsel, NIL and brand advisory, and speaking.",
+    a: `NFL representation, contract negotiation, legal counsel, NIL and brand advisory, and speaking. ${CTA}`,
   },
   {
     q: "How do I book a consultation?",
-    a: "Use the form above or email directly. I schedule calls myself.",
+    a: `Use the form above or email directly. I schedule calls myself. ${CTA}`,
   },
   {
     q: "What can I expect on the first call?",
-    a: "Questions about where you are, an honest read on your market, and no pressure to commit.",
+    a: `Questions about where you are, an honest read on your market, and no pressure to commit. ${CTA}`,
   },
   {
     q: "Can I get ongoing support?",
-    a: "That is the point. Representation is a multi-year relationship, not a single transaction.",
+    a: `That is the point. Representation is a multi-year relationship, not a single transaction. ${CTA}`,
   },
 ];
 
@@ -386,4 +364,13 @@ export const contactTopics = [
   "Speaking request",
 ];
 
-export const affiliations = ["NFLPA", "Delta Sports", "KY Bar Assoc", "UC Law"];
+/**
+ * Partners' own logos, background removed. `height` is the rendered height in
+ * px, set per mark so the four read at equal weight.
+ */
+export const affiliations = [
+  { name: "Kentucky Bar Association", src: kbaLogo, height: 80 },
+  { name: "NFLPA", src: nflpaLogo, height: 42 },
+  { name: "Northern Kentucky Bar Association", src: nkbaLogo, height: 58 },
+  { name: "NFL Alumni", src: nflAlumniLogo, height: 76 },
+];
