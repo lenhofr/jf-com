@@ -224,8 +224,6 @@ you restyle `BlogPost.tsx`, update it too.
   Lambda's logs and SES in us-east-1.
 - **Phone numbers.** The contact form has no phone column, so the number is
   appended to the message as `Phone: …`.
-- **Newsletter names.** The Home page form asks for a name, but the signup
-  Lambda stores only the email, so the name is discarded.
 - **Spam.** Both forms carry a hidden honeypot field, and a filled one is
   rejected.
 - **Reading data.** There is no admin UI. Read or export submissions from the
