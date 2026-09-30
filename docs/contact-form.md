@@ -1,9 +1,9 @@
 # Contact form deployment
 
-## Required GitHub repo variables
+**Superseded.** This used to say to copy the Terraform output
+`contact_api_base_url` into a GitHub repository variable. The deploy workflow
+now reads both API URLs straight from the Terraform outputs of the same run, so
+no repository variables are needed.
 
-After Terraform apply, set this GitHub **Repository Variable** (not secret):
-
-- `VITE_CONTACT_API_URL` = Terraform output `contact_api_base_url`
-
-This value is consumed by the deploy workflow to build the Vite SPA and wire the contact form submission endpoint.
+See [Contact form and newsletter](../README.md#contact-form-and-newsletter) in
+the root README for how the form, storage, and email alerts work.

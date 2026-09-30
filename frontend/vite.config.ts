@@ -8,7 +8,9 @@ import { prerenderMeta } from "./vite-plugins/prerender-meta";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 8080,
+    // Vite's default, and the localhost origin the form APIs allow (CORS in
+    // infra/terraform/contact.tf and signup.tf).
+    port: 5173,
   },
   plugins: [react(), mode === "development" && componentTagger(), prerenderMeta()].filter(Boolean),
   resolve: {
