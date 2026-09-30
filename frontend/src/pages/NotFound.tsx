@@ -10,7 +10,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <section className="on-dark flex min-h-[60vh] items-center bg-forest-900 py-20">
+    <section className="on-dark flex min-h-[60vh] items-center bg-charcoal-900 py-20">
       <div className="site-container text-center">
         <Eyebrow tone="dark" className="mb-5">
           404

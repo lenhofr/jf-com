@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { contact } from "@/data/site";
-import { Monogram } from "./SiteHeader";
+import wordmark from "@/assets/wordmark-foreman-company.png";
+import { Logo } from "./SiteHeader";
 
 const services = [
+  { to: "/legal", label: "Legal" },
   { to: "/nfl-agent", label: "NFL Representation" },
-  { to: "/legal", label: "Legal Counsel" },
   { to: "/entrepreneur", label: "Entrepreneur Advisory" },
   { to: "/speaking", label: "Speaking & Media" },
 ];
@@ -16,12 +17,13 @@ const more = [
   { to: "/contact", label: "Contact" },
 ];
 
+const labelCls =
+  "text-[10.5px] font-semibold uppercase leading-none tracking-[0.16em] text-white/[0.42]";
+
 function Column({ title, links }: { title: string; links: { to: string; label: string }[] }) {
   return (
     <div className="flex min-w-[150px] flex-col gap-[11px]">
-      <span className="mb-[3px] text-[10.5px] font-semibold uppercase leading-none tracking-[0.16em] text-white/[0.42]">
-        {title}
-      </span>
+      <span className={`mb-[3px] ${labelCls}`}>{title}</span>
       {links.map((l) => (
         <Link
           key={l.to}
@@ -36,16 +38,20 @@ function Column({ title, links }: { title: string; links: { to: string; label: s
 }
 
 const SiteFooter = () => (
-  <footer className="on-dark bg-forest-900 pb-10 pt-[52px]">
+  <footer className="on-dark bg-charcoal-900 pb-10 pt-[52px]">
     <div className="site-container">
       <div className="flex flex-wrap items-start gap-10">
         <div className="min-w-[220px] flex-1 basis-[260px]">
           <div className="mb-[18px]">
-            <Monogram tone="light" />
+            <Logo className="h-[52px]" />
           </div>
+          {/* Client wording, verbatim. */}
           <p className="m-0 max-w-[280px] text-[13px] leading-[1.7] text-white/[0.62]">
-            Jesse L. Foreman, Esq. NFLPA-certified contract advisor and attorney. Athlete
-            representation, contract negotiation, and strategic legal counsel.
+            Jesse L. Foreman, Esq.
+            <br />
+            Licensed Attorney &amp; NFLPA Certified Contract Advisor
+            <br />
+            Helping make better decision in high-stake moments.
           </p>
         </div>
 
@@ -53,9 +59,7 @@ const SiteFooter = () => (
         <Column title="More" links={more} />
 
         <div className="flex min-w-[180px] flex-col gap-[11px]">
-          <span className="mb-[3px] text-[10.5px] font-semibold uppercase leading-none tracking-[0.16em] text-white/[0.42]">
-            Contact
-          </span>
+          <span className={`mb-[3px] ${labelCls}`}>Contact</span>
           <a
             href={`mailto:${contact.email}`}
             className="text-[13px] leading-none text-white/[0.78] transition-colors hover:text-white"
@@ -74,11 +78,25 @@ const SiteFooter = () => (
 
       <div className="mt-10 flex flex-wrap items-center justify-between gap-5 border-t border-white/[0.12] pt-[22px]">
         <span className="text-xs leading-none text-white/[0.42]">
-          © {new Date().getFullYear()} Jesse Foreman. All rights reserved.
+          © {new Date().getFullYear()} The Foreman Company. All rights reserved.
         </span>
-        <span className="text-xs leading-none text-white/[0.42]">
-          NFLPA Certified Contract Advisor since 2014
-        </span>
+        <img
+          src={wordmark}
+          alt="The Foreman Company"
+          loading="lazy"
+          className="h-12 w-auto object-contain opacity-85"
+        />
+      </div>
+
+      <div className="mt-[22px] border-t border-white/[0.12] pt-[18px]">
+        <p className={`m-0 mb-[6px] ${labelCls}`}>Disclaimer</p>
+        <p className="m-0 max-w-[820px] text-[11.5px] leading-[1.65] text-white/[0.42]">
+          The information you obtain at this site is not, nor is it intended to be, legal advice.
+          You should consult an attorney for advice regarding your individual situation. We invite
+          you to contact us and welcome your calls, letters and electronic mail. Contacting us does
+          not create an attorney-client relationship. Please do not send any confidential
+          information to us until such time as an attorney-client relationship has been established.
+        </p>
       </div>
     </div>
   </footer>

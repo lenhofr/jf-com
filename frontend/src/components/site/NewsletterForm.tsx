@@ -72,7 +72,7 @@ const NewsletterForm = ({
     "min-w-0 rounded-[3px] border px-[14px] py-[13px] text-[13px] leading-none outline-none",
     tone === "dark"
       ? "border-white/20 bg-white/[0.07] text-white placeholder:text-white/50"
-      : "border-forest-900/[0.18] bg-white text-forest-900 placeholder:text-slate-muted",
+      : "border-black/[0.18] bg-white text-charcoal-900 placeholder:text-grey-muted",
   );
 
   if (isSubmitted) {
@@ -80,7 +80,7 @@ const NewsletterForm = ({
       <p
         className={cn(
           "m-0 text-[14px] leading-[1.6]",
-          tone === "dark" ? "text-mint" : "text-forest-700",
+          tone === "dark" ? "text-champagne" : "text-charcoal-700",
           className,
         )}
       >
@@ -123,8 +123,8 @@ const NewsletterForm = ({
           type="submit"
           disabled={isSubmitting}
           className={cn(
-            "rounded-[3px] bg-moss px-6 py-[13px] text-[13px] font-semibold leading-none text-white transition-colors disabled:opacity-60",
-            tone === "dark" ? "hover:bg-moss-light" : "hover:bg-moss-dark",
+            "rounded-[3px] bg-gold px-6 py-[13px] text-[13px] font-semibold leading-none text-ink transition-colors disabled:opacity-60",
+            tone === "dark" ? "hover:bg-gold-light" : "hover:bg-gold-dark",
           )}
         >
           {isSubmitting ? "Sending…" : buttonLabel}

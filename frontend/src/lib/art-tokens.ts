@@ -8,14 +8,12 @@
  */
 
 export const ART_PALETTE = {
-  forest900: "#0F2E22",
-  forest800: "#123A2B",
-  forest700: "#1C5741",
-  moss: "#4E8C5E",
-  mint: "#7FBE92",
-  mint50: "#E8F1EB",
-  sage50: "#F5F7F5",
+  charcoal900: "#141414",
+  charcoal800: "#1E1E1E",
   gold: "#C9A227",
+  champagne: "#E0C871",
+  silver: "#C6C8CA",
+  greyMuted: "#8C8C8C",
 } as const;
 
 export type ArtTone = "light" | "dark";
@@ -32,18 +30,18 @@ export const ART_TONES: Record<ArtTone, ToneSpec> = {
   light: {
     // A wider gradient span and firmer strokes than the mockup's hatch: at
     // banner size, a near-flat tint reads as an image that failed to load.
-    from: "#EEF4EF",
-    to: "#D7E5DB",
-    line: "rgba(28,87,65,0.22)",
-    lineStrong: "rgba(28,87,65,0.42)",
-    accent: ART_PALETTE.moss,
+    from: "#F4F4F3",
+    to: "#D8D9DA",
+    line: "rgba(70,70,70,0.22)",
+    lineStrong: "rgba(70,70,70,0.42)",
+    accent: ART_PALETTE.gold,
   },
   dark: {
-    from: ART_PALETTE.forest800,
-    to: ART_PALETTE.forest900,
-    line: "rgba(127,190,146,0.20)",
-    lineStrong: "rgba(127,190,146,0.42)",
-    accent: ART_PALETTE.mint,
+    from: ART_PALETTE.charcoal800,
+    to: ART_PALETTE.charcoal900,
+    line: "rgba(224,200,113,0.20)",
+    lineStrong: "rgba(224,200,113,0.42)",
+    accent: ART_PALETTE.champagne,
   },
 };
 
@@ -60,10 +58,10 @@ export function artHash(seed: string): number {
 }
 
 const CATEGORY_ACCENT: Record<string, string> = {
-  Contracts: ART_PALETTE.moss,
-  NIL: ART_PALETTE.gold,
-  Draft: ART_PALETTE.forest700,
-  Career: ART_PALETTE.mint,
+  Contracts: ART_PALETTE.gold,
+  NIL: ART_PALETTE.champagne,
+  Draft: ART_PALETTE.silver,
+  Career: ART_PALETTE.greyMuted,
 };
 
 /** Accent colour for a post category, so the blog index reads as a set. */

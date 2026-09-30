@@ -5,7 +5,7 @@ import kentuckyLandscape from "@/assets/hero-kentucky.jpg";
 
 const Contact = () => (
   <>
-    <section className="on-dark bg-forest-900 py-16 text-center md:py-[88px]">
+    <section className="on-dark bg-charcoal-900 py-16 text-center md:py-[88px]">
       <div className="site-container">
         <Eyebrow tone="dark" className="mb-5">
           Contact
@@ -24,38 +24,40 @@ const Contact = () => (
       <div className="site-container grid items-start gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
         <div>
           <Eyebrow className="mb-[14px]">Reach Out</Eyebrow>
-          <h2 className="m-0 mb-7 font-display text-[28px] font-semibold leading-[1.16] tracking-[-0.025em] text-forest-700 md:text-[34px]">
+          <h2 className="m-0 mb-7 font-display text-[28px] font-semibold leading-[1.16] tracking-[-0.025em] text-charcoal-700 md:text-[34px]">
             Direct lines.
           </h2>
 
           <div className="mb-8 flex flex-col gap-[18px]">
-            <div className="flex flex-col gap-[5px] border-b border-forest-900/10 pb-4">
-              <span className="text-[11px] font-medium uppercase leading-none tracking-[0.14em] text-slate-muted">
+            <div className="flex flex-col gap-[5px] border-b border-black/10 pb-4">
+              <span className="text-[11px] font-medium uppercase leading-none tracking-[0.14em] text-grey-muted">
                 Email
               </span>
               <a
                 href={`mailto:${contact.email}`}
-                className="text-[15px] leading-none text-forest-900 transition-colors hover:text-moss"
+                className="text-[15px] leading-none text-charcoal-900 transition-colors hover:text-gold"
               >
                 {contact.email}
               </a>
             </div>
-            <div className="flex flex-col gap-[5px] border-b border-forest-900/10 pb-4">
-              <span className="text-[11px] font-medium uppercase leading-none tracking-[0.14em] text-slate-muted">
+            <div className="flex flex-col gap-[5px] border-b border-black/10 pb-4">
+              <span className="text-[11px] font-medium uppercase leading-none tracking-[0.14em] text-grey-muted">
                 Phone
               </span>
               <a
                 href={contact.phoneHref}
-                className="text-[15px] leading-none text-forest-900 transition-colors hover:text-moss"
+                className="text-[15px] leading-none text-charcoal-900 transition-colors hover:text-gold"
               >
                 {contact.phone}
               </a>
             </div>
-            <div className="flex flex-col gap-[5px] border-b border-forest-900/10 pb-4">
-              <span className="text-[11px] font-medium uppercase leading-none tracking-[0.14em] text-slate-muted">
+            <div className="flex flex-col gap-[5px] border-b border-black/10 pb-4">
+              <span className="text-[11px] font-medium uppercase leading-none tracking-[0.14em] text-grey-muted">
                 Office
               </span>
-              <span className="text-[15px] leading-[1.5] text-forest-900">{contact.location}</span>
+              <span className="text-[15px] leading-[1.5] text-charcoal-900">
+                {contact.location}
+              </span>
             </div>
           </div>
 
@@ -63,7 +65,7 @@ const Contact = () => (
               rather than a third-party iframe that would load an outside
               tracker on every visit. The address links out to a live map. */}
           <a
-            href="https://www.google.com/maps/search/?api=1&query=Florence%2C+Kentucky"
+            href="https://www.google.com/maps/search/?api=1&query=Northern+Kentucky"
             target="_blank"
             rel="noreferrer noopener"
             className="group relative block h-[230px] overflow-hidden focus-visible:outline-offset-4"
@@ -74,9 +76,9 @@ const Contact = () => (
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/95 via-forest-900/55 to-forest-900/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/10" />
             <div className="absolute inset-x-0 bottom-0 p-6">
-              <p className="m-0 mb-[6px] font-mono text-[10.5px] font-semibold uppercase leading-none tracking-[0.12em] text-mint">
+              <p className="m-0 mb-[6px] font-mono text-[10.5px] font-semibold uppercase leading-none tracking-[0.12em] text-champagne">
                 Based In
               </p>
               <p className="m-0 mb-1 font-display text-[19px] font-semibold leading-none text-white">
@@ -93,11 +95,11 @@ const Contact = () => (
       </div>
     </section>
 
-    <section className="bg-mint-50 py-16 md:py-20">
+    <section className="bg-champagne-50 py-16 md:py-20">
       <div className="site-container">
         <div className="mb-9 text-center">
           <Eyebrow className="mb-[14px]">FAQ</Eyebrow>
-          <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.14] tracking-[-0.025em] text-forest-700 md:text-[36px]">
+          <h2 className="m-0 font-display text-[30px] font-semibold leading-[1.14] tracking-[-0.025em] text-charcoal-700 md:text-[36px]">
             Before you write.
           </h2>
         </div>

@@ -227,7 +227,10 @@ export function FieldArt({
           {/* Scrim: the art carries real contrast, so text over it needs the
               pattern knocked back or the two compete. */}
           <div
-            className={cn("absolute inset-0", tone === "dark" ? "bg-forest-900/70" : "bg-white/75")}
+            className={cn(
+              "absolute inset-0",
+              tone === "dark" ? "bg-charcoal-900/70" : "bg-white/75",
+            )}
             aria-hidden="true"
           />
           <div className="relative flex w-full flex-col justify-center">{children}</div>
@@ -294,7 +297,7 @@ export function StatementPanel({
           <p
             className={cn(
               "m-0 mb-5 text-[11px] font-medium uppercase leading-none tracking-[0.2em]",
-              dark ? "text-mint" : "text-moss",
+              dark ? "text-champagne" : "text-gold-dark",
             )}
           >
             {eyebrow}
@@ -322,13 +325,13 @@ export function FactList({
           key={item.label}
           className={cn(
             "flex flex-col gap-[3px] border-t pt-[11px]",
-            dark ? "border-white/20" : "border-forest-900/15",
+            dark ? "border-white/20" : "border-black/15",
           )}
         >
           <dt
             className={cn(
               "font-mono text-[10.5px] font-semibold uppercase leading-none tracking-[0.1em]",
-              dark ? "text-mint" : "text-moss",
+              dark ? "text-champagne" : "text-gold-dark",
             )}
           >
             {item.label}
@@ -336,7 +339,7 @@ export function FactList({
           <dd
             className={cn(
               "m-0 text-[14px] font-semibold leading-[1.35]",
-              dark ? "text-white" : "text-forest-900",
+              dark ? "text-white" : "text-charcoal-900",
             )}
           >
             {item.value}
@@ -358,36 +361,15 @@ export function RoleTile({ index, className }: { index: number; className?: stri
       seed={`bench-${index}`}
       tone="dark"
       variant={index % ART_VARIANT_COUNT}
-      // Bordered: these sit on a forest section, and without an edge the tile
+      // Bordered: these sit on a charcoal section, and without an edge the tile
       // and the background read as one dark shape.
       className={cn("border border-white/[0.18]", className)}
     >
       <div className="flex w-full items-end p-4">
-        <span className="font-mono text-[11px] font-semibold leading-none tracking-[0.12em] text-mint">
+        <span className="font-mono text-[11px] font-semibold leading-none tracking-[0.12em] text-champagne">
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>
     </FieldArt>
-  );
-}
-
-/**
- * Affiliation shown as a typographic wordmark. These are other
- * organisations' marks, which this site has no licence to reproduce, so
- * the name is set in the site's own type instead of faking a logo.
- */
-export function WordmarkTile({ name, className }: { name: string; className?: string }) {
-  return (
-    <div
-      className={cn(
-        "flex flex-col items-center justify-center gap-[10px] border border-forest-900/[0.12] bg-sage-50 px-4 text-center transition-colors hover:border-moss/45",
-        className,
-      )}
-    >
-      <span className="font-display text-[15px] font-semibold leading-[1.2] tracking-[-0.01em] text-forest-800">
-        {name}
-      </span>
-      <span className="h-px w-8 bg-moss/45" />
-    </div>
   );
 }
