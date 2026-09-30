@@ -4,20 +4,16 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   tone?: "dark" | "light";
-  /** Home page variant collects a name alongside the email. */
-  withName?: boolean;
   buttonLabel?: string;
   className?: string;
 };
 
 const NewsletterForm = ({
   tone = "dark",
-  withName = false,
   buttonLabel = "Subscribe",
   className,
 }: Props) => {
   const { toast } = useToast();
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,12 +41,11 @@ const NewsletterForm = ({
       const res = await fetch(`${apiBaseUrl}/signup`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, name, website }),
+        body: JSON.stringify({ email, website }),
       });
       if (!res.ok) throw new Error("signup_failed");
 
       setIsSubmitted(true);
-      setName("");
       setEmail("");
       setWebsite("");
       toast({
@@ -92,21 +87,12 @@ const NewsletterForm = ({
   return (
     <form onSubmit={handleSubmit} className={className}>
       <div className="flex flex-wrap gap-[10px]">
-        {withName && (
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Full name"
-            aria-label="Full name"
-            className={cn(inputCls, "flex-1 basis-[140px]")}
-          />
-        )}
         <input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder={withName ? "Email" : "Enter your email"}
+          placeholder="Enter your email"
           aria-label="Email"
           className={cn(inputCls, "flex-1 basis-[180px]")}
         />

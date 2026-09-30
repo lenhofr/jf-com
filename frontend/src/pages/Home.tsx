@@ -218,7 +218,7 @@ const Home = () => (
           Occasional notes on the biggest regulation news in sports, tech, and business. No selling,
           just personal insights.
         </p>
-        <NewsletterForm tone="dark" withName buttonLabel="Join" />
+        <NewsletterForm tone="dark" buttonLabel="Join" />
       </div>
       <StatementPanel
         eyebrow="Featured In"
