@@ -79,9 +79,15 @@ resource "aws_lambda_function" "contact" {
   filename         = data.archive_file.contact_lambda.output_path
   source_code_hash = data.archive_file.contact_lambda.output_base64sha256
 
+  # The default 3s leaves little room for the SES call after the DynamoDB write.
+  timeout = 10
+
   environment {
     variables = {
       TABLE_NAME = aws_dynamodb_table.contact_messages.name
+      # Empty values turn email alerts off (see contact_alerts.tf).
+      ALERT_TO   = local.contact_alerts_enabled ? var.contact_alert_to : ""
+      ALERT_FROM = local.contact_alerts_enabled ? local.contact_alert_from : ""
     }
   }
 

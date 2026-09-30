@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 import boto3
 
 _EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+_LINE_BREAKS = re.compile(r"[\r\n]+")
 
 
 def _json(status_code: int, payload: dict):
@@ -16,6 +17,55 @@ def _json(status_code: int, payload: dict):
         "headers": {"content-type": "application/json"},
         "body": json.dumps(payload),
     }
+
+
+def _one_line(value: str, limit: int) -> str:
+    """Collapse to a single line so visitor input can never add email headers."""
+    return _LINE_BREAKS.sub(" ", value).strip()[:limit]
+
+
+def _send_alert(item: dict) -> None:
+    """Email the stored message to ALERT_TO. No-op when alerts are not configured."""
+    to_addr = os.environ.get("ALERT_TO", "")
+    from_addr = os.environ.get("ALERT_FROM", "")
+    if not to_addr or not from_addr:
+        return
+
+    name = item.get("name", "")
+    topic = item.get("subject", "")
+    who = _one_line(name, 80) or item["email"]
+    subject = f"Website inquiry from {who}"
+    if topic:
+        subject += f" — {_one_line(topic, 80)}"
+
+    body = "\n".join(
+        [
+            "New message from the contact form on jesseforeman.com.",
+            "Reply to this email to answer the sender directly.",
+            "",
+            f"Name:     {_one_line(name, 200) or '(not given)'}",
+            f"Email:    {item['email']}",
+            f"Topic:    {_one_line(topic, 200) or '(not given)'}",
+            f"Received: {item['createdAt']}",
+            "",
+            item["message"],
+            "",
+            "--",
+            f"Saved in DynamoDB table {os.environ['TABLE_NAME']} as id {item['id']}.",
+        ]
+    )
+
+    boto3.client("sesv2").send_email(
+        FromEmailAddress=from_addr,
+        Destination={"ToAddresses": [to_addr]},
+        ReplyToAddresses=[item["email"]],
+        Content={
+            "Simple": {
+                "Subject": {"Data": subject, "Charset": "UTF-8"},
+                "Body": {"Text": {"Data": body, "Charset": "UTF-8"}},
+            }
+        },
+    )
 
 
 def handler(event, context):
@@ -61,6 +111,13 @@ def handler(event, context):
 
         table = boto3.resource("dynamodb").Table(os.environ["TABLE_NAME"])
         table.put_item(Item=item)
+
+        # The message is already saved, so a failed alert must not fail the
+        # visitor's submission. Log only the id: message bodies stay out of logs.
+        try:
+            _send_alert(item)
+        except Exception as exc:  # noqa: BLE001
+            print(f"CONTACT_ALERT_FAILED id={item['id']} error={type(exc).__name__}: {exc}")
 
         return _json(200, {"ok": True})
     except Exception:
