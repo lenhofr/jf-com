@@ -71,9 +71,11 @@ jobs:
           echo "signup_api=$(terraform output -raw signup_api_base_url)" >> "$GITHUB_OUTPUT"
           echo "contact_api=$(terraform output -raw contact_api_base_url)" >> "$GITHUB_OUTPUT"
 
-      # NOTE: This expects the frontend code to be available in ./frontend (e.g. as a submodule/subtree).
+      # Runs on pull requests too, so a post that fails content validation (for
+      # example a CMS post with an image but no description) fails the PR's
+      # check instead of breaking every deploy after it merges. On PRs the API
+      # URLs are empty, which only affects the forms in that throwaway build.
       - name: Build frontend
-        if: github.event_name == 'push'
         # Taken from Terraform rather than repo variables so the site always
         # targets the APIs this same apply just created. The repo variable for
         # signup kept pointing at the us-west-2 API after the us-east-1 move,
