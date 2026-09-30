@@ -29,13 +29,6 @@ The system SHALL store accepted contact messages in an AWS DynamoDB table and SH
 - **THEN** the system SHALL write a record to DynamoDB including at least: email, message, and a timestamp
 - **AND THEN** the system SHALL store optional fields (e.g. name, subject) when provided
 
-### Requirement: Message delivery to campaign
-The system SHALL provide an operator-accessible delivery mechanism for accepted contact messages.
-
-#### Scenario: Campaign receives a message without an admin UI
-- **WHEN** a message is accepted
-- **THEN** the system SHALL make it accessible via AWS operator tooling (e.g. DynamoDB console and/or exports)
-
 ### Requirement: Basic spam mitigation
 The system SHALL include basic spam mitigation for the contact endpoint.
 
@@ -54,4 +47,22 @@ The system SHALL NOT require embedding private secrets (e.g., AWS credentials) i
 - **WHEN** the ingestion API writes to DynamoDB
 - **THEN** AWS credentials SHALL be held server-side (Lambda execution role)
 - **AND THEN** the SPA SHALL only call a public HTTPS endpoint
+
+### Requirement: Message delivery
+The system SHALL keep every accepted contact message accessible via AWS operator tooling, and SHALL send an email alert for each accepted message to one or more configured recipients.
+
+#### Scenario: Operator reviews stored messages
+- **WHEN** a message is accepted
+- **THEN** the system SHALL make it accessible via AWS operator tooling (e.g. DynamoDB console and/or exports)
+
+#### Scenario: Recipient is alerted by email
+- **WHEN** a message is accepted and stored
+- **THEN** the system SHALL email the message's name, email, subject, message, and timestamp to every configured recipient
+- **AND THEN** the email's Reply-To SHALL be the sender's address
+
+#### Scenario: Alert delivery fails
+- **WHEN** the email alert cannot be sent
+- **THEN** the stored message SHALL remain in DynamoDB
+- **AND THEN** the visitor SHALL still receive a success response
+- **AND THEN** the system SHALL log the failure with the message id and without the message body
 

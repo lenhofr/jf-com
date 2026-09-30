@@ -12,4 +12,4 @@
 ## 3. Verification
 - [x] 3.1 Local handler test with stubbed boto3 (success, send failure, alerts off, honeypot)
 - [x] 3.2 `terraform validate` and `terraform fmt -check`
-- [ ] 3.3 After deploy: SES identity shows verified, and a test submission arrives at jesse@jesseforeman.com
+- [x] 3.3 After deploy: SES identity shows verified, and a test submission arrives at jesse@jesseforeman.com
