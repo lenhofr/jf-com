@@ -96,17 +96,19 @@ collections:
         # Uploads land in media_folder and the path written here comes from
         # public_folder, so this ends up as /images/blog/<file>.
         hint: >-
-          Shown at the top of the post and on its card in the blog list. Leave
-          empty to keep the hatched placeholder. Wide images work best — it is
-          cropped to fill a short banner.
+          Shown at the top of the post, on its card in the blog list, and as the
+          preview when the post is shared. Use a wide image (1200×630 is ideal)
+          and prefer a JPG under 500 KB. Leave empty to use generated art. If
+          you add an image, fill in the description below as well.
 
       - label: "Image description"
         name: "imageAlt"
         widget: "string"
         required: false
         # Not required by Decap, because Decap cannot make one field's necessity
-        # depend on another. The build enforces it instead, so a missing
-        # description fails CI on the pull request rather than shipping.
+        # depend on another. The build enforces it instead: the pull request's
+        # CI check builds the site, so a missing description fails there rather
+        # than shipping.
         hint: >-
           Required if you add an image. Describe what the image shows, for
           screen readers and for when the image fails to load.
