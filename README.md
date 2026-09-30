@@ -33,7 +33,7 @@ Foreman, Esq. (attorney and NFLPA Certified Contract Advisor).
 | `frontend/vite-plugins/prerender-meta.ts` | Writes a per-route `index.html` with that page's meta tags, and `sitemap.xml`.           |
 | `content/blog/`                           | Blog posts, one markdown file each ([schema](content/README.md)).                        |
 | `infra/terraform/`                        | All AWS infrastructure. `lambda/` holds the two Python handlers.                         |
-| `.github/workflows/deploy.yml`            | Plan on pull requests; apply and deploy on `main`.                                       |
+| `.github/workflows/deploy.yml`            | Plan and build on pull requests; apply and deploy on `main`.                             |
 | `openspec/`                               | Specs for the forms and infrastructure, and the change history.                          |
 | `docs/`                                   | Design handoff, mockups, and older planning notes ([index](docs/README.md)).             |
 
@@ -151,7 +151,7 @@ Everything is in **us-east-1**.
 
 ```mermaid
 flowchart LR
-  pr["Pull request"] --> plan["terraform plan<br/>(check on the PR)"]
+  pr["Pull request"] --> plan["terraform plan<br/>+ npm run build<br/>(check on the PR)"]
   merge["Merge to main"] --> q{{"Queue<br/>(one deploy at a time)"}}
   q --> apply["terraform apply"] --> out["Read outputs:<br/>bucket, distribution,<br/>API URLs"]
   out --> build["npm ci && npm run build<br/>(API URLs baked in)"]
@@ -166,8 +166,11 @@ flowchart LR
   waits, which is fine because it builds the latest `main`.
 - **API URLs come from Terraform outputs,** not repository variables. A stale
   variable once pointed the newsletter at a deleted API for months.
-- **Infrastructure changes show up as a plan** on the PR's `terraform` check.
-  Read it before merging.
+- **Pull requests (including CMS ones) get a `terraform` check** that runs
+  `terraform plan` and builds the site. A post with bad frontmatter fails that
+  check instead of breaking `main`. That gap stopped every deploy for a few
+  hours on 2026-09-30. For infrastructure changes, read the plan in the check's
+  log before merging.
 
 ## Blog content and the CMS
 
