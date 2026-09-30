@@ -26,7 +26,7 @@ variable "contact_alert_to" {
 
 locals {
   contact_alerts_enabled = var.enable_custom_domain
-  contact_alert_from     = "Jesse Foreman website <notifications@${var.domain_name}>"
+  contact_alert_from     = "Jesse Foreman <notifications@${var.domain_name}>"
   ses_mail_from_domain   = "mail.${var.domain_name}"
 }
 
