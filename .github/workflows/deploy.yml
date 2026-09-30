@@ -9,6 +9,18 @@ permissions:
   id-token: write
   contents: read
 
+# Deploys to main must never overlap. Each one ends with `aws s3 sync --delete`,
+# so two running at once delete each other's hashed assets and leave index.html
+# pointing at a bundle that no longer exists: a blank site. That happened on
+# 2026-09-30 when several CMS edits landed within a minute. Queued runs wait
+# instead of cancelling a deploy halfway through its sync; GitHub keeps only the
+# newest pending run, which is fine because it builds the latest main anyway.
+# Pull requests only run `terraform plan`, so a newer push to the same PR can
+# cancel the older plan.
+concurrency:
+  group: ${{ github.event_name == 'push' && 'deploy-production' || format('plan-{0}', github.ref) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -56,13 +68,19 @@ jobs:
         run: |
           echo "bucket=$(terraform output -raw site_bucket_name)" >> "$GITHUB_OUTPUT"
           echo "distribution_id=$(terraform output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
+          echo "signup_api=$(terraform output -raw signup_api_base_url)" >> "$GITHUB_OUTPUT"
+          echo "contact_api=$(terraform output -raw contact_api_base_url)" >> "$GITHUB_OUTPUT"
 
       # NOTE: This expects the frontend code to be available in ./frontend (e.g. as a submodule/subtree).
       - name: Build frontend
         if: github.event_name == 'push'
+        # Taken from Terraform rather than repo variables so the site always
+        # targets the APIs this same apply just created. The repo variable for
+        # signup kept pointing at the us-west-2 API after the us-east-1 move,
+        # and newsletter signups silently failed for months.
         env:
-          VITE_SIGNUP_API_URL: ${{ vars.VITE_SIGNUP_API_URL }}
-          VITE_CONTACT_API_URL: ${{ vars.VITE_CONTACT_API_URL }}
+          VITE_SIGNUP_API_URL: ${{ steps.tf.outputs.signup_api }}
+          VITE_CONTACT_API_URL: ${{ steps.tf.outputs.contact_api }}
         run: |
           if [ ! -d ../../frontend ]; then
             echo "frontend/ directory not found; skipping frontend deploy."
