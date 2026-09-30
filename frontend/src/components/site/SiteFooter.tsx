@@ -45,13 +45,12 @@ const SiteFooter = () => (
           <div className="mb-[18px]">
             <Logo className="h-[52px]" />
           </div>
-          {/* Client wording, verbatim. */}
           <p className="m-0 max-w-[280px] text-[13px] leading-[1.7] text-white/[0.62]">
             Jesse L. Foreman, Esq.
             <br />
             Licensed Attorney &amp; NFLPA Certified Contract Advisor
             <br />
-            Helping make better decision in high-stake moments.
+            Helping make better decisions in high-stakes moments.
           </p>
         </div>
 

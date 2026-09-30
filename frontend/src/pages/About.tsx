@@ -15,7 +15,7 @@ const About = () => (
         </h1>
         <p className="m-0 max-w-[560px] text-[16px] font-light leading-[1.65] text-white/[0.72] md:text-[17px]">
           Someone you can trust advising you through the biggest decisions of your life. Helping
-          mitigating the risk and maximize the reward.
+          mitigate the risk and maximize the reward.
         </p>
       </div>
     </section>

@@ -26,7 +26,7 @@ const Insights = () => (
             Trusted guidance for consequential decisions.
           </h1>
           <p className="m-0 max-w-[500px] text-base font-light leading-[1.65] text-white/[0.72]">
-            Insights in the latest insights in sports, law, business, and technology.
+            The latest insights in sports, law, business, and technology.
           </p>
         </div>
       </div>

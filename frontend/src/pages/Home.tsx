@@ -84,9 +84,9 @@ const Home = () => (
             </h2>
           </div>
           <p className="m-0 max-w-[380px] text-[14.5px] font-light leading-[1.7] text-white/[0.66]">
-            The people who have succeed the most are the ones who have one focus and have stuck with
-            it. I help those individuals with their business decisions so that they can keep their
-            focus.
+            The people who have succeeded the most are the ones who have one focus and have stuck
+            with it. I help those individuals with their business decisions so that they can keep
+            their focus.
           </p>
         </div>
 

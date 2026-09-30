@@ -32,7 +32,7 @@ export type Quote = { text: string; name: string; role: string };
  */
 export const clientQuotes: Quote[] = [
   {
-    text: "Jesse is someone I know I can trust to give me honest and well thought out advise. He isn't someone who will agree with you just to appease you.",
+    text: "Jesse is someone I know I can trust to give me honest and well-thought-out advice. He isn't someone who will agree with you just to appease you.",
     name: "Jammal Brown",
     role: "Super Bowl Champ, All Pro, and Pro-Bowler",
   },
@@ -202,7 +202,7 @@ export const ventures = [
 export const speakingFormats = [
   { label: "Technology", value: "AI and Non-Fungible Token" },
   { label: "Business", value: "Summit panels and keynote sessions" },
-  { label: "Education", value: "Certification and Career Advise" },
+  { label: "Education", value: "Certification and Career Advice" },
 ];
 
 export const team = [
