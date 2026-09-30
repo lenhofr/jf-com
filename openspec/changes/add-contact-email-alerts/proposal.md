@@ -10,8 +10,9 @@ is read personally", so a message nobody sees is a lost client.
 
 ## What Changes
 - After storing a message, the contact Lambda emails it through Amazon SES to
-  `jesse@jesseforeman.com` (Terraform variable `contact_alert_to`), with the
-  sender's address as Reply-To.
+  every address in the Terraform variable `contact_alert_to`, with the sender's
+  address as Reply-To. The default is `jesse@jesseforeman.com`, plus
+  `rob.j.len@gmail.com` temporarily while alerts are tested.
 - The alert is best-effort. The message is saved first, and a failed send is
   logged by id (never the body) without failing the visitor's submission.
 - SES sends as `notifications@jesseforeman.com`:

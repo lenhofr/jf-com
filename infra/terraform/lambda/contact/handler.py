@@ -25,10 +25,10 @@ def _one_line(value: str, limit: int) -> str:
 
 
 def _send_alert(item: dict) -> None:
-    """Email the stored message to ALERT_TO. No-op when alerts are not configured."""
-    to_addr = os.environ.get("ALERT_TO", "")
+    """Email the stored message to ALERT_TO (comma-separated). No-op when unset."""
+    to_addrs = [a.strip() for a in os.environ.get("ALERT_TO", "").split(",") if a.strip()]
     from_addr = os.environ.get("ALERT_FROM", "")
-    if not to_addr or not from_addr:
+    if not to_addrs or not from_addr:
         return
 
     name = item.get("name", "")
@@ -57,7 +57,7 @@ def _send_alert(item: dict) -> None:
 
     boto3.client("sesv2").send_email(
         FromEmailAddress=from_addr,
-        Destination={"ToAddresses": [to_addr]},
+        Destination={"ToAddresses": to_addrs},
         ReplyToAddresses=[item["email"]],
         Content={
             "Simple": {

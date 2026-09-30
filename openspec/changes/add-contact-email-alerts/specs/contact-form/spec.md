@@ -4,7 +4,7 @@
 
 ## MODIFIED Requirements
 ### Requirement: Message delivery
-The system SHALL keep every accepted contact message accessible via AWS operator tooling, and SHALL send an email alert for each accepted message to a configured recipient.
+The system SHALL keep every accepted contact message accessible via AWS operator tooling, and SHALL send an email alert for each accepted message to one or more configured recipients.
 
 #### Scenario: Operator reviews stored messages
 - **WHEN** a message is accepted
@@ -12,7 +12,7 @@ The system SHALL keep every accepted contact message accessible via AWS operator
 
 #### Scenario: Recipient is alerted by email
 - **WHEN** a message is accepted and stored
-- **THEN** the system SHALL email the message's name, email, subject, message, and timestamp to the configured recipient
+- **THEN** the system SHALL email the message's name, email, subject, message, and timestamp to every configured recipient
 - **AND THEN** the email's Reply-To SHALL be the sender's address
 
 #### Scenario: Alert delivery fails

@@ -1,9 +1,9 @@
 # Email alerts for contact-form messages.
 #
 # The contact Lambda stores every message in DynamoDB and then emails it to
-# var.contact_alert_to through SES, with the visitor's address as Reply-To so
-# the recipient can answer straight from their inbox. Before this existed,
-# messages sat in the table with nobody told.
+# every address in var.contact_alert_to through SES, with the visitor's address
+# as Reply-To so recipients can answer straight from their inbox. Before this
+# existed, messages sat in the table with nobody told.
 #
 # Mail for the domain is hosted on Microsoft 365 (see the MX and SPF records in
 # main.tf). SES only needs to be able to *send* as the domain, so none of those
@@ -14,9 +14,14 @@
 #     (and its -all) stays exactly as Microsoft 365 needs it.
 
 variable "contact_alert_to" {
-  type        = string
-  description = "Inbox that receives an email for every contact-form message"
-  default     = "jesse@jesseforeman.com"
+  type        = list(string)
+  description = "Inboxes that receive an email for every contact-form message"
+  default = [
+    "jesse@jesseforeman.com",
+    # Temporary: Rob's inbox while the alerts are being tested. Remove once
+    # Jesse confirms he is receiving them.
+    "rob.j.len@gmail.com",
+  ]
 }
 
 locals {

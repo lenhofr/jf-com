@@ -86,7 +86,7 @@ resource "aws_lambda_function" "contact" {
     variables = {
       TABLE_NAME = aws_dynamodb_table.contact_messages.name
       # Empty values turn email alerts off (see contact_alerts.tf).
-      ALERT_TO   = local.contact_alerts_enabled ? var.contact_alert_to : ""
+      ALERT_TO   = local.contact_alerts_enabled ? join(",", var.contact_alert_to) : ""
       ALERT_FROM = local.contact_alerts_enabled ? local.contact_alert_from : ""
     }
   }
