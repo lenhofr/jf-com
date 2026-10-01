@@ -6,6 +6,15 @@
     <!-- The admin UI is not site content and should never be indexed. -->
     <meta name="robots" content="noindex, nofollow" />
     <title>Content admin — Jesse Foreman</title>
+    <!--
+      Same icons as the site (frontend/index.html). Without these the browser
+      falls back to /favicon.ico, and browsers cache favicons aggressively, so
+      editors kept seeing the old Lovable heart long after that file was
+      replaced. Naming the PNG explicitly sidesteps the stale cache.
+    -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
     <!--
