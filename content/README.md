@@ -28,16 +28,16 @@ dropdown in `frontend/public/admin/config.yml` must match `postCategories` in
 
 ## Frontmatter
 
-| Field      | Required | Notes                                                                           |
-| ---------- | -------- | ------------------------------------------------------------------------------- |
-| `title`    | yes      | Non-empty string.                                                               |
-| `slug`     | yes      | URL segment, `a-z0-9` and hyphens. Must be unique. Drives `/blog/<slug>`.       |
-| `date`     | yes      | **ISO `YYYY-MM-DD`.** Displayed as `March 2026`; also the sort key.             |
-| `category` | yes      | Must be one of `postCategories` in `frontend/src/data/site.ts`.                 |
-| `excerpt`  | yes      | Teaser copy shown on `/blog`, `/insights`, and the home page.                   |
-| `image`    | no       | Site path, e.g. `/images/blog/foo.jpg`. Framed at 1.91:1, also the share image. |
-| `imageAlt` | if image | Alt text. Required whenever `image` is set; the build fails without it.         |
-| `draft`    | no       | `true` omits the post from the build entirely. Defaults to `false`.             |
+| Field      | Required | Notes                                                                               |
+| ---------- | -------- | ----------------------------------------------------------------------------------- |
+| `title`    | yes      | Non-empty string.                                                                   |
+| `slug`     | yes      | URL segment, `a-z0-9` and hyphens. Must be unique. Drives `/blog/<slug>`.           |
+| `date`     | yes      | **ISO `YYYY-MM-DD`.** Displayed as `March 2026`; also the sort key.                 |
+| `category` | yes      | Must be one of `postCategories` in `frontend/src/data/site.ts`.                     |
+| `excerpt`  | yes      | Teaser copy shown on `/blog`, `/insights`, and the home page.                       |
+| `image`    | no       | Site path, e.g. `/images/blog/foo.jpg`. Framed at 1.91:1, also the share image.     |
+| `imageAlt` | no       | Alt text for `image`. If blank, the build uses the post title and prints a warning. |
+| `draft`    | no       | `true` omits the post from the build entirely. Defaults to `false`.                 |
 
 The body is everything after the closing `---`, rendered as markdown.
 

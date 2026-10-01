@@ -88,7 +88,7 @@ export type Post = {
    * Optional — without it the hatched ImageSlot placeholder shows instead.
    */
   image?: string;
-  /** Alt text for `image`. Required by the build whenever `image` is set. */
+  /** Alt text for `image`. The build falls back to the title when it is left blank. */
   imageAlt?: string;
   /** Markdown source of the post body. */
   body: string;

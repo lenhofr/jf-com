@@ -200,7 +200,7 @@ function readPost(file, categories, errors) {
 
   // Optional. Decap writes the public_folder path, e.g. /images/blog/foo.jpg.
   const image = typeof data.image === "string" ? data.image.trim() : "";
-  const imageAlt = typeof data.imageAlt === "string" ? data.imageAlt.trim() : "";
+  let imageAlt = typeof data.imageAlt === "string" ? data.imageAlt.trim() : "";
 
   if (image && !image.startsWith("/")) {
     errors.push(
@@ -208,16 +208,24 @@ function readPost(file, categories, errors) {
         `(got "${image}"). Decap writes these using public_folder, so /images/blog/... is correct.`,
     );
   }
-  // A missing alt is invisible in review — the page looks fine and only screen
-  // reader users are affected — so it fails the build rather than warning.
+  // A missing description warns rather than failing. Decap cannot make this
+  // field required only when an image is set, so the CMS labels it "optional",
+  // and editors reasonably left it blank. Failing here blocked every deploy
+  // after such a post merged (twice, 2026-09-30 and 2026-10-01). The post title
+  // is a serviceable fallback: these images are banners for the post itself.
   if (image && !imageAlt) {
-    errors.push(
-      `${file}: 'imageAlt' is required when 'image' is set. Describe the image ` +
-        `for screen readers; if it is purely decorative, remove the image instead.`,
+    imageAlt = title;
+    console.warn(
+      `⚠ generate-posts: ${file} has an image with no description; using the post title ` +
+        `as its alt text. Add an image description in the CMS for a better one.`,
     );
   }
+  // Removing an image in the CMS leaves its description behind. Harmless: drop it.
   if (!image && imageAlt) {
-    errors.push(`${file}: 'imageAlt' is set but 'image' is not — nothing to describe.`);
+    imageAlt = "";
+    console.warn(
+      `⚠ generate-posts: ${file} has an image description but no image; ignoring the description.`,
+    );
   }
 
   const date = normaliseDate(data.date);
