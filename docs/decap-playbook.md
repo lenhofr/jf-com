@@ -64,14 +64,14 @@ string. Handle both spellings.
 
 **b. Never parse with `new Date()` for display.** `new Date("2026-03-01")` is
 UTC midnight; formatted in any timezone behind UTC it renders as
-*February 28* — the post silently shows the wrong month. Parse the string with
+_February 28_ — the post silently shows the wrong month. Parse the string with
 a regex and index a month-name array:
 
 ```ts
 export function formatPostDate(iso: string): string {
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso)
-  if (!m) return iso
-  return `${MONTHS[Number(m[2]) - 1]} ${m[1]}`
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  return `${MONTHS[Number(m[2]) - 1]} ${m[1]}`;
 }
 ```
 
@@ -87,7 +87,10 @@ Strip HTML comments in the generator (after reading them for build warnings, if
 you use them as flags):
 
 ```js
-body.replace(/<!--[\s\S]*?-->/g, "").replace(/\n{3,}/g, "\n\n").trim()
+body
+  .replace(/<!--[\s\S]*?-->/g, "")
+  .replace(/\n{3,}/g, "\n\n")
+  .trim();
 ```
 
 Tell editors in a Decap `hint` that raw HTML will not render.
@@ -145,16 +148,21 @@ site rejects and only finds out after writing a whole post.
 
 ### 8. Decap cannot make one field conditionally required
 
-`imageAlt` should be required *only when* `image` is set. Decap has no way to
+`imageAlt` should be required _only when_ `image` is set. Decap has no way to
 express that. Enforce it in the generator so it fails CI on the pull request
 rather than shipping an unlabelled image.
+
+**That only works if pull-request CI actually builds the site.** Ours ran only
+`terraform plan` on PRs, so a CMS post with an image and no description (and a
+retired category) showed a green check, merged, and then failed every deploy
+after it for hours (2026-09-30). The build step must run on `pull_request`.
 
 Also: **editors write bad alt text.** Ours arrived as `jessehead`. Put a real
 `hint` on the field explaining it is read aloud.
 
 ### 9. `local_backend: true` must come out before deploying
 
-It bypasses OAuth *and* the editorial workflow entirely — which defeats the
+It bypasses OAuth _and_ the editorial workflow entirely — which defeats the
 whole approval story. Treat it as a hard pre-deploy checklist item.
 
 Local testing: add the line, run `npx decap-server` alongside the dev server,
@@ -166,9 +174,13 @@ It makes Decap open a PR on a `cms/<slug>` branch instead of committing to
 `main`. GitHub's PR review is the approval UI — there is nothing else to build.
 Removing that line lets an editor publish to the live site unreviewed.
 
+**Deleting a published entry is the exception:** Decap commits the delete
+straight to `main`, with no PR. Several deletes in a row means several deploys
+at once (see 14).
+
 ### 11. `slug: "{{fields.slug}}"`, not `"{{slug}}"`
 
-`{{slug}}` derives the filename from the *title*, which can drift from an
+`{{slug}}` derives the filename from the _title_, which can drift from an
 editable `slug` field, so the filename and the URL diverge. Naming the file from
 the slug field keeps them locked together. Warn on mismatch in the generator.
 
@@ -188,6 +200,27 @@ category, bad slug characters, duplicate slugs, image path not site-absolute,
 Required for `/blog/<slug>` to work on refresh. Both our sites already had it.
 Side effect worth knowing: **every path returns HTTP 200**, so a 200 proves
 nothing about routing. You must render the page to verify.
+
+### 14. Serialize deploys
+
+If the deploy ends with `aws s3 sync --delete`, two deploys running at once
+delete each other's hashed bundles and leave `index.html` pointing at a file
+that is gone: a blank site. On 2026-09-30, seven CMS deletes in about a minute
+did exactly that. Put the deploy job in a `concurrency` group with
+`cancel-in-progress: false` so runs queue.
+
+### 15. Process uploads in the browser (Decap 3.16+)
+
+Editors upload whatever their image tool produced, often multi-megabyte PNGs.
+Decap 3.16 added `media_processing` on image fields: resize, centre-crop to an
+aspect ratio, re-encode as JPEG/WebP, strip metadata, all before upload. Give
+it `width` plus `aspect_ratio`; `width` and `height` without an aspect ratio
+stretch instead of crop. Prefer JPEG if the image doubles as the `og:image`.
+
+When bumping the Decap version, regenerate the script's SRI hash (see the
+comment in `public/admin/index.html`), then load `/admin/` and confirm the login
+screen renders. A bad hash gives a blank page; an invalid config gives Decap's
+"Error loading the CMS configuration" screen with the offending key.
 
 ---
 

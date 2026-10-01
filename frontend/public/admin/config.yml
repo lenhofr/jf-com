@@ -93,13 +93,31 @@ collections:
         name: "image"
         widget: "image"
         required: false
+        # Decap 3.16+: processed in the browser before upload. Uploads were
+        # arriving as multi-megabyte PNGs straight from image generators; this
+        # centre-crops to the site's 1.91:1 frame, sizes to 1200x630 (the
+        # link-preview size), and saves a JPEG. JPEG rather than WebP because
+        # this file is also the share image, and not every link-preview client
+        # reads WebP. Set aspect_ratio alongside width: width and height
+        # together without it would stretch instead of crop.
+        media_processing:
+          enabled: true
+          format:
+            enabled: true
+            default: jpeg
+          quality: 82
+          strip_metadata: true
+          width: 1200
+          aspect_ratio: "1200:630"
         # Uploads land in media_folder and the path written here comes from
         # public_folder, so this ends up as /images/blog/<file>.
         hint: >-
           Shown at the top of the post, on its card in the blog list, and as the
-          preview when the post is shared. Use a wide image (1200×630 is ideal)
-          and prefer a JPG under 500 KB. Leave empty to use generated art. If
-          you add an image, fill in the description below as well.
+          preview when the post is shared. Uploads are automatically cropped to
+          1200×630 from the centre and saved as JPG, so keep anything important
+          (like text) away from the top and bottom edges. Leave empty to use
+          generated art. If you add an image, fill in the description below as
+          well.
 
       - label: "Image description"
         name: "imageAlt"
