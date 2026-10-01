@@ -185,9 +185,10 @@ because that is where Decap's GitHub backend commits.
   (`publish_mode: editorial_workflow`). Nothing goes live until it is merged.
   **Exception: deleting a published post commits straight to `main`** and
   deploys immediately.
-- **Images:** uploads go to `frontend/public/images/blog/`. The CMS stores them
-  as-is, and they are often multi-megabyte PNGs, so it is worth converting large
-  ones to JPG.
+- **Images:** uploads go to `frontend/public/images/blog/`. Decap processes
+  them in the browser first (`media_processing` in `config.yml`): centre-cropped
+  to 1200×630 and saved as JPEG, which is also the size link previews use.
+  Images added outside the CMS are not processed.
 - **Categories:** Sports / Law / Business / Technology. They are defined in
   `postCategories` in `frontend/src/data/site.ts` and must match the dropdown in
   `frontend/public/admin/config.yml`; the build fails if they differ. Filters on
