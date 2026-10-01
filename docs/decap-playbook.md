@@ -149,13 +149,19 @@ site rejects and only finds out after writing a whole post.
 ### 8. Decap cannot make one field conditionally required
 
 `imageAlt` should be required _only when_ `image` is set. Decap has no way to
-express that. Enforce it in the generator so it fails CI on the pull request
-rather than shipping an unlabelled image.
+express that, and it labels every non-required field "(optional)".
 
-**That only works if pull-request CI actually builds the site.** Ours ran only
-`terraform plan` on PRs, so a CMS post with an image and no description (and a
-retired category) showed a green check, merged, and then failed every deploy
-after it for hours (2026-09-30). The build step must run on `pull_request`.
+**Don't make the build stricter than the form.** We first had the generator
+fail on a missing description. Editors saw "Image description (optional)", left
+it blank, and the build failed. The first time, PR CI didn't build the site, so
+it merged green. The second time, PR CI caught it, but Decap's Publish button
+merged the PR anyway (no branch protection). Either way every deploy after it
+failed (2026-09-30, 2026-10-01). Now a missing description falls back to the
+post title with a warning. Fail the build only for things the CMS also marks
+as required.
+
+Pull-request CI should still build the site (`pull_request` trigger) so real
+errors show on the PR, but Decap does not wait for checks before merging.
 
 Also: **editors write bad alt text.** Ours arrived as `jessehead`. Put a real
 `hint` on the field explaining it is read aloud.

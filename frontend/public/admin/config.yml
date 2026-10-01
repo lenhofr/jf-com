@@ -116,20 +116,19 @@ collections:
           preview when the post is shared. Uploads are automatically cropped to
           1200×630 from the centre and saved as JPG, so keep anything important
           (like text) away from the top and bottom edges. Leave empty to use
-          generated art. If you add an image, fill in the description below as
-          well.
+          generated art.
 
       - label: "Image description"
         name: "imageAlt"
         widget: "string"
         required: false
-        # Not required by Decap, because Decap cannot make one field's necessity
-        # depend on another. The build enforces it instead: the pull request's
-        # CI check builds the site, so a missing description fails there rather
-        # than shipping.
+        # Genuinely optional. Decap cannot make a field required only when
+        # another is set, and it labels every non-required field "(optional)",
+        # so the build must agree: a missing description falls back to the post
+        # title with a warning (generate-posts.mjs) instead of failing.
         hint: >-
-          Required if you add an image. Describe what the image shows, for
-          screen readers and for when the image fails to load.
+          Recommended if you add an image. Describe what the image shows; it is
+          read aloud by screen readers. If left blank, the post title is used.
 
       - label: "Hide from the site"
         name: "draft"
