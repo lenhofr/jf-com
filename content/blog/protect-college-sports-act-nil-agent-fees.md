@@ -15,30 +15,53 @@ draft: false
 
 For college athletes and their families, this is about more than another change to the transfer portal. It is about who controls an athlete’s opportunities, who gets paid when a deal is signed, and whether the people advising that athlete are focused on the next commission or the athlete’s future.
 
-The bill’s official name is the Protect College SportsAct, sometimes described informally as the “Protective Sports Act.” ItsSenate passage brings national NIL reform closer to reality. 
+The bill’s official name is the **Protect College Sports Act**, sometimes described informally as the “Protective Sports Act.” Its Senate passage brings national NIL reform closer to reality. 
 
-# 
-The bill’s official name is the Protect College Sports Act, sometimes described informally as the “Protective Sports Act.” Its Senate passage brings national NIL reform closer to reality. 
-What is the Protect College Sports Act?
-The Protect College Sports Act is bipartisan federal legislation led by Senators Ted Cruz and Maria Cantwell. It would establish a national framework addressing name, image, and likeness compensation, athlete representation, transfers, eligibility, and college sports enforcement. It also includes academic, medical, and other athlete protections. The rules must also hold representatives accountable and preserve meaningful protections for the athletes whose careers are at stake.
-What would change for athletes and NIL agents?
+### 
+**What is the Protect College Sports Act?**
+
+The Protect College Sports Act is bipartisan federallegislation led by Senators Ted Cruz and Maria Cantwell. It would establish anational framework addressing name, image, and likeness compensation, athleterepresentation, transfers, eligibility, and college sports enforcement. It alsoincludes academic, medical, and other athlete protections. The rules must alsohold representatives accountable and preserve meaningful protections for theathletes whose careers are at stake.
+
+### 
+**What would change for athletes and NIL agents?**
+
 Several features deserve particular attention:
-Agent fees: Limit athlete-agent fees connected with covered endorsement contracts to 5% of the contract’s value.
-Agent accountability: Establish registration and certification requirements and a publicly searchable agent registry.
-Misleading promises: Prohibit materially false, deceptive, or fraudulent representations about NIL opportunities.
-Transfers: Guarantee one transfer without loss of eligibility, with specified exceptions for additional transfers.
-Academic and medical support: Provide scholarship and degree-completion protections and extended coverage for qualifying athletics related medical expenses.
-Enforcement: Provide specified legal protections for enforcement of covered college sports rules.
+
+**Agent fees:** Limit athlete-agent fees connected with covered endorsement contracts to 5% of the contract’s value.
+
+**Agent accountability:** Establish registration and certification requirements and a publicly searchable agent registry.
+
+**Misleading promises:** Prohibit materially false, deceptive, or fraudulent representations about NIL opportunities.
+
+**Transfers:** Guarantee one transfer without loss of eligibility, with specified exceptions for additional transfers.
+
+**Academic and medical support:** Provide scholarship and degree-completion protections and extended coverage for qualifying athletics related medical expenses.
+
+**Enforcement:** Provide specified legal protections for enforcement of covered college sports rules.
+
 These are proposed changes, not requirements that took effect when the Senate voted. The fee provision’s scope ties the cap to covered endorsement contracts, rather than declaring a universal cap on every professional service an athlete might purchase. 
-Why NIL agent fees deserve scrutiny
-In February 2025, I discussed these concerns with SB Nation in “How NIL is shaping the future of college football recruiting: What you might not know.”
+
+### 
+**Why NIL agent fees deserve scrutiny**
+
+In February 2025, I discussed these concerns with SB Nation in “[How NIL is shaping the future of college football recruiting: What you might not know](https://www.sbnation.com/2025/2/21/24369920/how-nil-is-shaping-the-future-of-college-football-recruiting-what-you-might-not-know).”
+
 As I explained:
+
 “NIL collectives have changed the recruiting process for athletes into a business, much more than a development for the athlete.”
+
 I also warned:
+
 “What I think most fans are not aware of is just how many people in the system are thinking about the short-term financial implications and their own benefit in the process and not about what’s best for the athlete’s future in the sport.”
+
 With agents bragging about taking up to 20% of athletes’ collective offers in the transfer portal. My concern was and still is that these young athletes will be advised to commit with the program offering the most money, so the agent can make more, with no concern of how committing to that program may affect their future. 
+
 “I think the space needs regulations on who can be an agent for NIL transfer deals and a cap on how much they could charge. There are a lot of people working in this field, currently with the wrong intentions, and not looking at the long-term success of the athletes.”
+
+###  
 Athlete representation must account for the whole career
+
+### 
 In my Leadafi article, “Navigating the Complex World of Sports Law,” I discussed how NIL opportunities bring intellectual property, exclusivity, institutional compliance, and state-law considerations into an athlete’s business decisions. This is purely an evaluation from the sports law industry, as an agent my biggest concern is what opportunities will this program provide my client to show case their talents and better their chances of making the NFL. 
 An athlete evaluating a transfer offer should ask:
 •	Does this school offer the coaching, education, development, and support I need?
