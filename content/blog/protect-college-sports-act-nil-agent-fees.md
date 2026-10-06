@@ -20,7 +20,7 @@ The bill’s official name is the **Protect College Sports Act**, sometimes desc
 ### 
 **What is the Protect College Sports Act?**
 
-The Protect College Sports Act is bipartisan federallegislation led by Senators Ted Cruz and Maria Cantwell. It would establish anational framework addressing name, image, and likeness compensation, athleterepresentation, transfers, eligibility, and college sports enforcement. It alsoincludes academic, medical, and other athlete protections. The rules must alsohold representatives accountable and preserve meaningful protections for theathletes whose careers are at stake.
+The Protect College Sports Act is bipartisan federal legislation led by Senators Ted Cruz and Maria Cantwell. It would establish a national framework addressing name, image, and likeness compensation, athlete representation, transfers, eligibility, and college sports enforcement. It also includes academic, medical, and other athlete protections. The rules must also hold representatives accountable and preserve meaningful protections for the athletes whose careers are at stake.
 
 ### 
 **What would change for athletes and NIL agents?**
