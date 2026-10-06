@@ -59,41 +59,60 @@ With agents bragging about taking up to 20% of athletes’ collective offers in 
 “I think the space needs regulations on who can be an agent for NIL transfer deals and a cap on how much they could charge. There are a lot of people working in this field, currently with the wrong intentions, and not looking at the long-term success of the athletes.”
 
 ###  
-Athlete representation must account for the whole career
+**Athlete representation must account for the whole career**
+
+
 
 ### 
-In my Leadafi article, “Navigating the Complex World of Sports Law,” I discussed how NIL opportunities bring intellectual property, exclusivity, institutional compliance, and state-law considerations into an athlete’s business decisions. This is purely an evaluation from the sports law industry, as an agent my biggest concern is what opportunities will this program provide my client to show case their talents and better their chances of making the NFL. 
-An athlete evaluating a transfer offer should ask:
-•	Does this school offer the coaching, education, development, and support I need?
-•	Will I get an opportunity to perform on the field?
-•	How much compensation is guaranteed, and when is it payable?
-•	What happens if I am injured, lose playing time, or transfer?
-•	What rights to my name, image, content, and likeness am I granting?
-•	Does exclusivity prevent me from accepting other opportunities?
-For some athletes, college compensation may be their most significant sports income. For others, development toward a professional career will play a major impact on their future. The athlete’s circumstances should drive the advice.
-What still needs careful debate?
-Supporting fair fees and qualified representation does not require endorsing every provision of a large bill. The legislation also addresses compensation limits, transfer restrictions, and protection against certain antitrust challenges. Those provisions raise separate questions about athletes’ bargaining power and their ability to contest rules. The Senate committee describes these measures as tools for making national standards enforceable. 
-The policy question is whether the final balance protects athletes or empowers institutions. Congress should examine whether athletes have accessible remedies, whether restrictions are proportionate, and whether enforcement reaches misconduct by the instiutions as effectively as misconduct by individual representatives.
-What happens next before the Act becomes law?
+**What still needs careful debate?**
 
-1. The House must act
-   Senate passage sends the bill to the House of Representatives. The House can approve it, amend it, or decline to advance it. A strong Senate vote does not guarantee House passage. 
-2. Both chambers must approve the same legislation
-   If the House changes the bill, those differences must be resolved. The Senate could agree to House amendments, or the chambers could negotiate further. A formal conference committee is one possible route, but it is not mandatory. Both chambers must ultimately agree to the same bill in identical form. 
-3. The bill goes to the President
-   The usual path is presidential signature. A veto can be overridden by a two-thirds vote in each chamber. A bill can also become law without a signature after ten days, excluding Sundays, unless a qualifying congressional adjournment prevents its return and results in a pocket veto. 
-4. Implementation must follow the enacted text
-   Enactment and implementation are separate questions. Athletes, agents, schools, and businesses will need to examine the final version’s deadlines, applicability provisions, and any required implementing rules. Families should not treat a proposed protection as currently enforceable simply because it appears in a Senate-passed bill.
-   What should athletes and businesses do now?
+Supporting fair fees and qualified representation does not require endorsing every provision of a large bill. The legislation also addresses compensation limits, transfer restrictions, and protection against certain antitrust challenges. Those provisions raise separate questions about athletes’ bargaining power and their ability to contest rules. The Senate committee describes these measures as tools for making national standards enforceable. 
+
+The policy question is whether the final balance protects athletes or empowers institutions. Congress should examine whether athletes have accessible remedies, whether restrictions are proportionate, and whether enforcement reaches misconduct by the institutions as effectively as misconduct by individual representatives.
+
+### 
+**What happens next before the Act becomes law?**
+
+1. **The House must act:** Senate passage sends the bill to the House of Representatives. The House can approve it, amend it, or decline to advance it. A strong Senate vote does not guarantee House passage. 
+2. **Both chambers must approve the same legislation:** If the House changes the bill, those differences must be resolved. The Senate could agree to House amendments, or the chambers could negotiate further. A formal conference committee is one possible route, but it is not mandatory. Both chambers must ultimately agree to the same bill in identical form. 
+3. **The bill goes to the President:** The usual path is presidential signature. A veto can be overridden by a two-thirds vote in each chamber. A bill can also become law without a signature after ten days, excluding Sundays, unless a qualifying congressional adjournment prevents its return and results in a pocket veto. 
+4. **Implementation must follow the enacted text:** Enactment and implementation are separate questions. Athletes, agents, schools, and businesses will need to examine the final version’s deadlines, applicability provisions, and any required implementing rules. Families should not treat a proposed protection as currently enforceable simply because it appears in a Senate-passed bill.
+
+   ### 
+   **What should athletes and businesses do now?**
+
+
    Before signing, request a clear explanation of fees, payment conditions, termination rights, exclusivity, and dispute procedures. Identify the actual contracting party and obtain important promises in writing. Athletes should investigate with great scrutiny any NIL agent charging a set monthly payment instead of working on commission. 
+
+
    Businesses sponsoring athletes should define deliverables, approval rights, permitted uses of the athlete’s identity, and what happens if circumstances change. The aim should be a deal the parties understand today and can still manage when the athlete’s career changes.
-   Frequently asked questions
+
+   ### 
+   **Frequently asked questions**
+
+
    Is the Protect College Sports Act already law? No. As of October 1, 2026, it has passed the Senate but still needs further legislative action and completion of the presidential approval process. 
+
+
    Would the bill eliminate NIL opportunities? No. It seeks to protect NIL earning rights while imposing rules on representation, compensation arrangements, and enforcement. 
+
+
    Would NIL agents be limited to a 5% fee? The proposal includes a 5% limit for athlete-agent fees connected with covered endorsement contracts. Final scope and application depend on the enacted language. It is not a new nationwide requirement currently in force. 
+
+
    Does Senate passage automatically change my NIL agreement? No. Senate passage alone does not amend your agreement or make the proposed cap enforceable. Any future effect requires analysis of the final law and your contract.
-   Protecting the athlete behind the agreement
+
+   ### 
+   **Protecting the athlete behind the agreement**
+
+
    My position is that athletes deserve the opportunity to earn meaningful compensation and receive advice that puts their future interests first. 
+
+
    A representative’s success should be measured by the financial impact, the language in the agreement, and the impact on the athlete's career goals. 
+
+
    Have questions about an NIL agreement, athlete representation, or a sports-related business contract? Contact Jesse Foreman, to discuss your circumstances and available legal services.
-   This article provides general information, not legal advice. Legislative status is current as of October 1, 2026.
+
+
+   *This article provides general information, not legal advice. Legislative status is current as of October 1, 2026.*
