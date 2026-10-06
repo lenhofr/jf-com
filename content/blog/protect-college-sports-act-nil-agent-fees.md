@@ -61,7 +61,18 @@ With agents bragging about taking up to 20% of athletes’ collective offers in 
 ###  
 **Athlete representation must account for the whole career**
 
+In my Leadafi article, “Navigating the Complex World of Sports Law,” I discussed how NIL opportunities bring intellectual property, exclusivity, institutional compliance, and state-law considerations into an athlete’s business decisions. This is purely an evaluation from the sports law industry, as an agent my biggest concern is what opportunities will this program provide my client to show case their talents and better their chances of making the NFL. 
 
+An athlete evaluating a transfer offer should ask:
+
+* Does this school offer the coaching, education, development, and support I need? 
+* Will I get an opportunity to perform on the field? 
+* How much compensation is guaranteed, and when is it payable? 
+* What happens if I am injured, lose playing time, or transfer? 
+* What rights to my name, image, content, and likeness am I granting? 
+* Does exclusivity prevent me from accepting other opportunities?
+
+For some athletes, college compensation may be their most significant sports income. For others, development toward a professional career will play a major impact on their future. The athlete’s circumstances should drive the advice.
 
 ### 
 **What still needs careful debate?**
