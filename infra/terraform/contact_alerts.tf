@@ -17,7 +17,7 @@ variable "contact_alert_to" {
   type        = list(string)
   description = "Inboxes that receive an email for every contact-form message"
   default = [
-    "jesse@jesseforeman.com",
+    "info@jesseforeman.com",
     # Temporary: Rob's inbox while the alerts are being tested. Remove once
     # Jesse confirms he is receiving them.
     "rob.j.len@gmail.com",
