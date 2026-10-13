@@ -27,7 +27,7 @@ const NflAgent = () => (
           <p className="m-0 mb-[34px] max-w-[520px] text-[16px] font-light leading-[1.65] text-white/75 md:text-[16.5px]">
             Relationships and communication are the key to success in athlete representation.{" "}
             <strong className="font-semibold">
-              Your career is the beginning, let's build what will come next.
+              Your career is the beginning. Let's build what will come next.
             </strong>
           </p>
           <PrimaryButton to="/contact" tone="dark">
@@ -45,8 +45,8 @@ const NflAgent = () => (
             Over a decade as a Certified NFL Agent.
           </h2>
           <p className="m-0 text-[14.5px] leading-[1.75] text-grey-dark">
-            Represented multiple Super Bowl Champions, NFL Draft Picks, Pro Bowler, and Undrafted
-            Players who have had long NFL Careers.
+            I have represented multiple Super Bowl champions, NFL draft picks, Pro Bowlers, and
+            undrafted players who have had long NFL careers.
           </p>
         </div>
         <StatementPanel
@@ -101,7 +101,7 @@ const NflAgent = () => (
         </h2>
         <p className="m-0 mx-auto mb-[30px] max-w-[500px] text-base font-light leading-[1.7] text-white/70">
           Tell me where you are in your career. I'll give you an honest evaluation of your market
-          before either of us commit to anything.
+          before either of us commits to anything.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <PrimaryButton to="/contact" tone="dark">

@@ -6,11 +6,11 @@ import panelPhoto from "@/assets/photo-speaking-panel.jpg";
 const infoBoxes = [
   {
     label: "Formats",
-    text: "Keynotes, Panels, Lightning Talks, Fishbowl, Fireside Chats, and Campus briefings.",
+    text: "Keynotes, Panels, Lightning Talks, Fishbowl, Fireside Chats, and Campus Briefings.",
   },
   {
     label: "Audiences",
-    text: "Entrepreneurs, Athletes, Visionaries, Technological Developers, and Legal Professionals.",
+    text: "Entrepreneurs, Athletes, Visionaries, Technology Developers, and Legal Professionals.",
   },
 ];
 
@@ -153,8 +153,7 @@ const Speaking = () => (
             Book a session.
           </h2>
           <p className="m-0 mb-7 text-[14.5px] leading-[1.75] text-grey-body">
-            Please provide me with the audience size, the topic, location and the length of the
-            presentation.
+            Please provide the audience size, topic, location, and length of the presentation.
           </p>
           <PrimaryButton to="/contact">Book Now</PrimaryButton>
         </div>

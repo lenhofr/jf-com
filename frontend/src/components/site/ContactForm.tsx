@@ -64,7 +64,7 @@ const ContactForm = () => {
       setWebsite("");
       toast({
         title: "Message sent",
-        description: "Thanks for reaching out — I'll follow up personally.",
+        description: "Thanks for reaching out. I'll follow up personally.",
       });
     } catch {
       toast({
@@ -89,7 +89,7 @@ const ContactForm = () => {
 
       {isSubmitted ? (
         <p className="m-0 text-[14px] leading-[1.7] text-charcoal-700">
-          Thanks — your note came through. I read every inquiry personally and will follow up.
+          Thanks, your note came through. I read every inquiry personally and will follow up.
         </p>
       ) : (
         <form onSubmit={handleSubmit} className="grid gap-[14px]">

@@ -24,13 +24,13 @@ const practices = [
   {
     n: "02",
     title: "NFL Representation",
-    body: "Rookie contracts, extensions, and veteran negotiations. I account for the effects each decision has now and throughout my clients career.",
+    body: "Rookie contracts, extensions, and veteran negotiations. I account for the effects each decision has now and throughout my clients' careers.",
     to: "/nfl-agent",
   },
   {
     n: "03",
     title: "Entrepreneur",
-    body: "Developing and advising start up corporations in tech, sports, and marketing. From incorporating your corporation, filing the appropriate forms, reviewing/developing contracts, and advising on important decisions, I can help you through it all.",
+    body: "Developing and advising startups in tech, sports, and marketing. From incorporating your company and filing the appropriate forms to drafting and reviewing contracts and advising on important decisions, I can help you through it all.",
     to: "/entrepreneur",
   },
   {
@@ -57,7 +57,7 @@ const Home = () => (
             Representation built to go the distance.
           </h1>
           <p className="m-0 mb-[34px] max-w-[520px] text-[16px] font-light leading-[1.65] text-white/[0.78] md:text-[17px]">
-            Protecting People. Building the Future
+            Protecting People. Building the Future.
           </p>
           <div className="flex flex-wrap gap-3">
             <PrimaryButton to="/contact" tone="dark">
@@ -215,7 +215,7 @@ const Home = () => (
           Stay updated with my insights.
         </h2>
         <p className="m-0 mb-7 max-w-[400px] text-[14.5px] font-light leading-[1.7] text-white/[0.66]">
-          Occasional notes on the biggest regulation news in sports, tech, and business. No selling,
+          Occasional notes on the biggest regulatory news in sports, tech, and business. No selling,
           just personal insights.
         </p>
         <NewsletterForm tone="dark" buttonLabel="Join" />

@@ -1,7 +1,8 @@
 /**
- * All site copy in one place. Content comes verbatim from the client-approved
- * design handoff (docs/design-handoff/README.md, whose prototype data.js is
- * the source of truth for copy). Edit here rather than in the page components.
+ * All site copy in one place. Content comes from the client-approved design
+ * handoff (docs/design-handoff/README.md, whose prototype data.js is the
+ * source of truth for copy), copyedited for typos and grammar with the
+ * client's OK. Edit here rather than in the page components.
  *
  * Blog posts are the exception: they live in content/blog/*.md at the repo root
  * and are re-exported below from the generated JSON.
@@ -34,7 +35,7 @@ export const clientQuotes: Quote[] = [
   {
     text: "Jesse is someone I know I can trust to give me honest and well-thought-out advice. He isn't someone who will agree with you just to appease you.",
     name: "Jammal Brown",
-    role: "Super Bowl Champ, All Pro, and Pro-Bowler",
+    role: "Super Bowl Champ, All-Pro, and Pro Bowler",
   },
   {
     text: "Jesse Foreman, that's the guy with the plan. He is the guy to listen to. I always go to him for advice.",
@@ -42,7 +43,7 @@ export const clientQuotes: Quote[] = [
     role: "New England Patriots",
   },
   {
-    text: "Jesse believed in me when I was a college student, chasing my dream of playing in the NFL. He played a huge role in helping me get there and last for 4 and a half years. Forever grateful for him!!",
+    text: "Jesse believed in me when I was a college student chasing my dream of playing in the NFL. He played a huge role in helping me get there and last for four and a half years. Forever grateful for him!",
     name: "Rico Gafford",
     role: "Former NFL Player",
   },
@@ -52,7 +53,7 @@ export const clientQuotes: Quote[] = [
 /** Organizer quotes run without attribution, by request. */
 export const speakingQuotes: Quote[] = [
   {
-    text: "He provided the audience with a real understanding of possibilities of NFTs if built and utilized properly.",
+    text: "He provided the audience with a real understanding of the possibilities of NFTs if built and utilized properly.",
     name: "",
     role: "",
   },
@@ -62,7 +63,7 @@ export const speakingQuotes: Quote[] = [
     role: "",
   },
   {
-    text: "He spoke on a high level regulatory issue with such knowledge that anyone could understand and appreciate the speech.",
+    text: "He spoke on a high-level regulatory issue with such knowledge that anyone could understand and appreciate the speech.",
     name: "",
     role: "",
   },
@@ -153,12 +154,12 @@ export const milestones = [
   {
     year: "2021",
     title: "Young Money APAA",
-    body: "NFL agent and started the NIL division, one of the first in the industry.",
+    body: "Worked as an NFL agent and started the NIL division, one of the first in the industry.",
   },
   {
     year: "2024",
     title: "Delta Sports Group",
-    body: "NFL Agent with Delta Sports Group and helped them to launch their NIL division.",
+    body: "Joined Delta Sports Group as an NFL agent and helped launch their NIL division.",
   },
   {
     year: "2025",
@@ -171,7 +172,7 @@ export const credentials = [
   { label: "Certification", value: "NFLPA Certified Contract Advisor" },
   { label: "Bar Admission", value: "Licensed attorney" },
   { label: "Juris Doctor", value: "University of Cincinnati College of Law" },
-  { label: "Graduate Degrees", value: "MBA and Masters in AI for Businesses" },
+  { label: "Graduate Degrees", value: "MBA and Master's in AI for Business" },
 ];
 
 /**
@@ -185,22 +186,15 @@ export const pressLogos = [
   { name: "ESPN", src: espnLogo, scale: 0.85 },
 ];
 
-/** Restates the legalServices copy below as a scannable list for the CTA panel. */
-export const legalScope = [
-  { label: "Personal Injury", value: "Accident claims, insurance, and compensation" },
-  { label: "Corporate", value: "Formation, contracts, and transactions" },
-  { label: "Regulations", value: "Compliance in regulated industries" },
-];
-
 export const ventures = [
   { label: "2015", value: "Global Sports and Entertainment, Co-founder" },
   { label: "2018", value: "Fanoptic, Founder" },
-  { label: "2023", value: "YMAPAA Kingdom, Co-Founder" },
-  { label: "2026", value: "Barristers Boosters, Co-Founder" },
+  { label: "2023", value: "YMAPAA Kingdom, Co-founder" },
+  { label: "2026", value: "Barristers Boosters, Co-founder" },
 ];
 
 export const speakingFormats = [
-  { label: "Technology", value: "AI and Non-Fungible Token" },
+  { label: "Technology", value: "AI and Non-Fungible Tokens" },
   { label: "Business", value: "Summit panels and keynote sessions" },
   { label: "Education", value: "Certification and Career Advice" },
 ];
@@ -213,27 +207,12 @@ export const team = [
 ];
 
 export const nflServices = [
-  { title: "Contracts Negotiated", body: "Over 100 Million in Contracts Negotiated" },
+  { title: "Contracts Negotiated", body: "Over $100 million in contracts negotiated." },
   {
     title: "NIL",
-    body: "Guiding student athletes through NIL deals and preparing them for their future career",
+    body: "Guiding student-athletes through NIL deals and preparing them for their future careers.",
   },
   { title: "Post Career", body: "Preparing clients for life after their career." },
-];
-
-export const legalServices = [
-  {
-    title: "Personal Injury",
-    body: "Serious injuries can change a life in an instant. I help navigate the legal, financial, and insurance challenges that arise and help you get the compensation you deserve.",
-  },
-  {
-    title: "Corporate",
-    body: "From formation and contracts to transactions, governance, risk, and growth, The focus is practical: understand the risk, protect what you're building, and make decisions with the future in mind.",
-  },
-  {
-    title: "Regulations",
-    body: "Highly regulated industries operate where business opportunity and legal risk frequently collide. Helping leaders understand the rules while continuing to move their organizations forward.",
-  },
 ];
 
 /** An entry with an empty date is the "More to come" placeholder. */
@@ -246,8 +225,7 @@ export type Faq = { q: string; a: string };
 
 /*
  * Site-wide rule from the client: every FAQ answer ends "Contact me and let's
- * discuss further." except Legal's response-time and first-message answers
- * and Contact's "How do I get started?".
+ * discuss further." except Contact's "How do I get started?".
  */
 const CTA = "Contact me and let's discuss further.";
 
@@ -258,7 +236,7 @@ export const nflFaqs: Faq[] = [
   },
   {
     q: "How many clients do you normally sign during a draft class?",
-    a: `Three or less. Roster size is the single best predictor of whether your agent returns your call. ${CTA}`,
+    a: `Three or fewer. Roster size is the single best predictor of whether your agent returns your call. ${CTA}`,
   },
   {
     q: "What does representation cost?",
@@ -275,33 +253,6 @@ export const nflFaqs: Faq[] = [
   {
     q: "Who actually handles my account?",
     a: `I do. There is no associate layer between you and the person negotiating your deal. ${CTA}`,
-  },
-];
-
-export const legalFaqs: Faq[] = [
-  {
-    q: "What types of clients do you work with?",
-    a: `Ambitious individuals looking to build towards the future. ${CTA}`,
-  },
-  {
-    q: "How do you approach a legal matter?",
-    a: `Position first. I look at where a matter is likely to end before deciding where to start. ${CTA}`,
-  },
-  {
-    q: "Is legal work separate from representation?",
-    a: `Yes for athletes looking for representation. ${CTA}`,
-  },
-  {
-    q: "How quickly do you respond?",
-    a: "Response times vary with active matters, but every inquiry is read personally and as soon as possible.",
-  },
-  {
-    q: "Do you handle matters outside Kentucky?",
-    a: `Matters I advise on routinely cross state lines. I will tell you plainly when local counsel is required. ${CTA}`,
-  },
-  {
-    q: "What should I send in a first message?",
-    a: "A short summary of the situation with no confidential information and any deadline you are working against.",
   },
 ];
 

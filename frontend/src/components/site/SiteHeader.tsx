@@ -31,7 +31,7 @@ const SiteHeader = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-black/[0.09] bg-white">
       <div className="site-container flex items-center gap-8 py-[14px]">
-        <Link to="/" aria-label="Jesse Foreman — home" className="flex">
+        <Link to="/" aria-label="Jesse Foreman home page" className="flex">
           <Logo className="h-[44px]" />
         </Link>
 
