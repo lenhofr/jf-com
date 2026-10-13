@@ -38,7 +38,7 @@ const About = () => (
           <blockquote className="m-0">
             <p className="m-0 font-display text-[19px] font-light leading-[1.45] text-white md:text-[21px]">
               “Who do you trust advising you on one of the most important decisions of your life? To
-              advise you when starting a company, through negotiations, contract formations and
+              advise you when starting a company, through negotiations, contract formation and
               review, your NIL, your digital image, AI use, and so much more.”
             </p>
           </blockquote>
@@ -55,12 +55,12 @@ const About = () => (
           </h2>
           <p className="m-0 mb-4 text-[14.5px] leading-[1.75] text-grey-body">
             I was the second person in my family to finish high school and the first to go to
-            college. I graduated law school and started a NFL agency with a business partner. We had
-            multiple players we worked with drafted in our first year.
+            college. I graduated law school and started an NFL agency with a business partner.
+            Several of the players we worked with were drafted in our first year.
           </p>
           <p className="m-0 text-[14.5px] leading-[1.75] text-grey-body">
-            I have negotiated over $100,000,000 in contracts. Representing draft picks, starting
-            Super Bowl Champions, and undrafted players who had long NFL careers.
+            I have negotiated over $100,000,000 in contracts, representing draft picks, starting
+            Super Bowl champions, and undrafted players who had long NFL careers.
           </p>
         </div>
 
@@ -92,8 +92,10 @@ const About = () => (
             The Bench
           </Eyebrow>
           <h2 className="m-0 mb-4 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.025em] text-white md:text-[38px]">
-            “If you surround yourself with greatness, some of it is bound to rub off.” — Earl
-            Nightingale
+            “If you surround yourself with greatness, some of it is bound to rub off.”
+            <span className="mt-3 block text-[15px] font-normal tracking-normal text-white/60">
+              Earl Nightingale
+            </span>
           </h2>
           <p className="m-0 text-[14.5px] font-light leading-[1.7] text-white/[0.66]">
             Great advice requires a great team working together. I rely on some of the greatest
@@ -151,8 +153,8 @@ const About = () => (
           Have a question about your situation?
         </h2>
         <p className="m-0 mx-auto mb-[30px] max-w-[480px] text-base font-light leading-[1.7] text-grey-dark">
-          Contract, Representation, Corporations, Personal injury, and AI advice. Send it over and
-          I'll read it personally.
+          Contract, representation, corporate, personal injury, and AI advice. Send it over and I'll
+          read it personally.
         </p>
         <PrimaryButton to="/contact">Get in Touch</PrimaryButton>
       </div>

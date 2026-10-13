@@ -7,17 +7,17 @@ const pillars = [
   {
     n: "01",
     title: "Venture Vetting",
-    body: "Let me evaluate the investment opportunity and any potential future risk that may be associated.",
+    body: "Let me evaluate the investment opportunity and any potential future risks associated with it.",
   },
   {
     n: "02",
-    title: "Start Ups",
-    body: "Let me advise you through the incorporation process and help build a roadmap for your companies success.",
+    title: "Startups",
+    body: "Let me advise you through the incorporation process and help build a roadmap for your company's success.",
   },
   {
     n: "03",
     title: "Regulations",
-    body: "Let me help you navigate Rule 506, 83b election, Simple Agreement for Future Equity (SAFE), Special Purpose Vehicle (SPV), IRC 409A, etc.",
+    body: "Let me help you navigate Rule 506, 83(b) election, Simple Agreement for Future Equity (SAFE), Special Purpose Vehicle (SPV), IRC 409A, etc.",
   },
 ];
 
@@ -51,13 +51,13 @@ const Entrepreneur = () => (
           </h2>
           <p className="m-0 mb-4 text-[14.5px] leading-[1.75] text-grey-dark">
             I have founded a sports agency, marketing agency, NFT project (with Lil Wayne),
-            technological company, social networking site, fitness company, and an invention
+            technology company, social networking site, fitness company, and an invention
             development company.
           </p>
           <p className="m-0 text-[14.5px] leading-[1.75] text-grey-dark">
             I was also early to social platforms as a recruiting channel when most of the industry
-            still thought it was a distraction. Being early is uncomfortable experience and that is
-            where the advantage lives.
+            still thought it was a distraction. Being early is uncomfortable, and that is where the
+            advantage lives.
           </p>
         </div>
         <StatementPanel
@@ -122,7 +122,7 @@ const Entrepreneur = () => (
           Let's bring your vision to life.
         </h2>
         <p className="m-0 mx-auto mb-[30px] max-w-[500px] text-base font-light leading-[1.7] text-white/70">
-          Bring me the idea, the term sheet, or existing company. I'll tell you what steps you
+          Bring me the idea, the term sheet, or the existing company. I'll tell you what steps you
           should take next.
         </p>
         <PrimaryButton to="/contact" tone="dark">

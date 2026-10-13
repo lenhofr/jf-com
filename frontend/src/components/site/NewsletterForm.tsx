@@ -79,7 +79,7 @@ const NewsletterForm = ({
           className,
         )}
       >
-        Thanks — you're on the list.
+        Thanks, you're on the list.
       </p>
     );
   }

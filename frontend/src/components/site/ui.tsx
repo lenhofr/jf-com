@@ -35,6 +35,8 @@ type ActionProps = {
   children: ReactNode;
   to?: string;
   href?: string;
+  /** Opens `href` in a new tab. */
+  external?: boolean;
   onClick?: () => void;
   className?: string;
   type?: "button" | "submit";
@@ -45,6 +47,7 @@ function Action({
   children,
   to,
   href,
+  external,
   onClick,
   className,
   type = "button",
@@ -59,7 +62,11 @@ function Action({
   }
   if (href) {
     return (
-      <a href={href} className={className}>
+      <a
+        href={href}
+        className={className}
+        {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+      >
         {children}
       </a>
     );
@@ -261,7 +268,7 @@ export function FaqList({ items, className }: { items: Faq[]; className?: string
   );
 }
 
-/** Dark testimonial block with prev/next controls (Home, NFL, and Legal pages). */
+/** Dark testimonial block with prev/next controls (Home and NFL pages). */
 export function QuoteCarousel({
   quotes,
   eyebrow,
