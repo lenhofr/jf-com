@@ -180,18 +180,29 @@ async function bingRss(kind, query) {
     .join("\n");
 }
 
-const normalizeUrl = (u) => {
+const normalizeUrl = (u, { dropQuery = false } = {}) => {
   try {
     const url = new URL(u);
     url.hash = "";
+    if (dropQuery) url.search = "";
     return url.href.replace(/\/$/, "");
   } catch {
     return u;
   }
 };
 
-/** URLs fetch_page read successfully, both as requested and after redirects. */
+/**
+ * URLs fetch_page read successfully, both as requested and after redirects.
+ * Each is also stored without its query string: search results often carry
+ * tracking parameters (?src=partner, ?utm_source=...) that the model rightly
+ * drops when it links the page. A link that keeps a query string still has to
+ * match exactly, since some sites put the article ID there.
+ */
 const fetchedUrls = new Set();
+const recordFetched = (u) => {
+  fetchedUrls.add(normalizeUrl(u));
+  fetchedUrls.add(normalizeUrl(u, { dropQuery: true }));
+};
 
 async function fetchPage(url) {
   let parsed;
@@ -226,8 +237,8 @@ async function fetchPage(url) {
   if (text.length < 500) text = stripTags(cleaned); // pages without paragraph markup
   if (text.length < 200) throw new Error("the page had almost no readable text (it may need a browser)");
 
-  fetchedUrls.add(normalizeUrl(url));
-  fetchedUrls.add(normalizeUrl(res.url));
+  recordFetched(url);
+  recordFetched(res.url);
   const truncated = text.length > PAGE_CHAR_LIMIT;
   return `URL: ${res.url}\nTitle: ${title}\n\n${text.slice(0, PAGE_CHAR_LIMIT)}${truncated ? "\n\n[truncated]" : ""}`;
 }
