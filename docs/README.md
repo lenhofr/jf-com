@@ -8,6 +8,7 @@ Current reference:
 | [`mockups/`](mockups/README.md)                        | The original approved multi-page mockup (pre-rebrand, green palette). Layout reference only.                 |
 | [`content-review.md`](content-review.md)               | What on the site still needs Jesse's sign-off.                                                               |
 | [`decap-playbook.md`](decap-playbook.md)               | How the Decap CMS setup works and the traps hit building it, written to port to other sites.                 |
+| [`ai-draft-posts.md`](ai-draft-posts.md)               | The weekly AI blog drafts: how a run works, the prompt and checks, AWS access, cost, and troubleshooting.    |
 
 Historical notes, kept for context but **not** current:
 

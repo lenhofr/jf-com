@@ -253,3 +253,7 @@ screen renders. A bad hash gives a blank page; an invalid config gives Decap's
 - If content is drafted by an AI or a contractor and publishes under a named
   person's byline, flag it in the file **and** make the generator warn on every
   build. A flag that only lives in a commit message is invisible by next week.
+  Better still, keep it off `main` until approved: jf-com's weekly AI drafts
+  open a `cms/blog/<slug>` PR with the `decap-cms/pending_review` label, which
+  Decap shows as an ordinary review entry. See
+  [`ai-draft-posts.md`](ai-draft-posts.md).

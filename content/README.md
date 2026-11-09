@@ -59,5 +59,10 @@ about each flagged post by name on every build:
 - `<!-- PLACEHOLDER POST ... -->`: the whole post, title included, is invented.
 
 The original ghostwritten and placeholder posts were deleted on 2026-09-30, so
-none are in use today. Use the flags if drafted content is ever added again: a
-licensed attorney's byline should not carry words he has not approved.
+none are in use today. Use the flags if drafted content is ever committed to
+`main` again: a licensed attorney's byline should not carry words he has not
+approved.
+
+Weekly AI drafts ([`docs/ai-draft-posts.md`](../docs/ai-draft-posts.md)) don't
+use these flags. They stay on unmerged `cms/blog/*` pull requests until Jesse
+publishes them, so an unapproved draft never reaches `main`.

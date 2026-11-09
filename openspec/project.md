@@ -18,6 +18,10 @@ This repo contains the **jf-com** frontend (a static SPA) and the **Terraform** 
 - AWS: S3 (private bucket), CloudFront (OAC), ACM (cert in **us-east-1**), Route 53, IAM (GitHub Actions OIDC role)
 - Domain registrar: GoDaddy (nameserver delegation to Route 53)
 
+### Automation (`automation/draft-posts/`, `infra/ai-account/`)
+- Node 22 script calling Amazon Bedrock (Converse API) in the separate **rjl-ai-dev** account (923988301699) through a GitHub OIDC role
+- Weekly AI blog drafts opened as Decap review pull requests; see `docs/ai-draft-posts.md`
+
 ### CI/CD
 Intended flow is via GitHub Actions using OIDC (IAM role is created by Terraform); see `docs/aws-static-spa.md` + `docs/checklist.md`.
 
@@ -69,5 +73,7 @@ Infra:
 
 ## External Dependencies
 - AWS account (S3, CloudFront, ACM, Route 53, IAM)
+- AWS rjl-ai-dev account (Bedrock, Claude Sonnet 4.6) for AI blog drafts
+- Bing news/web RSS (unofficial, no key) for the drafts' research tools
 - GoDaddy (domain registration / nameserver delegation)
 - Lovable (project scaffold + optional editing workflow; see `frontend/README.md`)
