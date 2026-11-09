@@ -1,0 +1,130 @@
+name: draft-posts
+
+# Drafts a blog post with a model on Amazon Bedrock and leaves it in Decap's
+# "In review" column. Decap's editorial workflow reads its board straight from
+# pull requests: a cms/blog/<slug> branch plus a decap-cms/<status> label is an
+# entry. So this opens exactly that, and Jesse edits and publishes it in the CMS
+# as usual. Nothing here can publish: the post reaches the site only when the
+# PR merges.
+#
+# Bedrock is called in the rjl-ai-dev account with OIDC credentials
+# (infra/ai-account), so there is no API key.
+# Setup:
+#   secret   AWS_DRAFTS_ROLE_ARN   infra/ai-account output drafts_role_arn
+#   secret   DRAFT_POSTS_TOKEN     fine-grained PAT on lenhofr/jf-com with
+#                                  Contents and Pull requests read/write.
+#     The default GITHUB_TOKEN can't be used: this repo doesn't allow Actions to
+#     open pull requests, and PRs it opens would not trigger deploy.yml, so the
+#     draft would skip the build check that validates posts.
+#   variable DRAFT_MODEL_ID        optional; Bedrock inference profile to use.
+#                                  Defaults to us.anthropic.claude-sonnet-4-6 and
+#                                  must be listed in infra/ai-account's
+#                                  bedrock_inference_profiles.
+
+on:
+  schedule:
+    # Mondays 13:00 UTC (8 or 9am Eastern).
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Topic to write about (leave empty to let it find one)"
+        required: false
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: draft-posts
+
+env:
+  # Unreviewed drafts beyond this mean nobody is reading them; stop adding more.
+  MAX_OPEN_DRAFTS: 2
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.DRAFT_POSTS_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.DRAFT_POSTS_TOKEN }}
+
+      - name: Check the review queue
+        id: queue
+        env:
+          TOPIC: ${{ inputs.topic }}
+        run: |
+          gh label create ai-draft --color d4c5f9 \
+            --description "Blog post drafted by draft-posts.yml" 2>/dev/null || true
+          open=$(gh pr list --label ai-draft --state open --json number --jq length)
+          pending=$(gh pr list --state open --limit 100 --json headRefName \
+            --jq '[.[].headRefName | select(startswith("cms/blog/")) | sub("^cms/blog/"; "")] | join(" ")')
+          echo "pending=$pending" >> "$GITHUB_OUTPUT"
+          if [ "$open" -ge "$MAX_OPEN_DRAFTS" ] && [ -z "$TOPIC" ]; then
+            echo "::notice::$open AI drafts are already awaiting review; skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Can call the listed Bedrock models and nothing else; see
+      # infra/ai-account/main.tf.
+      - name: Configure AWS credentials (OIDC)
+        if: steps.queue.outputs.skip != 'true'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DRAFTS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - uses: actions/setup-node@v4
+        if: steps.queue.outputs.skip != 'true'
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            automation/draft-posts/package-lock.json
+            frontend/package-lock.json
+
+      - name: Draft the post
+        if: steps.queue.outputs.skip != 'true'
+        id: draft
+        working-directory: automation/draft-posts
+        env:
+          DRAFT_MODEL_ID: ${{ vars.DRAFT_MODEL_ID }}
+          DRAFT_TOPIC: ${{ inputs.topic }}
+          PENDING_SLUGS: ${{ steps.queue.outputs.pending }}
+          PR_BODY_PATH: ${{ runner.temp }}/pr-body.md
+        run: |
+          npm ci
+          npm run draft
+
+      # The same validation the deploy build runs, so a malformed draft fails
+      # here instead of landing in Jesse's queue with a red check.
+      - name: Validate against the site's post schema
+        if: steps.queue.outputs.skip != 'true'
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run generate:posts
+
+      - name: Open the review pull request
+        if: steps.queue.outputs.skip != 'true'
+        env:
+          SLUG: ${{ steps.draft.outputs.slug }}
+          TITLE: ${{ steps.draft.outputs.title }}
+        run: |
+          branch="cms/blog/$SLUG"
+          git config user.name "jf-com draft bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add "content/blog/$SLUG.md"
+          git commit -m "Create Blog post “$SLUG”" -m "AI-generated draft for review."
+          git push origin "$branch"
+          # Title matches what Decap gives its own PRs.
+          gh pr create --base main --head "$branch" \
+            --title "Create Blog post “$SLUG”" \
+            --body-file "$RUNNER_TEMP/pr-body.md" \
+            --label decap-cms/pending_review --label ai-draft
+          echo "::notice::Drafted “$TITLE” for review."

@@ -1,5 +1,6 @@
 
 frontend/node_modules/
+automation/draft-posts/node_modules/
 frontend/dist/
 frontend/.env
 
