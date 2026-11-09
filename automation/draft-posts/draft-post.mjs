@@ -13,8 +13,9 @@
  * built-in web search, so this script supplies its own research tools:
  * search_news and search_web (Bing's public RSS feeds, no key needed) and
  * fetch_page (a plain HTTP fetch reduced to text). Every link in the finished
- * post must be a page fetch_page actually read; drafts that cite anything else
- * are sent back.
+ * post must be a page fetch_page actually read; drafts that cite anything else,
+ * fall outside the length limits, or use em dashes and other stock AI phrasing
+ * are sent back. Full write-up: docs/ai-draft-posts.md.
  *
  * Inputs (environment):
  *   AWS credentials   any source the default AWS chain reads; in Actions, the

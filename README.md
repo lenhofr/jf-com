@@ -8,6 +8,8 @@ Foreman, Esq. (attorney and NFLPA Certified Contract Advisor).
 - **Forms:** two small serverless APIs (contact form and newsletter signup),
   each API Gateway → Lambda → DynamoDB. Contact messages are also emailed through SES.
 - **Blog:** markdown in `content/blog/`, edited through Decap CMS at `/admin/`.
+- **AI drafts:** a weekly GitHub Action drafts a post with Claude on Amazon
+  Bedrock and leaves it in the CMS review queue for Jesse. It cannot publish.
 - **Deploys:** every merge to `main` runs Terraform and ships the site through
   GitHub Actions.
 
@@ -18,6 +20,7 @@ Foreman, Esq. (attorney and NFLPA Certified Contract Advisor).
 - [Architecture](#architecture)
 - [Deploys](#deploys)
 - [Blog content and the CMS](#blog-content-and-the-cms)
+- [AI blog drafts](#ai-blog-drafts)
 - [Contact form and newsletter](#contact-form-and-newsletter)
 - [Page titles, link previews, and SEO](#page-titles-link-previews-and-seo)
 - [Design](#design)
@@ -34,8 +37,11 @@ Foreman, Esq. (attorney and NFLPA Certified Contract Advisor).
 | `content/blog/`                           | Blog posts, one markdown file each ([schema](content/README.md)).                        |
 | `infra/terraform/`                        | All AWS infrastructure. `lambda/` holds the two Python handlers.                         |
 | `.github/workflows/deploy.yml`            | Plan and build on pull requests; apply and deploy on `main`.                             |
+| `.github/workflows/draft-posts.yml`       | Weekly AI blog draft into the CMS review queue ([docs](docs/ai-draft-posts.md)).         |
+| `automation/draft-posts/`                 | The drafting script: prompt, research tools, model loop, and draft checks.               |
+| `infra/ai-account/`                       | IAM role for the drafts in the separate rjl-ai-dev AWS account. Applied by hand.         |
 | `openspec/`                               | Specs for the forms and infrastructure, and the change history.                          |
-| `docs/`                                   | Design handoff, mockups, and older planning notes ([index](docs/README.md)).             |
+| `docs/`                                   | AI drafts, Decap playbook, design handoff, older notes ([index](docs/README.md)).        |
 
 ## Run locally
 
@@ -202,6 +208,34 @@ stored as `2026-03-12` and shown as "March 2026".
 The CMS preview pane (`frontend/public/admin/index.html`) hand-copies the post
 page's markup and date formatting, because it cannot import from the app. If
 you restyle `BlogPost.tsx`, update it too.
+
+## AI blog drafts
+
+Every Monday, `draft-posts.yml` has Claude Sonnet 4.6 on Amazon Bedrock research
+a current story and draft a post in Jesse's voice. It opens the draft as a
+`cms/blog/<slug>` pull request with the `decap-cms/pending_review` and `ai-draft`
+labels, which is exactly what Decap creates for its own entries, so the draft
+appears in the CMS's **In review** column. Jesse edits it there and publishes or
+deletes it. Nothing reaches the site without that.
+
+```mermaid
+flowchart LR
+  cron["Monday cron<br/>or manual run"] --> wf["draft-posts.yml"]
+  wf -- OIDC --> br["Bedrock<br/>(rjl-ai-dev account)"]
+  wf -- "search + fetch" --> web["News and<br/>primary sources"]
+  wf --> pr["PR cms/blog/&lt;slug&gt;<br/>pending_review + ai-draft"]
+  pr --> decap["Decap: In review"] --> jesse(["Jesse edits"]) --> pub["Publish = merge<br/>→ deploy"]
+```
+
+- **Sources are checked.** Every link in a draft must be a page the run actually
+  read, and length and AI-sounding phrasing (em dashes, "here's what…") are
+  checked in code. Failing drafts go back to the model to fix.
+- **Reviewer notes and sources are in the PR description**, not in Decap.
+- **Runs skip** when 5 AI drafts are already waiting for review.
+- **Run it now:** `gh workflow run draft-posts.yml --ref main [-f topic="…"]`.
+
+Full details (prompt, tools, guardrails, AWS access, cost, troubleshooting):
+[`docs/ai-draft-posts.md`](docs/ai-draft-posts.md).
 
 ## Contact form and newsletter
 

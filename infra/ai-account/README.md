@@ -9,7 +9,20 @@ IAM in the **rjl-ai-dev** AWS account (923988301699) that lets
   `bedrock_inference_profiles` (and the models behind them)
 
 The jf-com site infrastructure lives in a different account (`infra/terraform`),
-and its CI can't reach this one, so this root is applied by hand.
+and its CI can't reach this one, so this root is applied by hand. How the
+drafting pipeline works as a whole is in
+[`docs/ai-draft-posts.md`](../../docs/ai-draft-posts.md).
+
+```mermaid
+flowchart LR
+  run["draft-posts.yml run<br/>on main"] -- "OIDC token" --> oidc["OIDC provider<br/>token.actions.githubusercontent.com"]
+  oidc --> role["Role jf-com-drafts<br/>trusts only<br/>repo:lenhofr/jf-com:ref:refs/heads/main"]
+  role -- "policy bedrock-inference:<br/>bedrock:InvokeModel" --> prof["Inference profiles in<br/>bedrock_inference_profiles"]
+  prof --> fm["Foundation models in<br/>bedrock_profile_regions"]
+```
+
+State: bucket `tf-state-923988301699-us-east-1`, key
+`jf-com-drafts/terraform.tfstate`.
 
 ## Model subscriptions
 
@@ -43,6 +56,7 @@ or revoked" (AWS support case open). Open-weight models that AWS sells directly
    plan rather than creating anything elsewhere. If the account already has a
    GitHub OIDC provider, apply with `-var create_github_oidc_provider=false`
    (and set that as the default).
+
 2. On `lenhofr/jf-com`, add:
    - secret `AWS_DRAFTS_ROLE_ARN`: `terraform output -raw drafts_role_arn`
    - secret `DRAFT_POSTS_TOKEN`: see the header of `draft-posts.yml`
