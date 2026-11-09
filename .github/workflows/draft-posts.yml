@@ -40,7 +40,7 @@ concurrency:
 
 env:
   # Unreviewed drafts beyond this mean nobody is reading them; stop adding more.
-  MAX_OPEN_DRAFTS: 2
+  MAX_OPEN_DRAFTS: 5
 
 jobs:
   draft:

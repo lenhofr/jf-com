@@ -119,6 +119,16 @@ Accuracy rules. These matter more than anything else, because the site is lawyer
 
 Style: match the existing posts below, which Jesse approved. Plain, confident, practical; short paragraphs; ## and ### headings phrased as the reader's questions where that fits; open with a bolded one- or two-sentence answer to the headline. 700 to 1,100 words: drafts outside ${MIN_WORDS}-${MAX_WORDS} words are sent back. Markdown only: raw HTML is not rendered on this site. Do not repeat the title as a heading at the top of the body, because the page already shows it.
 
+Voice: the post must read as if Jesse wrote it, not as machine-written copy. Readers spot AI writing quickly, and it costs him their trust.
+- No em dashes (—) or en dashes (–) anywhere, including in number ranges and scores: write "December 2 to 4" and "a 77-22 vote" (plain hyphen). Use a comma, period, colon or parentheses instead, or split the sentence. Drafts containing either dash are sent back. Direct quotations from sources stay word for word, dashes included.
+- No "it's not X, it's Y" or "not just X, but Y" constructions. Say what the thing is.
+- No throat-clearing or signposting: "Here's what you need to know", "Here's why", "Let's dive in", "Let's break it down", "In conclusion", "The bottom line", "Key takeaways". Start with the substance.
+- Avoid stock words and phrases: navigate, landscape, crucial, pivotal, delve, robust, game-changer, "in today's ...", "it's worth noting", "when it comes to", ultimately, moreover, furthermore, additionally.
+- Don't list three things just for rhythm, and don't stack adjectives.
+- No dramatic one-line paragraphs or rhetorical questions answered in the next sentence (question headings are fine).
+- Don't end with a paragraph that restates the post. End on the practical point: what the reader should watch for or do next.
+- Prefer plain verbs and specific facts over intensifiers ("significant", "major", "critical").
+
 <existing_posts>
 ${styleSamples}
 </existing_posts>`;
@@ -331,6 +341,50 @@ const countWords = (markdown) =>
     .split(/\s+/)
     .filter((w) => /[A-Za-z0-9]/.test(w)).length;
 
+// The clearest signs of machine-written prose. The prompt asks the model to
+// avoid a longer list; only patterns with almost no legitimate use in these
+// posts are enforced, so a court "ultimately" ruling doesn't bounce a draft.
+const AI_TELLS = [
+  [/[—–]/, "em or en dash"],
+  [/\bit['’]?s not\b[^.!?\n]{1,80}?[,;:]\s*it['’]?s\b/i, `"it's not X, it's Y"`],
+  [/\bnot (just|only|merely)\b[^.!?\n]{1,80}?\bbut\b/i, `"not just X, but Y"`],
+  [/\bhere['’]?s (what|why|how|the thing)\b/i, `"here's what/why/how"`],
+  [/\blet['’]?s (dive|break|unpack|take a (closer )?look)\b/i, `"let's dive in"`],
+  [/\b(deep dive|delve|delving)\b/i, `"delve" / "deep dive"`],
+  [/\bin today['’]?s\b/i, `"in today's ..."`],
+  [/\bgame[- ]changer/i, `"game-changer"`],
+  [/\b(the bottom line|key takeaways?|in conclusion)\b/i, `"bottom line" / "key takeaways" / "in conclusion"`],
+  [/\bit['’]?s worth noting\b/i, `"it's worth noting"`],
+];
+
+// Quoted words are someone else's and stay verbatim, and URLs aren't prose, so
+// blank out blockquotes, quotations and link targets before checking. Blanking
+// with spaces keeps offsets, so matches can still be quoted from the original.
+const blank = (s) => " ".repeat(s.length);
+const proseOnly = (text) =>
+  text
+    .replace(/^>.*$/gm, blank)
+    .replace(/"[^"\n]*"|“[^”\n]*”/g, blank)
+    .replace(/\]\([^)]*\)/g, blank);
+
+function findAiTells(draft) {
+  const found = new Set();
+  for (const [field, text] of [["title", draft.title], ["excerpt", draft.excerpt], ["body", draft.body]]) {
+    if (typeof text !== "string") continue;
+    const prose = proseOnly(text);
+    for (const [re, label] of AI_TELLS) {
+      for (const m of prose.matchAll(new RegExp(re.source, `${re.flags}g`))) {
+        // Quote the text around the match so the model can find it.
+        const start = Math.max(0, m.index - 70);
+        const end = Math.min(text.length, m.index + m[0].length + 70);
+        const quote = `${start > 0 ? "..." : ""}${text.slice(start, end).replace(/\s+/g, " ").trim()}${end < text.length ? "..." : ""}`;
+        found.add(`${label} in ${field}: "${quote}"`);
+      }
+    }
+  }
+  return [...found];
+}
+
 function validateDraft(draft) {
   const problems = [];
   for (const field of submitDraftSchema.required) {
@@ -363,6 +417,13 @@ function validateDraft(draft) {
   }
   const bodyLinks = draft.body.match(/\]\(https?:\/\//g)?.length ?? 0;
   if (bodyLinks === 0) problems.push("the body links no sources inline");
+
+  const tells = findAiTells(draft);
+  if (tells.length) {
+    problems.push(
+      `rewrite these to remove machine-sounding phrasing (see the Voice rules; rephrase the sentence rather than swapping one word): ${tells.slice(0, 25).join("; ")}${tells.length > 25 ? `; and ${tells.length - 25} more like these` : ""}`,
+    );
+  }
   return problems;
 }
 
