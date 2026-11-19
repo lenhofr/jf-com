@@ -17,7 +17,7 @@ const Legal = () => (
             understand the problem, evaluate the risks, and make the next decision count.
           </strong>
         </p>
-        <PrimaryButton href="https://repky.com" external>
+        <PrimaryButton href="https://www.nkylawyers.com/attorney/foreman-jesse-lloyd/" external>
           Learn More About Legal Here
         </PrimaryButton>
       </div>

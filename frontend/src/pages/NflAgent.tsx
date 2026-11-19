@@ -78,7 +78,7 @@ const NflAgent = () => (
 
     <section className="on-dark bg-charcoal-800 py-16 md:py-[78px]">
       <div className="site-container">
-        <QuoteCarousel quotes={clientQuotes} />
+        <QuoteCarousel quotes={clientQuotes.filter((q) => !q.entrepreneur)} />
       </div>
     </section>
 

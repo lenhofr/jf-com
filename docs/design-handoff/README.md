@@ -13,9 +13,11 @@ This package describes every change approved in design review for **jesseforeman
 ## About the design files
 The `prototype/` folder is a **design reference built in HTML/React**. It shows the intended look, copy and behaviour. It is not production code to paste in. Recreate these changes inside the existing `jf-com` codebase, using its current Tailwind + `components/site/*` patterns.
 
-Open `prototype/ui_kits/website/index.html` in a browser to click through the pages: Home, About, NFL Agent, Legal, Entrepreneur, Speaking, Insights, Blog, Contact. Append `#/legal` (or any route) to the URL to jump straight to a page.
+**Quickest look:** open `Jesse Foreman Site - standalone.html` (one self-contained file, works offline, no server needed).
 
-**Source of truth for all copy:** `prototype/ui_kits/website/data.js` plus the page files next to it (`Home.jsx`, `About.jsx`, …). Copy text from those files exactly as written. The client approved the wording as-is.
+For the source, open `prototype/ui_kits/website/index.html` in a browser (serve the `prototype/` folder with any static server, e.g. `npx serve prototype`) to click through the pages: Home, About, NFL Agent, Legal, Entrepreneur, Speaking, Insights, Blog, Contact. Append `#/legal` (or any route) to the URL to jump straight to a page.
+
+**Source of truth for all copy:** `prototype/ui_kits/website/data.js` plus the page files next to it (`Home.src.js`, `About.src.js`, …). Copy text from those files exactly as written. The client approved the wording as-is.
 
 ## Fidelity
 **High fidelity.** Colours, type, spacing and copy are final. Layout is unchanged from the current site except where this document says otherwise.
@@ -70,9 +72,9 @@ Full token list: `prototype/tokens/colors.css`.
   - Services column order: **Legal**, NFL Representation, Entrepreneur Advisory, Speaking & Media. The first link is renamed from "Legal Counsel" to "Legal".
   - Contact block: `info@jesseforeman.com`, `(859) 880-8801`, `Northern Kentucky`.
   - Bottom bar: left side reads "© {year} The Foreman Company. All rights reserved."; right side shows `assets/wordmark-foreman-company.png` at 48px tall, 85% opacity. Remove the old "NFLPA Certified Contract Advisor since 2014" line.
-  - **New disclaimer** below the bar: a 1px hairline (`rgba(255,255,255,0.12)`) and 18px top padding; then a "DISCLAIMER" label (10.5px, 600 weight, uppercase, 0.16em tracking, white at 42%); then the paragraph (11.5px, line-height 1.65, white at 42%, max-width 820px). Exact text is in `prototype/components/layout/SiteFooter.jsx`.
+  - **New disclaimer** below the bar: a 1px hairline (`rgba(255,255,255,0.12)`) and 18px top padding; then a "DISCLAIMER" label (10.5px, 600 weight, uppercase, 0.16em tracking, white at 42%); then the paragraph (11.5px, line-height 1.65, white at 42%, max-width 820px). Exact text is in `prototype/components/layout/SiteFooter.jsx.txt`.
 - **Header nav order:** About, **Legal, The NFL Agent**, Entrepreneur, Speaking, Insights. Legal and The NFL Agent have swapped places.
-- Reference: `prototype/components/layout/SiteHeader.jsx`, `SiteFooter.jsx`.
+- Reference: `prototype/components/layout/SiteHeader.jsx.txt`, `SiteFooter.jsx.txt`.
 
 ## 3. Photos (copy from `prototype/assets/`)
 The right-side photos on the Home, NFL Agent, Speaking, Entrepreneur and Insights pages share one treatment:
@@ -130,13 +132,11 @@ Copy text from the prototype files. This section lists only structural changes.
   - Service cards: Contracts Negotiated / NIL / Post Career, each topped by a **full-width 8px gold bar** instead of the small square icon.
   - Credentials: "Licensed attorney"; the Practice row is removed; new row "Graduate Degrees — MBA and Masters in AI for Businesses".
   - FAQ copy updated.
-- **Legal (new page on the prototype's Legal.tsx layout, with changes):**
-  - Hero is now **two columns** on a light grey background: text on the left, left-aligned; a 440px-tall portrait on the right with a 1px border.
+- **Legal (reduced to a single hero block):**
+  - The page has **only the hero**: two columns on a light grey background, with text on the left (left-aligned) and a 440px-tall portrait on the right with a 1px border.
   - New headline, and an intro with a bold final clause.
-  - Services: **Personal Injury, Corporate, Regulations**.
-  - FAQ copy updated.
-  - "What Gets Reviewed" panel: the Multi-State row is removed.
-  - Next Step heading and body rewritten, including "Do not send confidential information."
+  - One button, **"Learn More About Legal Here"**, a real link (`<a href="https://www.nkylawyers.com/attorney/foreman-jesse-lloyd/" target="_blank" rel="noopener noreferrer">`) that opens nkylawyers.com in a new tab. The "Request a Review" and "Credentials" buttons are removed.
+  - **Remove every section below the hero:** services, testimonials, FAQ, and the Next Step / "What Gets Reviewed" band.
 - **Entrepreneur:**
   - Hero changed to the shared photo hero, with new headline and lead.
   - Track Record heading and both paragraphs rewritten.
@@ -158,9 +158,7 @@ Copy text from the prototype files. This section lists only structural changes.
   - New headline and lead.
   - **Both "Series" blocks and the "Insights from people who've been there" panel are removed.**
   - Newsletter heading changed to "Stay up to date!".
-- **FAQs site-wide:** every answer ends with "Contact me and let's discuss further.", except these three:
-  - Legal: "How quickly do you respond?"
-  - Legal: "What should I send in a first message?"
+- **FAQs site-wide:** every answer ends with "Contact me and let's discuss further.", except this one:
   - Contact: "How do I get started?"
 
 ## 6. Mobile
@@ -187,6 +185,7 @@ Everything is in `prototype/assets/`. The client supplied all photos and logos. 
 The affiliation and press logos belong to their respective organisations. Confirm with the client that they're cleared to use them.
 
 ## Files
+- `Jesse Foreman Site - standalone.html`: the whole site in one offline file, for quick review.
 - `prototype/ui_kits/website/index.html`: the clickable prototype (routing, header, footer).
 - `prototype/ui_kits/website/*.jsx`: one file per page. `data.js` holds all copy.
 - `prototype/components/**`: brand components (buttons, FAQ list, quote carousel, header, footer, field art, and so on). Each comes with a `.d.ts` props contract.

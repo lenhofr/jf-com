@@ -122,7 +122,7 @@ const About = () => (
         <h2 className="m-0 mb-10 text-center font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.025em] text-charcoal-700 md:text-[38px]">
           What clients say.
         </h2>
-        <div className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-[18px] sm:grid-cols-2">
           {/* Empty entries are placeholders awaiting client copy. */}
           {clientQuotes
             .filter((c) => c.text.trim())
