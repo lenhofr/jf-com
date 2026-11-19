@@ -25,11 +25,17 @@ export const contact = {
   location: "Northern Kentucky",
 };
 
-export type Quote = { text: string; name: string; role: string };
+export type Quote = {
+  text: string;
+  name: string;
+  role: string;
+  /** Set on testimonials from founders, so the NFL Agent page can leave them out. */
+  entrepreneur?: boolean;
+};
 
 /**
- * Entries with empty text are placeholders the client will fill in: the
- * carousels skip them, and About shows the card's stars only.
+ * Shown on Home and About; the NFL Agent page shows only the athletes. Entries
+ * with empty text are skipped everywhere, so a placeholder can sit here safely.
  */
 export const clientQuotes: Quote[] = [
   {
@@ -47,7 +53,12 @@ export const clientQuotes: Quote[] = [
     name: "Rico Gafford",
     role: "Former NFL Player",
   },
-  { text: "", name: "", role: "" },
+  {
+    text: "Jesse has been an incredible partner to Nice Industries. As we got ready to take Nice Pass out of private beta, he helped us through the legal and compliance work. He was clear, practical, and always quick to respond. He gets what early-stage founders are up against and gives advice that actually fits how a startup works. I'd recommend him to any entrepreneur building in the impact space.",
+    name: "Jessica Greenwalt",
+    role: "Founder & CEO, Nice Industries",
+    entrepreneur: true,
+  },
 ];
 
 /** Organizer quotes run without attribution, by request. */
