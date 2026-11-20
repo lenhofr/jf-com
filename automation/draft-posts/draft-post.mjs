@@ -24,6 +24,11 @@
  *   DRAFT_MODEL_ID    optional; Bedrock model or inference profile ID.
  *                     Default us.anthropic.claude-sonnet-4-6. The role in
  *                     infra/drafts-bedrock must allow whatever is set here.
+ *   DRAFT_INFERENCE_PROFILE_ARN
+ *                     optional; application inference profile to call instead
+ *                     of DRAFT_MODEL_ID, for per-app cost tracking. It must
+ *                     wrap the model DRAFT_MODEL_ID names, which still decides
+ *                     the Claude-only request fields.
  *   DRAFT_TOPIC       optional; a topic to write about instead of finding one
  *   PENDING_SLUGS     optional; space-separated slugs of open cms/blog drafts,
  *                     so a topic already waiting for review is not repeated
@@ -46,6 +51,9 @@ const MODEL_ID = process.env.DRAFT_MODEL_ID?.trim() || "us.anthropic.claude-sonn
 // Prompt caching and tool-result status are Anthropic-only Converse fields;
 // other models reject them.
 const IS_CLAUDE = MODEL_ID.includes("anthropic.");
+// What Converse is actually called with. An application inference profile ARN
+// doesn't name its model, so it can't replace MODEL_ID above.
+const INVOKE_ID = process.env.DRAFT_INFERENCE_PROFILE_ARN?.trim() || MODEL_ID;
 
 // Same rule as the Decap slug field and generate-posts.mjs.
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -471,7 +479,7 @@ const usage = { inputTokens: 0, outputTokens: 0, cacheReadInputTokens: 0, cacheW
 
 for (let turn = 0; turn < MAX_TURNS && !draft; turn++) {
   const response = await converse({
-    modelId: MODEL_ID,
+    modelId: INVOKE_ID,
     system: systemBlocks,
     messages,
     toolConfig,

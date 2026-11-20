@@ -26,13 +26,13 @@ Live since 2026-11-09 (PRs #60, #62, #64).
 
 ## The pieces
 
-| Path                                    | What it is                                                                                       |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `.github/workflows/draft-posts.yml`     | The schedule, the queue check, AWS login, validation, and opening the pull request.              |
-| `automation/draft-posts/draft-post.mjs` | The drafting script: prompt, research tools, model loop, draft checks, output files.             |
-| `infra/drafts-bedrock/`                 | Terraform for the IAM role the workflow uses in AWS account 217354297026. Applied by hand.       |
-| `frontend/scripts/generate-posts.mjs`   | The site's post validator. The workflow runs it on the draft before opening the PR.              |
-| `frontend/public/admin/config.yml`      | Decap's config. `publish_mode: editorial_workflow` is what makes PRs show up as review entries.  |
+| Path                                    | What it is                                                                                      |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `.github/workflows/draft-posts.yml`     | The schedule, the queue check, AWS login, validation, and opening the pull request.             |
+| `automation/draft-posts/draft-post.mjs` | The drafting script: prompt, research tools, model loop, draft checks, output files.            |
+| `infra/drafts-bedrock/`                 | Terraform for the IAM role the workflow uses in AWS account 217354297026. Applied by hand.      |
+| `frontend/scripts/generate-posts.mjs`   | The site's post validator. The workflow runs it on the draft before opening the PR.             |
+| `frontend/public/admin/config.yml`      | Decap's config. `publish_mode: editorial_workflow` is what makes PRs show up as review entries. |
 
 ```mermaid
 flowchart LR
@@ -290,16 +290,17 @@ starting a third while one is waiting cancels the waiting one.
 
 **Settings:**
 
-| Setting                | Where                                                  | Now                                        |
-| ---------------------- | ------------------------------------------------------ | ------------------------------------------ |
-| Schedule               | `cron` in `draft-posts.yml`                            | Mondays 13:00 UTC                          |
-| Open-draft limit       | `MAX_OPEN_DRAFTS` in `draft-posts.yml`                 | 5                                          |
-| Model                  | Repository variable `DRAFT_MODEL_ID`                   | unset, so `us.anthropic.claude-sonnet-4-6` |
-| Research budget, turns | `MAX_RESEARCH_CALLS`, `MAX_TURNS` in the script        | 16, 24                                     |
-| Length                 | `MIN_WORDS`, `MAX_WORDS` in the script, and the prompt | 600 to 1,250 enforced; 700 to 1,100 asked  |
-| Prompt, voice rules    | `const system` in the script                           |                                            |
-| Enforced phrasing      | `AI_TELLS` in the script                               |                                            |
-| Topic areas            | `const task` in the script                             | NIL/college sports, NKY injury, business   |
+| Setting                 | Where                                                  | Now                                        |
+| ----------------------- | ------------------------------------------------------ | ------------------------------------------ |
+| Schedule                | `cron` in `draft-posts.yml`                            | Mondays 13:00 UTC                          |
+| Open-draft limit        | `MAX_OPEN_DRAFTS` in `draft-posts.yml`                 | 5                                          |
+| Model                   | Repository variable `DRAFT_MODEL_ID`                   | unset, so `us.anthropic.claude-sonnet-4-6` |
+| Profile actually called | Repository variable `DRAFT_INFERENCE_PROFILE_ARN`      | the `jf-com-drafts` application profile    |
+| Research budget, turns  | `MAX_RESEARCH_CALLS`, `MAX_TURNS` in the script        | 16, 24                                     |
+| Length                  | `MIN_WORDS`, `MAX_WORDS` in the script, and the prompt | 600 to 1,250 enforced; 700 to 1,100 asked  |
+| Prompt, voice rules     | `const system` in the script                           |                                            |
+| Enforced phrasing       | `AI_TELLS` in the script                               |                                            |
+| Topic areas             | `const task` in the script                             | NIL/college sports, NKY injury, business   |
 
 **Secrets** (repository settings):
 
@@ -310,7 +311,10 @@ starting a third while one is waiting cancels the waiting one.
 
 **Changing the model.** Add its inference profile to
 `bedrock_inference_profiles` in `infra/drafts-bedrock`, apply, then set the
-`DRAFT_MODEL_ID` repository variable. Opus 5.5
+`DRAFT_MODEL_ID` repository variable. Also set `drafts_profile_source` to the
+same profile and apply, then update `DRAFT_INFERENCE_PROFILE_ARN` from
+`terraform output -raw drafts_inference_profile_arn` (the profile is replaced,
+so its ARN changes); or unset that variable to call the model directly. Opus 5.5
 (`us.anthropic.claude-opus-5-5`) is already allowed by the role, but needs a
 Marketplace subscription in the account (see below). Non-Anthropic models work too, but see the
 bake-off below before choosing one.
@@ -368,7 +372,12 @@ A run uses roughly 85,000 to 105,000 input tokens (about 80% of them read from
 the prompt cache) and 5,000 to 9,000 output tokens. At Sonnet 4.6's on-demand
 list prices that is roughly **$0.20 to $0.30 per draft**, or about $1 to $1.50
 a month on the weekly schedule. The searches and page fetches are free. Check
-the real figure in Cost Explorer for account 217354297026 (service: Bedrock).
+the real figure in Cost Explorer for account 217354297026 (service: Bedrock),
+filtered by tag `app = jf-com-drafts`. The workflow calls Bedrock through an
+application inference profile carrying that tag, which separates the drafts
+from any other Bedrock use in the account. The `app` tag has to be activated
+once as a cost allocation tag in the Billing console before it appears, and
+only covers spend from then on.
 There is no budget alert yet.
 
 ## Why it is built this way

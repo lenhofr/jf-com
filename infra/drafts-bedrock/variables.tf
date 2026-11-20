@@ -29,3 +29,13 @@ variable "bedrock_profile_regions" {
   description = "Regions the us.* inference profiles route to (aws bedrock list-inference-profiles)"
   default     = ["us-east-1", "us-east-2", "us-west-2"]
 }
+
+variable "drafts_profile_source" {
+  type        = string
+  description = <<-EOT
+    The us.* system inference profile the jf-com-drafts application inference
+    profile copies. Must match the workflow's DRAFT_MODEL_ID. Changing it
+    replaces the profile, so its ARN (DRAFT_INFERENCE_PROFILE_ARN) changes too.
+  EOT
+  default     = "us.anthropic.claude-sonnet-4-6"
+}

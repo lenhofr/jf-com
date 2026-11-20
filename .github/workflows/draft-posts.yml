@@ -20,6 +20,12 @@ name: draft-posts
 #                                  Defaults to us.anthropic.claude-sonnet-4-6 and
 #                                  must be listed in infra/drafts-bedrock's
 #                                  bedrock_inference_profiles.
+#   variable DRAFT_INFERENCE_PROFILE_ARN
+#                                  infra/drafts-bedrock output
+#                                  drafts_inference_profile_arn. The application
+#                                  inference profile (tag app=jf-com-drafts) the
+#                                  script calls, for cost tracking. Must wrap
+#                                  the DRAFT_MODEL_ID model.
 
 on:
   schedule:
@@ -93,6 +99,7 @@ jobs:
         working-directory: automation/draft-posts
         env:
           DRAFT_MODEL_ID: ${{ vars.DRAFT_MODEL_ID }}
+          DRAFT_INFERENCE_PROFILE_ARN: ${{ vars.DRAFT_INFERENCE_PROFILE_ARN }}
           DRAFT_TOPIC: ${{ inputs.topic }}
           PENDING_SLUGS: ${{ steps.queue.outputs.pending }}
           PR_BODY_PATH: ${{ runner.temp }}/pr-body.md

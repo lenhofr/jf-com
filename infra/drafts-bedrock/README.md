@@ -7,6 +7,10 @@ Amazon Bedrock:
 - `jf-com-drafts`, a role only `lenhofr/jf-com` runs on `main` can assume,
   allowed only `bedrock:InvokeModel` on the inference profiles in
   `bedrock_inference_profiles` (and the models behind them)
+- `jf-com-drafts`, an application inference profile tagged
+  `app = jf-com-drafts` that copies `drafts_profile_source` (Sonnet 4.6), so
+  the drafts' Bedrock spend can be filtered by tag in Cost Explorer. Activate
+  `app` as a cost allocation tag in Billing for it to show up.
 
 The role trusts the account's existing GitHub OIDC provider, which
 `infra/terraform` (the site root) creates and owns; this root only looks it up.
@@ -63,14 +67,19 @@ available in this account (verified 2026-11-20). Open-weight models that AWS sel
 
 2. On `lenhofr/jf-com`, add:
    - secret `AWS_DRAFTS_ROLE_ARN`: `terraform output -raw drafts_role_arn`
+   - variable `DRAFT_INFERENCE_PROFILE_ARN`:
+     `terraform output -raw drafts_inference_profile_arn`
    - secret `DRAFT_POSTS_TOKEN`: see the header of `draft-posts.yml`
    - optionally, variable `DRAFT_MODEL_ID` to use a model other than
      `us.anthropic.claude-sonnet-4-6`
 
 ## Changing models
 
-Add the inference profile to `bedrock_inference_profiles`, apply, then set the
-`DRAFT_MODEL_ID` repository variable. List profiles with
+Add the inference profile to `bedrock_inference_profiles` and set
+`drafts_profile_source` to it, apply, then set the `DRAFT_MODEL_ID` repository
+variable to the profile ID and `DRAFT_INFERENCE_PROFILE_ARN` to the new
+`drafts_inference_profile_arn` (changing the source replaces the application
+profile, so the ARN changes). List profiles with
 `aws bedrock list-inference-profiles --region us-east-1`; if a new profile routes
 to regions outside `bedrock_profile_regions`, add them too.
 

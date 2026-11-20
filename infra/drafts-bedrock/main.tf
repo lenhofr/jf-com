@@ -63,6 +63,31 @@ locals {
   ])
 }
 
+# An application inference profile for the drafts, so Bedrock spend can be
+# filtered by the app tag in Cost Explorer (after activating "app" as a cost
+# allocation tag in Billing). Copying a us.* system profile keeps its
+# cross-region routing. The workflow calls this ARN
+# (DRAFT_INFERENCE_PROFILE_ARN); it must stay in step with DRAFT_MODEL_ID.
+resource "aws_bedrock_inference_profile" "drafts" {
+  name        = "jf-com-drafts"
+  description = "jf-com AI blog drafts (.github/workflows/draft-posts.yml)"
+
+  model_source {
+    copy_from = "arn:aws:bedrock:${var.aws_region}:${data.aws_caller_identity.current.account_id}:inference-profile/${var.drafts_profile_source}"
+  }
+
+  tags = {
+    app = "jf-com-drafts"
+  }
+
+  lifecycle {
+    precondition {
+      condition     = contains(var.bedrock_inference_profiles, var.drafts_profile_source)
+      error_message = "drafts_profile_source must be one of bedrock_inference_profiles."
+    }
+  }
+}
+
 resource "aws_iam_role_policy" "drafts_inference" {
   name = "bedrock-inference"
   role = aws_iam_role.drafts.id
@@ -71,9 +96,13 @@ resource "aws_iam_role_policy" "drafts_inference" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = "bedrock:InvokeModel"
-        Resource = concat(local.inference_profile_arns, local.foundation_model_arns)
+        Effect = "Allow"
+        Action = "bedrock:InvokeModel"
+        Resource = concat(
+          [aws_bedrock_inference_profile.drafts.arn],
+          local.inference_profile_arns,
+          local.foundation_model_arns,
+        )
       },
     ]
   })
