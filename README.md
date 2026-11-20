@@ -39,7 +39,7 @@ Foreman, Esq. (attorney and NFLPA Certified Contract Advisor).
 | `.github/workflows/deploy.yml`            | Plan and build on pull requests; apply and deploy on `main`.                             |
 | `.github/workflows/draft-posts.yml`       | Weekly AI blog draft into the CMS review queue ([docs](docs/ai-draft-posts.md)).         |
 | `automation/draft-posts/`                 | The drafting script: prompt, research tools, model loop, and draft checks.               |
-| `infra/ai-account/`                       | IAM role for the drafts in the separate rjl-ai-dev AWS account. Applied by hand.         |
+| `infra/drafts-bedrock/`                   | Bedrock-only IAM role for the AI drafts (same AWS account). Applied by hand.             |
 | `openspec/`                               | Specs for the forms and infrastructure, and the change history.                          |
 | `docs/`                                   | AI drafts, Decap playbook, design handoff, older notes ([index](docs/README.md)).        |
 
@@ -221,7 +221,7 @@ deletes it. Nothing reaches the site without that.
 ```mermaid
 flowchart LR
   cron["Monday cron<br/>or manual run"] --> wf["draft-posts.yml"]
-  wf -- OIDC --> br["Bedrock<br/>(rjl-ai-dev account)"]
+  wf -- OIDC --> br["Bedrock<br/>(jf-com-drafts role)"]
   wf -- "search + fetch" --> web["News and<br/>primary sources"]
   wf --> pr["PR cms/blog/&lt;slug&gt;<br/>pending_review + ai-draft"]
   pr --> decap["Decap: In review"] --> jesse(["Jesse edits"]) --> pub["Publish = merge<br/>→ deploy"]

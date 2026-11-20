@@ -19,11 +19,16 @@
  *
  * Inputs (environment):
  *   AWS credentials   any source the default AWS chain reads; in Actions, the
- *                     OIDC role from infra/ai-account
+ *                     OIDC role from infra/drafts-bedrock
  *   AWS_REGION        region to call Bedrock in (us-east-1)
  *   DRAFT_MODEL_ID    optional; Bedrock model or inference profile ID.
  *                     Default us.anthropic.claude-sonnet-4-6. The role in
- *                     infra/ai-account must allow whatever is set here.
+ *                     infra/drafts-bedrock must allow whatever is set here.
+ *   DRAFT_INFERENCE_PROFILE_ARN
+ *                     optional; application inference profile to call instead
+ *                     of DRAFT_MODEL_ID, for per-app cost tracking. It must
+ *                     wrap the model DRAFT_MODEL_ID names, which still decides
+ *                     the Claude-only request fields.
  *   DRAFT_TOPIC       optional; a topic to write about instead of finding one
  *   PENDING_SLUGS     optional; space-separated slugs of open cms/blog drafts,
  *                     so a topic already waiting for review is not repeated
@@ -46,6 +51,9 @@ const MODEL_ID = process.env.DRAFT_MODEL_ID?.trim() || "us.anthropic.claude-sonn
 // Prompt caching and tool-result status are Anthropic-only Converse fields;
 // other models reject them.
 const IS_CLAUDE = MODEL_ID.includes("anthropic.");
+// What Converse is actually called with. An application inference profile ARN
+// doesn't name its model, so it can't replace MODEL_ID above.
+const INVOKE_ID = process.env.DRAFT_INFERENCE_PROFILE_ARN?.trim() || MODEL_ID;
 
 // Same rule as the Decap slug field and generate-posts.mjs.
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -432,6 +440,27 @@ function validateDraft(draft) {
 // The conversation
 
 const client = new BedrockRuntimeClient({});
+
+// The account's on-demand quota for Sonnet 4.6 is 10 requests a minute, and a
+// run makes up to MAX_TURNS calls back to back. Turns that only ask for a tool
+// can come seconds apart, so a run can hit the limit. The SDK's own retries
+// back off for well under a second, which doesn't outlast a per-minute window,
+// so wait longer here. A daily token quota won't reset within a run: fail on
+// that straight away instead of sleeping through every retry.
+const THROTTLE_WAITS_SECONDS = [10, 20, 40, 60, 60];
+async function converse(input) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await client.send(new ConverseCommand(input));
+    } catch (err) {
+      const daily = /per day/i.test(err?.message ?? "");
+      if (err?.name !== "ThrottlingException" || daily || attempt >= THROTTLE_WAITS_SECONDS.length) throw err;
+      const wait = THROTTLE_WAITS_SECONDS[attempt];
+      console.warn(`Bedrock throttled (${err.message}); retrying in ${wait}s.`);
+      await new Promise((resolve) => setTimeout(resolve, wait * 1000));
+    }
+  }
+}
 const systemBlocks = [{ text: system }, ...(IS_CLAUDE ? [{ cachePoint: { type: "default" } }] : [])];
 const messages = [{ role: "user", content: [{ text: user }] }];
 
@@ -449,15 +478,13 @@ let nudges = 0;
 const usage = { inputTokens: 0, outputTokens: 0, cacheReadInputTokens: 0, cacheWriteInputTokens: 0 };
 
 for (let turn = 0; turn < MAX_TURNS && !draft; turn++) {
-  const response = await client.send(
-    new ConverseCommand({
-      modelId: MODEL_ID,
-      system: systemBlocks,
-      messages,
-      toolConfig,
-      inferenceConfig: { maxTokens: 16000 },
-    }),
-  );
+  const response = await converse({
+    modelId: INVOKE_ID,
+    system: systemBlocks,
+    messages,
+    toolConfig,
+    inferenceConfig: { maxTokens: 16000 },
+  });
   for (const key of Object.keys(usage)) usage[key] += response.usage?.[key] ?? 0;
 
   const { stopReason } = response;

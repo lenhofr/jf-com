@@ -7,10 +7,10 @@ name: draft-posts
 # as usual. Nothing here can publish: the post reaches the site only when the
 # PR merges.
 #
-# Bedrock is called in the rjl-ai-dev account with OIDC credentials
-# (infra/ai-account), so there is no API key.
+# Bedrock is called in AWS account 217354297026 through a Bedrock-only role,
+# with OIDC credentials (infra/drafts-bedrock), so there is no API key.
 # Setup:
-#   secret   AWS_DRAFTS_ROLE_ARN   infra/ai-account output drafts_role_arn
+#   secret   AWS_DRAFTS_ROLE_ARN   infra/drafts-bedrock output drafts_role_arn
 #   secret   DRAFT_POSTS_TOKEN     fine-grained PAT on lenhofr/jf-com with
 #                                  Contents and Pull requests read/write.
 #     The default GITHUB_TOKEN can't be used: this repo doesn't allow Actions to
@@ -18,8 +18,14 @@ name: draft-posts
 #     draft would skip the build check that validates posts.
 #   variable DRAFT_MODEL_ID        optional; Bedrock inference profile to use.
 #                                  Defaults to us.anthropic.claude-sonnet-4-6 and
-#                                  must be listed in infra/ai-account's
+#                                  must be listed in infra/drafts-bedrock's
 #                                  bedrock_inference_profiles.
+#   variable DRAFT_INFERENCE_PROFILE_ARN
+#                                  infra/drafts-bedrock output
+#                                  drafts_inference_profile_arn. The application
+#                                  inference profile (tag app=jf-com-drafts) the
+#                                  script calls, for cost tracking. Must wrap
+#                                  the DRAFT_MODEL_ID model.
 
 on:
   schedule:
@@ -70,7 +76,7 @@ jobs:
           fi
 
       # Can call the listed Bedrock models and nothing else; see
-      # infra/ai-account/main.tf.
+      # infra/drafts-bedrock/main.tf.
       - name: Configure AWS credentials (OIDC)
         if: steps.queue.outputs.skip != 'true'
         uses: aws-actions/configure-aws-credentials@v4
@@ -93,6 +99,7 @@ jobs:
         working-directory: automation/draft-posts
         env:
           DRAFT_MODEL_ID: ${{ vars.DRAFT_MODEL_ID }}
+          DRAFT_INFERENCE_PROFILE_ARN: ${{ vars.DRAFT_INFERENCE_PROFILE_ARN }}
           DRAFT_TOPIC: ${{ inputs.topic }}
           PENDING_SLUGS: ${{ steps.queue.outputs.pending }}
           PR_BODY_PATH: ${{ runner.temp }}/pr-body.md
