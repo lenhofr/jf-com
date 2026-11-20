@@ -10,22 +10,13 @@ variable "github_repository" {
   default     = "lenhofr/jf-com"
 }
 
-variable "create_github_oidc_provider" {
-  type        = bool
-  description = <<-EOT
-    AWS allows one token.actions.githubusercontent.com provider per account.
-    True creates it here. If another root already owns it, set false and this
-    looks the existing one up instead.
-  EOT
-  default     = true
-}
-
 variable "bedrock_inference_profiles" {
   type        = list(string)
   description = <<-EOT
     Bedrock inference profiles draft-posts.yml may call. DRAFT_MODEL_ID in the
-    workflow must be one of these. Opus 5.5 is listed for when the account can
-    subscribe to it again; until then calls to it fail with AccessDenied.
+    workflow must be one of these. Opus 5.5 is listed so it can be switched to
+    with DRAFT_MODEL_ID alone; it works only once the account has a
+    Marketplace subscription to it (see README.md).
   EOT
   default = [
     "us.anthropic.claude-sonnet-4-6",

@@ -30,7 +30,7 @@ Live since 2026-11-09 (PRs #60, #62, #64).
 | --------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `.github/workflows/draft-posts.yml`     | The schedule, the queue check, AWS login, validation, and opening the pull request.              |
 | `automation/draft-posts/draft-post.mjs` | The drafting script: prompt, research tools, model loop, draft checks, output files.             |
-| `infra/ai-account/`                     | Terraform for the IAM role the workflow uses in the **rjl-ai-dev** AWS account. Applied by hand. |
+| `infra/drafts-bedrock/`                 | Terraform for the IAM role the workflow uses in AWS account 217354297026. Applied by hand.       |
 | `frontend/scripts/generate-posts.mjs`   | The site's post validator. The workflow runs it on the draft before opening the PR.              |
 | `frontend/public/admin/config.yml`      | Decap's config. `publish_mode: editorial_workflow` is what makes PRs show up as review entries.  |
 
@@ -44,7 +44,7 @@ flowchart LR
     deploy["Actions<br/>deploy.yml"]
   end
 
-  subgraph ai["AWS rjl-ai-dev (923988301699)"]
+  subgraph ai["AWS 217354297026"]
     role["IAM role<br/>jf-com-drafts"]
     br["Bedrock<br/>Claude Sonnet 4.6"]
   end
@@ -75,7 +75,7 @@ sequenceDiagram
   participant Cron as Schedule / manual run
   participant WF as draft-posts.yml
   participant GH as GitHub API
-  participant AWS as AWS STS (rjl-ai-dev)
+  participant AWS as AWS STS (217354297026)
   participant Script as draft-post.mjs
   participant Model as Bedrock model
   participant Web as Bing + web pages
@@ -305,14 +305,14 @@ starting a third while one is waiting cancels the waiting one.
 
 | Secret                | What it is                                                                                                                                                                                      |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AWS_DRAFTS_ROLE_ARN` | `arn:aws:iam::923988301699:role/jf-com-drafts` (`terraform output -raw drafts_role_arn` in `infra/ai-account`).                                                                                 |
+| `AWS_DRAFTS_ROLE_ARN` | `arn:aws:iam::217354297026:role/jf-com-drafts` (`terraform output -raw drafts_role_arn` in `infra/drafts-bedrock`).                                                                             |
 | `DRAFT_POSTS_TOKEN`   | Fine-grained PAT on `lenhofr/jf-com` with Contents and Pull requests read/write. **It expires** (at most a year); when it does, runs fail at checkout. Create a new one and replace the secret. |
 
 **Changing the model.** Add its inference profile to
-`bedrock_inference_profiles` in `infra/ai-account`, apply, then set the
+`bedrock_inference_profiles` in `infra/drafts-bedrock`, apply, then set the
 `DRAFT_MODEL_ID` repository variable. Opus 5.5
-(`us.anthropic.claude-opus-5-5`) is already allowed by the role but blocked by
-the Marketplace issue below. Non-Anthropic models work too, but see the
+(`us.anthropic.claude-opus-5-5`) is already allowed by the role, but needs a
+Marketplace subscription in the account (see below). Non-Anthropic models work too, but see the
 bake-off below before choosing one.
 
 **Testing the script locally** (calls Bedrock for real and writes a file into
@@ -321,15 +321,22 @@ bake-off below before choosing one.
 ```sh
 cd automation/draft-posts
 npm ci
-AWS_PROFILE=<rjl-ai-dev profile> AWS_REGION=us-east-1 \
+AWS_PROFILE=<217354297026 profile> AWS_REGION=us-east-1 \
   DRAFT_TOPIC="<topic>" PR_BODY_PATH=/tmp/pr-body.md npm run draft
 ```
 
 ## AWS access
 
-The model runs in the **rjl-ai-dev** account (923988301699), separate from the
-site's own AWS account. The workflow logs in with GitHub's OIDC token, so no AWS
-keys are stored anywhere.
+The model runs in AWS account **217354297026**, the same account as the site
+infrastructure, through its own narrowly scoped role (not the site's deploy
+role). The workflow logs in with GitHub's OIDC token, so no AWS keys are stored
+anywhere.
+
+Until 2026-11 it ran in a separate account, rjl-ai-dev (923988301699). AWS set
+every Bedrock quota there to 0 during an account-verification hold, and the
+2026-11-16 run failed on its first call with "Too many tokens per day". The
+pipeline moved here instead of waiting on the support case. The old role and
+OIDC provider still exist in 923988301699 and are no longer used.
 
 ```mermaid
 flowchart LR
@@ -344,10 +351,16 @@ flowchart LR
 - The role can call the listed models and nothing else. It deliberately has no
   AWS Marketplace permissions, so a run can never subscribe the account to a
   new paid model.
-- The Terraform is in [`infra/ai-account/`](../infra/ai-account/README.md),
-  with state in `tf-state-923988301699-us-east-1` under
-  `jf-com-drafts/terraform.tfstate`. It is applied by hand, because the site's
-  CI has no access to that account.
+- The role trusts the account's existing GitHub OIDC provider, which
+  `infra/terraform` (the site root) owns.
+- The Terraform is in [`infra/drafts-bedrock/`](../infra/drafts-bedrock/README.md),
+  with state in `tf-state-common-217354297026-us-east-1` under
+  `jf-com-drafts/terraform.tfstate`. It is a separate root from
+  `infra/terraform` and applied by hand, so the deploy pipeline never touches it.
+- **Rate limit.** Sonnet 4.6's on-demand quota in this account is 10 requests a
+  minute, and a run makes up to 24 calls back to back. The script waits and
+  retries on `ThrottlingException` (10 s, 20 s, 40 s, 60 s, 60 s), so a busy
+  minute slows a run down rather than failing it.
 
 ## Cost
 
@@ -355,7 +368,7 @@ A run uses roughly 85,000 to 105,000 input tokens (about 80% of them read from
 the prompt cache) and 5,000 to 9,000 output tokens. At Sonnet 4.6's on-demand
 list prices that is roughly **$0.20 to $0.30 per draft**, or about $1 to $1.50
 a month on the weekly schedule. The searches and page fetches are free. Check
-the real figure in Cost Explorer for the rjl-ai-dev account (service: Bedrock).
+the real figure in Cost Explorer for account 217354297026 (service: Bedrock).
 There is no budget alert yet.
 
 ## Why it is built this way
@@ -363,9 +376,9 @@ There is no budget alert yet.
 **Bedrock instead of Claude Platform on AWS.** The plan was Claude Opus 5.5
 through Claude Platform on AWS, which has built-in web search. Both signing up
 for Claude Platform and using Opus 5.5 on Bedrock need a new AWS Marketplace
-agreement. In this account, every new agreement fails with
+agreement. In the original rjl-ai-dev account every new agreement failed with
 `CreateAgreementRequest AccessDenied: "AWS account registration is incomplete
-or revoked"`. An AWS support case was filed on 2026-11-09. Sonnet 4.6 works
+or revoked"` (AWS support case filed 2026-11-09), and Sonnet 4.6 worked only
 because its agreement dates from April 2026. Bedrock has no web search, so the
 script brings its own research tools.
 
@@ -410,7 +423,7 @@ own draft.
 | Symptom                                                                | Likely cause and fix                                                                                                                                                          |
 | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Run ends early with "AI drafts are already awaiting review; skipping." | 5 drafts are open. Publish or delete some in Decap, or run manually with a topic.                                                                                             |
-| Fails at "Configure AWS credentials"                                   | `AWS_DRAFTS_ROLE_ARN` is wrong, the run isn't on `main`, or the role was changed. Check `infra/ai-account`.                                                                   |
+| Fails at "Configure AWS credentials"                                   | `AWS_DRAFTS_ROLE_ARN` is wrong, the run isn't on `main`, or the role was changed. Check `infra/drafts-bedrock`.                                                               |
 | `AccessDeniedException` from Bedrock                                   | The model in `DRAFT_MODEL_ID` isn't in `bedrock_inference_profiles`, or the account has no Marketplace subscription for it (`aws bedrock get-foundation-model-availability`). |
 | Fails at checkout or the first `gh` command (`401`/`403`)              | `DRAFT_POSTS_TOKEN` has expired or lost a permission. Replace it.                                                                                                             |
 | "no valid draft after 24 turns" or "stopped without submitting"        | The model kept failing a check. The log's `Draft rejected:` lines say which one. Run it again, or loosen the check if it's too strict.                                        |
@@ -423,6 +436,6 @@ own draft.
   email.
 - Switch to Opus 5.5 (`DRAFT_MODEL_ID`) once the AWS Marketplace case is resolved.
 - A reader-service fallback for pages that block plain fetching.
-- A Bedrock budget alert in the rjl-ai-dev account.
+- A Bedrock budget alert for the drafts in account 217354297026.
 - A reminder before `DRAFT_POSTS_TOKEN` expires.
 - Allow links to Jesse's own published posts (today they are rejected unless fetched).

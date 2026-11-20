@@ -1,40 +1,21 @@
-# Lets .github/workflows/draft-posts.yml call models on Amazon Bedrock in the
-# rjl-ai-dev account (923988301699), with no long-lived keys.
+# Lets .github/workflows/draft-posts.yml call models on Amazon Bedrock in
+# account 217354297026 (the same account as the site infrastructure), with no
+# long-lived keys.
 #
-# GitHub Actions authenticates here directly over OIDC. There is no hop through
-# the jf-com account: that account's only GitHub role is AdministratorAccess,
-# and trusting it from here would be a weaker boundary than trusting the repo's
-# main branch.
+# The drafts get their own narrowly scoped role rather than reusing the site's
+# deploy role (AdministratorAccess, any ref of the repo): this one can only be
+# assumed from main and can only call bedrock:InvokeModel.
 #
-# Applied by hand with rjl-ai-dev credentials; jf-com's CI cannot reach this
-# account. See README.md.
+# Kept as its own root, separate from infra/terraform, so the deploy pipeline
+# never plans or applies it. Applied by hand; see README.md.
 
 data "aws_caller_identity" "current" {}
 
-data "tls_certificate" "github_actions" {
-  count = var.create_github_oidc_provider ? 1 : 0
-  url   = "https://token.actions.githubusercontent.com"
-}
-
-resource "aws_iam_openid_connect_provider" "github_actions" {
-  count = var.create_github_oidc_provider ? 1 : 0
-
-  url             = "https://token.actions.githubusercontent.com"
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = [data.tls_certificate.github_actions[0].certificates[0].sha1_fingerprint]
-}
-
+# AWS allows one token.actions.githubusercontent.com provider per account, and
+# in this account infra/terraform (the site root) owns it. Look it up rather
+# than manage it twice.
 data "aws_iam_openid_connect_provider" "github_actions" {
-  count = var.create_github_oidc_provider ? 0 : 1
-  url   = "https://token.actions.githubusercontent.com"
-}
-
-locals {
-  github_oidc_provider_arn = (
-    var.create_github_oidc_provider
-    ? aws_iam_openid_connect_provider.github_actions[0].arn
-    : data.aws_iam_openid_connect_provider.github_actions[0].arn
-  )
+  url = "https://token.actions.githubusercontent.com"
 }
 
 resource "aws_iam_role" "drafts" {
@@ -46,7 +27,7 @@ resource "aws_iam_role" "drafts" {
       {
         Effect = "Allow"
         Principal = {
-          Federated = local.github_oidc_provider_arn
+          Federated = data.aws_iam_openid_connect_provider.github_actions.arn
         }
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
