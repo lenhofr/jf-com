@@ -47,8 +47,11 @@ aws bedrock get-foundation-model-availability --region us-east-1 \
   --model-id anthropic.claude-sonnet-4-6
 ```
 
-`agreementAvailability.status` must be `AVAILABLE`. Claude Sonnet 4.6 is
-available in this account (verified 2026-11-20). Open-weight models that AWS sells directly
+`agreementAvailability.status` must be `AVAILABLE`. As of 2026-11-20 a test
+call to Claude Sonnet 4.6 from an admin session in this account succeeded, but
+this check still reports `NOT_AVAILABLE` for both Sonnet 4.6 and Opus 5.5.
+Opus 5.5 also has a tokens-per-minute quota of 0 here, so it can't be used
+until that is raised. Open-weight models that AWS sells directly
 (DeepSeek, Kimi, Mistral, Llama, Amazon Nova) need no subscription.
 
 ## First-time setup
@@ -85,7 +88,8 @@ to regions outside `bedrock_profile_regions`, add them too.
 
 ## Quotas
 
-Sonnet 4.6's on-demand quota in this account is 10 requests a minute. A run
+Sonnet 4.6's on-demand quota in this account is 10 requests a minute (6M
+tokens a minute, far above a run's ~100k total). A run
 makes up to 24 Converse calls back to back, so `draft-post.mjs` retries
 `ThrottlingException` with waits of 10 to 60 seconds. If runs keep spending
 minutes in those waits, request an increase in Service Quotas (Amazon Bedrock,

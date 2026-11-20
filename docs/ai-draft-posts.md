@@ -316,7 +316,8 @@ same profile and apply, then update `DRAFT_INFERENCE_PROFILE_ARN` from
 `terraform output -raw drafts_inference_profile_arn` (the profile is replaced,
 so its ARN changes); or unset that variable to call the model directly. Opus 5.5
 (`us.anthropic.claude-opus-5-5`) is already allowed by the role, but needs a
-Marketplace subscription in the account (see below). Non-Anthropic models work too, but see the
+Marketplace subscription in the account and a quota increase: its
+tokens-per-minute quota in 217354297026 is 0. Non-Anthropic models work too, but see the
 bake-off below before choosing one.
 
 **Testing the script locally** (calls Bedrock for real and writes a file into
