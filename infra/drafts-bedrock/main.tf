@@ -70,7 +70,7 @@ locals {
 # (DRAFT_INFERENCE_PROFILE_ARN); it must stay in step with DRAFT_MODEL_ID.
 resource "aws_bedrock_inference_profile" "drafts" {
   name        = "jf-com-drafts"
-  description = "jf-com AI blog drafts (.github/workflows/draft-posts.yml)"
+  description = "jf-com AI blog drafts from draft-posts.yml"
 
   model_source {
     copy_from = "arn:aws:bedrock:${var.aws_region}:${data.aws_caller_identity.current.account_id}:inference-profile/${var.drafts_profile_source}"
